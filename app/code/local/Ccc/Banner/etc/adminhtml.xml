@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <config>
     <menu>
-         <Ccc_Banner translate="title" module="banner">
+        <banner translate="title" module="banner">
             <title>Banner</title>
             <sort_order>70</sort_order>
             <children>
@@ -16,7 +16,7 @@
                     <sort_order>10</sort_order>
                 </new_banner>
             </children>
-         </Ccc_Banner>
+        </banner>
     </menu>
     <acl>
         <resources>
@@ -34,6 +34,18 @@
                             </config>
                         </children>
                     </system>
+                    <banner translate="title" module="banner">
+                        <title>Banner</title>
+                        <sort_order>1005000</sort_order>
+                        <children>
+                            <banner translate="title" module="banner">
+                                <title>Manage Banners</title>
+                            </banner>
+                            <new_banner translate="title" module="banner">
+                                <title>Add Banner</title>
+                            </new_banner>
+                        </children>
+                    </banner>
                 </children>
             </admin>
         </resources>

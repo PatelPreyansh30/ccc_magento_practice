@@ -172,7 +172,17 @@ class Ccc_Banner_Adminhtml_BannerController extends Mage_Adminhtml_Controller_Ac
     }
     protected function _isAllowed()
     {
-        return Mage::getSingleton('admin/session')->isAllowed('banner/banner');
+        $action = strtolower($this->getRequest()->getActionName());
+        switch ($action) {
+            case 'new':
+                $aclResource = 'banner/new_banner';
+                // In adminhtml acl path follow
+                break;
+            default:
+                $aclResource = 'banner/banner';
+                break;
+        }
+        return Mage::getSingleton('admin/session')->isAllowed($aclResource);
     }
     public function massDeleteAction()
     {
