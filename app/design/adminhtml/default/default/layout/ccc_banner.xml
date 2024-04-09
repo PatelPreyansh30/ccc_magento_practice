@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<layout>
+    <adminhtml_banner_index>
+        <reference name="content">
+            <block type="banner/adminhtml_banner" name="banner_banner" />
+        </reference>
+    </adminhtml_banner_index>
+
+    <adminhtml_banner_new>
+        <update handle="banner_adminhtml_edit" />
+    </adminhtml_banner_new>
+
+    <adminhtml_banner_edit>
+        <update handle="editor"/>
+        <reference name="content">
+            <block type="banner/adminhtml_banner_edit" name="banner_edit" />
+        </reference>
+    </adminhtml_banner_edit>
+
+</layout>

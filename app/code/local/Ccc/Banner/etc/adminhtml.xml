@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<config>
+    <menu>
+         <Ccc_Banner translate="title" module="banner">
+            <title>Banner</title>
+            <sort_order>70</sort_order>
+            <children>
+                <banner translate="title" module="banner">
+                    <title>Manage Banners</title>
+                    <action>adminhtml/banner</action>
+                    <sort_order>0</sort_order>
+                </banner>
+                <new_banner translate="title" module="banner">
+                    <title>Add Banner</title>
+                    <action>adminhtml/banner/new</action>
+                    <sort_order>10</sort_order>
+                </new_banner>
+            </children>
+         </Ccc_Banner>
+    </menu>
+    <acl>
+        <resources>
+            <admin>
+                <children>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <banner translate="title" module="banner">
+                                        <title>Banner</title>
+                                        <sort_order>1005000</sort_order>
+                                    </banner>
+                                </children>
+                            </config>
+                        </children>
+                    </system>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+</config>

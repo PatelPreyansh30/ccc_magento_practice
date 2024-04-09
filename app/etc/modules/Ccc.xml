@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Ccc_Banner>
+            <active>true</active>
+            <codePool>local</codePool>
+        </Ccc_Banner>
+        <Ccc_Test>
+            <active>true</active>
+            <codePool>local</codePool>
+        </Ccc_Test>
+    </modules>
+</config>
