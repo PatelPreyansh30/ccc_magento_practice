@@ -3,7 +3,7 @@ class Ccc_Banner_Block_Adminhtml_Banner_Edit extends Mage_Adminhtml_Block_Widget
 {
     public function __construct()
     {
-        $this->_objectId   = 'banner_id';
+        $this->_objectId = 'banner_id';
         $this->_controller = 'adminhtml_banner';
         $this->_blockGroup = 'banner';
         parent::__construct();
@@ -11,9 +11,9 @@ class Ccc_Banner_Block_Adminhtml_Banner_Edit extends Mage_Adminhtml_Block_Widget
         if ($this->_isAllowedAction('save')) {
             $this->_updateButton('save', 'label', Mage::helper('banner')->__('Save Banner'));
             $this->_addButton('saveandcontinue', array(
-                'label'     => Mage::helper('adminhtml')->__('Save and Continue Edit'),
-                'onclick'   => 'saveAndContinueEdit(\''.$this->_getSaveAndContinueUrl().'\')',
-                'class'     => 'save',
+                'label' => Mage::helper('adminhtml')->__('Save and Continue Edit'),
+                'onclick' => 'saveAndContinueEdit(\'' . $this->_getSaveAndContinueUrl() . '\')',
+                'class' => 'save',
             ), -100);
         } else {
             $this->_removeButton('save');
@@ -29,32 +29,35 @@ class Ccc_Banner_Block_Adminhtml_Banner_Edit extends Mage_Adminhtml_Block_Widget
     {
         if (Mage::registry('banner')->getId()) {
             return Mage::helper('banner')->__("Edit Banner '%s'", $this->escapeHtml(Mage::registry('banner')->getBannerImage()));
-        }
-        else {
+        } else {
             return Mage::helper('banner')->__('New Banner');
         }
     }
     protected function _isAllowedAction($action)
     {
-        return Mage::getSingleton('admin/session')->isAllowed('banner/banner' . $action);
+        return Mage::getSingleton('admin/session')
+            ->isAllowed('banner/banner/actions/' . $action);
     }
     protected function _getSaveAndContinueUrl()
     {
-        return $this->getUrl('*/*/save', array(
-            '_current'   => true,
-            'back'       => 'edit',
-            'active_tab' => '{{tab_id}}'
-        ));
+        return $this->getUrl(
+            '*/*/save',
+            array(
+                '_current' => true,
+                'back' => 'edit',
+                'active_tab' => '{{tab_id}}'
+            )
+        );
     }
     protected function _prepareLayout()
     {
         $tabsBlock = $this->getLayout()->getBlock('banner_edit_tabs');
         if ($tabsBlock) {
             $tabsBlockJsObject = $tabsBlock->getJsObjectName();
-            $tabsBlockPrefix   = $tabsBlock->getId() . '_';
+            $tabsBlockPrefix = $tabsBlock->getId() . '_';
         } else {
             $tabsBlockJsObject = 'page_tabsJsTabs';
-            $tabsBlockPrefix   = 'page_tabs_';
+            $tabsBlockPrefix = 'page_tabs_';
         }
 
         $this->_formScripts[] = "

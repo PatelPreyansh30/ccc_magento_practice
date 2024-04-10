@@ -48,6 +48,40 @@
                                             </delete>
                                         </children>
                                     </actions>
+                                    <columns translate='title'>
+                                        <title>Index</title>
+                                        <children>
+                                            <banner_id translate="title">
+                                                <title>Banner Id</title>
+                                            </banner_id>
+                                            <banner_image translate="title">
+                                                <title>Banner Image</title>
+                                            </banner_image>
+                                            <banner_status translate="title">
+                                                <title>Banner Status</title>
+                                            </banner_status>
+                                            <banner_show_on translate="title">
+                                                <title>Banner Show On</title>
+                                            </banner_show_on>
+                                        </children>
+                                    </columns>
+                                    <data translate='title'>
+                                        <title>Index</title>
+                                        <children>
+                                            <banner_id translate="title">
+                                                <title>Banner Id</title>
+                                            </banner_id>
+                                            <banner_image translate="title">
+                                                <title>Banner Image</title>
+                                            </banner_image>
+                                            <banner_status translate="title">
+                                                <title>Banner Status</title>
+                                            </banner_status>
+                                            <banner_show_on translate="title">
+                                                <title>Banner Show On</title>
+                                            </banner_show_on>
+                                        </children>
+                                    </data>
                                 </children>
                             </banner>
                         </children>
