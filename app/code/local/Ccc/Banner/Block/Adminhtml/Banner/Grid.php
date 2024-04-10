@@ -13,7 +13,15 @@ class Ccc_Banner_Block_Adminhtml_Banner_Grid extends Mage_Adminhtml_Block_Widget
     protected function _prepareCollection()
     {
         $collection = Mage::getModel('banner/banner')->getCollection();
+
+        if (Mage::getSingleton('admin/session')->isAllowed('banner/banner/view_limit/last_five')) {
+            $collection->setOrder('banner_id', 'DESC')
+                ->getSelect()
+                ->limit(5);
+        }
+        
         $this->setCollection($collection);
+        $this->getCollection()->load();
         return parent::_prepareCollection();
     }
 
