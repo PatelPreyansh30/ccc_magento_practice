@@ -1,5 +1,5 @@
 <?php
-class Ccc_Banner_Block_Adminhtml_Banner extends Mage_Adminhtml_Block_Widget_Grid_Container  
+class Ccc_Banner_Block_Adminhtml_Banner extends Mage_Adminhtml_Block_Widget_Grid_Container
 {
     public function __construct()
     {
@@ -8,5 +8,9 @@ class Ccc_Banner_Block_Adminhtml_Banner extends Mage_Adminhtml_Block_Widget_Grid
         $this->_headerText = Mage::helper('banner')->__('Banner');
         $this->_addButtonLabel = Mage::helper('banner')->__('Add New banner');
         parent::__construct();
+
+        if (!Mage::getSingleton('admin/session')->isAllowed('banner/banner/actions/new')) {
+            $this->_removeButton('add');
+        }
     }
 }

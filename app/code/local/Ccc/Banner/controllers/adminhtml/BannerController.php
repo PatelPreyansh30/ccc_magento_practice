@@ -175,11 +175,19 @@ class Ccc_Banner_Adminhtml_BannerController extends Mage_Adminhtml_Controller_Ac
         $action = strtolower($this->getRequest()->getActionName());
         switch ($action) {
             case 'new':
-                $aclResource = 'banner/new_banner';
-                // In adminhtml acl path follow
+                $aclResource = 'banner/banner/actions/new';
+                break;
+            case 'edit':
+                $aclResource = 'banner/banner/actions/edit';
+                break;
+            case 'save':
+                $aclResource = 'banner/banner/actions/save';
+                break;
+            case 'delete':
+                $aclResource = 'banner/banner/actions/delete';
                 break;
             default:
-                $aclResource = 'banner/banner';
+                $aclResource = 'banner/banner/actions/index';
                 break;
         }
         return Mage::getSingleton('admin/session')->isAllowed($aclResource);

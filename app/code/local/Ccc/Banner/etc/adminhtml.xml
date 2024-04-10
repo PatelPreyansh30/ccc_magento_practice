@@ -22,30 +22,47 @@
         <resources>
             <admin>
                 <children>
+                    <banner translate="title" module="banner">
+                        <title>Banner</title>
+                        <children>
+                            <banner translate="title">
+                                <title>Banner</title>
+                                <children>
+                                    <actions translate="title">
+                                        <title>Actions</title>
+                                        <children>
+                                            <index translate="title">
+                                                <title>Index</title>
+                                            </index>
+                                            <new translate="title">
+                                                <title>New</title>
+                                            </new>
+                                            <edit translate="title">
+                                                <title>Edit</title>
+                                            </edit>
+                                            <save translate="title">
+                                                <title>Save</title>
+                                            </save>
+                                            <delete translate="title">
+                                                <title>Delete</title>
+                                            </delete>
+                                        </children>
+                                    </actions>
+                                </children>
+                            </banner>
+                        </children>
+                    </banner>
                     <system>
                         <children>
                             <config>
                                 <children>
                                     <banner translate="title" module="banner">
-                                        <title>Banner</title>
-                                        <sort_order>1005000</sort_order>
+                                        <title>Banner Section</title>
                                     </banner>
                                 </children>
                             </config>
                         </children>
                     </system>
-                    <banner translate="title" module="banner">
-                        <title>Banner</title>
-                        <sort_order>1005000</sort_order>
-                        <children>
-                            <banner translate="title" module="banner">
-                                <title>Manage Banners</title>
-                            </banner>
-                            <new_banner translate="title" module="banner">
-                                <title>Add Banner</title>
-                            </new_banner>
-                        </children>
-                    </banner>
                 </children>
             </admin>
         </resources>
