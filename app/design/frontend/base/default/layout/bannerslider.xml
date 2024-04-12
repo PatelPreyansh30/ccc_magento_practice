@@ -13,7 +13,6 @@
 				<display>0</display>
 			</action>
 		</reference>
-		<!-- <remove name="paypal.partner.right.logo" /> -->
 	</cms_index_index>
 	<banner_master>
 		<reference name="content">

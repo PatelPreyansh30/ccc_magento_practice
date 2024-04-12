@@ -1,0 +1,16 @@
+<select name="status" id="bannerGrid_status">
+    <option value>Select Status Option</option>
+    <option value="1">Enabled</option>
+    <option value="0">Disabled</option>
+</select>
+<div class="content-header">
+    <table cellspacing="0">
+        <tr>
+            <td style="<?php echo $this->getHeaderWidth() ?>"><?php echo $this->getHeaderHtml() ?></td>
+            <td class="form-buttons"><?php echo $this->getButtonsHtml() ?></td>
+        </tr>
+    </table>
+</div>
+<div>
+    <?php echo $this->getGridHtml() ?>
+</div>

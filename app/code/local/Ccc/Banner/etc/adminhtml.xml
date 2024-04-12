@@ -65,14 +65,9 @@
                                             </banner_show_on>
                                         </children>
                                     </columns>
-                                    <view_limit translate='title'>
-                                        <title>View Limit</title>
-                                        <children>
-                                            <last_five translate="title">
-                                                <title>Last Five</title>
-                                            </last_five>
-                                        </children>
-                                    </view_limit>
+                                    <showall translate='title'>
+                                        <title>Show All</title>
+                                    </showall>
                                 </children>
                             </banner>
                         </children>

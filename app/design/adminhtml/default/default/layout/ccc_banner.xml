@@ -1,8 +1,17 @@
 <?xml version="1.0"?>
 <layout>
     <adminhtml_banner_index>
+        <reference name="head">
+            <action method="addJs">
+                <script>ccc/banner/container.js</script>
+            </action>
+        </reference>
         <reference name="content">
-            <block type="banner/adminhtml_banner" name="banner_banner" />
+            <block type="banner/adminhtml_banner" name="banner_banner"
+                template="ccc/banner/container.phtml">
+                <!-- <block type="banner/adminhtml_banner_grid" name="banner_grid"
+                    template="ccc/banner/grid.phtml" /> -->
+            </block>
         </reference>
     </adminhtml_banner_index>
 
@@ -11,7 +20,7 @@
     </adminhtml_banner_new>
 
     <adminhtml_banner_edit>
-        <update handle="editor"/>
+        <update handle="editor" />
         <reference name="content">
             <block type="banner/adminhtml_banner_edit" name="banner_edit" />
         </reference>

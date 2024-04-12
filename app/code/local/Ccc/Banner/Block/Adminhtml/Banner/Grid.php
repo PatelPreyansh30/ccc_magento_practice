@@ -14,63 +14,77 @@ class Ccc_Banner_Block_Adminhtml_Banner_Grid extends Mage_Adminhtml_Block_Widget
     {
         $collection = Mage::getModel('banner/banner')->getCollection();
 
-        if (Mage::getSingleton('admin/session')->isAllowed('banner/banner/view_limit/last_five')) {
+        if (!(Mage::getSingleton('admin/session')->isAllowed('banner/banner/showall'))) {
             $collection->setOrder('banner_id', 'DESC')
                 ->getSelect()
                 ->limit(5);
+            foreach ($collection as $_collection) {
+
+            }
         }
-        
+
         $this->setCollection($collection);
-        $this->getCollection()->load();
+        // $this->getCollection()->load();
         return parent::_prepareCollection();
     }
 
+    public function addColumn($columnId, $column)
+    {
+        if ($column['is_allowed'] == false) {
+            return;
+        }
+        return parent::addColumn($columnId, $column);
+    }
     protected function _prepareColumns()
     {
         $aclUrl = 'banner/banner/columns/';
         $baseUrl = $this->getUrl();
 
-        if (Mage::getSingleton('admin/session')->isAllowed($aclUrl . 'banner_id')) {
-            $this->addColumn(
-                'banner_id',
-                array(
-                    'header' => Mage::helper('banner')->__('ID'),
-                    'width' => '50px',
-                    'type' => 'number',
-                    'index' => 'banner_id',
-                )
-            );
-        }
-        if (Mage::getSingleton('admin/session')->isAllowed($aclUrl . 'banner_image')) {
-            $this->addColumn(
-                'banner_image',
-                array(
-                    'header' => Mage::helper('banner')->__('Banner Name'),
-                    'align' => 'left',
-                    'index' => 'banner_image'
-                )
-            );
-        }
-        if (Mage::getSingleton('admin/session')->isAllowed($aclUrl . 'banner_status')) {
-            $this->addColumn(
-                'status',
-                array(
-                    'header' => Mage::helper('banner')->__('Status'),
-                    'align' => 'left',
-                    'index' => 'status'
-                )
-            );
-        }
-        if (Mage::getSingleton('admin/session')->isAllowed($aclUrl . 'banner_show_on')) {
-            $this->addColumn(
-                'show_on',
-                array(
-                    'header' => Mage::helper('banner')->__('Show On'),
-                    'align' => 'left',
-                    'index' => 'show_on'
-                )
-            );
-        }
+        $this->addColumn(
+            'banner_id',
+            array(
+                'header' => Mage::helper('banner')->__('ID'),
+                'width' => '50px',
+                'type' => 'number',
+                'index' => 'banner_id',
+                'is_allowed' => Mage::getSingleton('admin/session')->isAllowed($aclUrl . 'banner_id'),
+            )
+        );
+
+        $this->addColumn(
+            'banner_image',
+            array(
+                'header' => Mage::helper('banner')->__('Banner Name'),
+                'align' => 'left',
+                'index' => 'banner_image',
+                'is_allowed' => Mage::getSingleton('admin/session')->isAllowed($aclUrl . 'banner_image'),
+            )
+        );
+
+        $this->addColumn(
+            'status',
+            array(
+                'header' => Mage::helper('banner')->__('Status'),
+                'align' => 'left',
+                'index' => 'status',
+                'type' => 'options',
+                'is_allowed' => Mage::getSingleton('admin/session')->isAllowed($aclUrl . 'banner_status'),
+                'options' => array(
+                    '1' => Mage::helper('banner')->__('Enabled'),
+                    '0' => Mage::helper('banner')->__('Disabled'),
+                ),
+            )
+        );
+
+        $this->addColumn(
+            'show_on',
+            array(
+                'header' => Mage::helper('banner')->__('Show On'),
+                'align' => 'left',
+                'index' => 'show_on',
+                'is_allowed' => Mage::getSingleton('admin/session')->isAllowed($aclUrl . 'banner_show_on'),
+            )
+        );
         return parent::_prepareColumns();
     }
     protected function _afterLoadCollection()
