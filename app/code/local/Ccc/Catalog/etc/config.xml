@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Ccc_Catalog>
+            <version>1.6.0.1</version>
+        </Ccc_Catalog>
+    </modules>
+    <global>
+        <resources>
+            <ccc_catalog_setup>
+                <setup>
+                    <module>Ccc_Catalog</module>
+                    <class>Mage_Eav_Model_Entity_Setup</class>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </ccc_catalog_setup>
+        </resources>
+    </global>
+</config>
