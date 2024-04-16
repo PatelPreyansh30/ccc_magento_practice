@@ -2,9 +2,18 @@
 <config>
     <modules>
         <Ccc_Catalog>
-            <version>1.6.0.1</version>
+            <version>1.6.0.2</version>
         </Ccc_Catalog>
     </modules>
+    <frontend>
+        <layout>
+            <updates>
+                <Ccc_Catalog>
+                    <file>ccc_catalog.xml</file>
+                </Ccc_Catalog>
+            </updates>
+        </layout>
+    </frontend>
     <global>
         <resources>
             <ccc_catalog_setup>
