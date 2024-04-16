@@ -2,7 +2,7 @@
 <config>
     <modules>
         <Ccc_Catalog>
-            <version>1.6.0.2</version>
+            <version>1.6.0.3</version>
         </Ccc_Catalog>
     </modules>
     <frontend>
@@ -15,6 +15,22 @@
         </layout>
     </frontend>
     <global>
+        <models>
+            <ccc_catalog>
+                <class>Ccc_Catalog_Model</class>
+            </ccc_catalog>
+        </models>
+        <events>
+            <sales_quote_item_set_product>
+                <observers>
+                    <ccc_catalog>
+                        <type>singleton</type>
+                        <class>ccc_catalog/observer</class>
+                        <method>addCustomProductAttributes</method>
+                    </ccc_catalog>
+                </observers>
+            </sales_quote_item_set_product>
+        </events>
         <resources>
             <ccc_catalog_setup>
                 <setup>
