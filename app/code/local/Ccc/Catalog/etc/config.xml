@@ -15,6 +15,16 @@
         </layout>
     </frontend>
     <global>
+        <fieldsets>
+            <sales_convert_quote_item>
+                <brand_id>
+                    <to_order_item>*</to_order_item>
+                </brand_id>
+                <shipping_type_id>
+                    <to_order_item>*</to_order_item>
+                </shipping_type_id>
+            </sales_convert_quote_item>
+        </fieldsets>
         <models>
             <ccc_catalog>
                 <class>Ccc_Catalog_Model</class>
