@@ -30,6 +30,19 @@
                 <class>Ccc_Catalog_Model</class>
             </ccc_catalog>
         </models>
+        <blocks>
+            <ccc_catalog>
+                <class>Ccc_Catalog_Block</class>
+            </ccc_catalog>
+            <checkout>
+                <rewrite>
+                    <cart>Ccc_Catalog_Block_Cart</cart>
+                    <cart_item_renderer>Ccc_Catalog_Block_Item_Renderer</cart_item_renderer>
+                    <cart_item_renderer_configurable>Ccc_Catalog_Block_Item_Configurable</cart_item_renderer_configurable>
+                    <cart_item_renderer_grouped>Ccc_Catalog_Block_Item_Grouped</cart_item_renderer_grouped>
+                </rewrite>
+            </checkout>
+        </blocks>
         <events>
             <sales_quote_item_set_product>
                 <observers>
