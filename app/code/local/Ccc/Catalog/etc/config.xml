@@ -2,7 +2,7 @@
 <config>
     <modules>
         <Ccc_Catalog>
-            <version>1.6.0.5</version>
+            <version>1.6.0.6</version>
         </Ccc_Catalog>
     </modules>
     <frontend>
