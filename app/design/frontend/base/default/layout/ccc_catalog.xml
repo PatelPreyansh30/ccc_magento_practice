@@ -55,4 +55,12 @@
             </action>
         </reference>
     </checkout_cart_index>
+    <checkout_onepage_index>
+        <reference name="checkout.onepage.billing">
+            <action method="setTemplate">
+                <template>ccc/catalog/checkout/billing.phtml</template>
+            </action>
+        </reference>
+    </checkout_onepage_index>
+
 </layout>

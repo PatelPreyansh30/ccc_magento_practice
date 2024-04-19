@@ -2,10 +2,19 @@
 <config>
     <modules>
         <Ccc_Catalog>
-            <version>1.6.0.4</version>
+            <version>1.6.0.5</version>
         </Ccc_Catalog>
     </modules>
     <frontend>
+        <routers>
+            <checkout>
+                <args>
+                    <modules>
+                        <Ccc_Catalog before="Mage_Checkout">Ccc_Catalog</Ccc_Catalog>
+                    </modules>
+                </args>
+            </checkout>
+        </routers>
         <layout>
             <updates>
                 <Ccc_Catalog>
