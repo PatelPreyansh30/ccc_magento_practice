@@ -25,6 +25,16 @@
     </frontend>
     <global>
         <fieldsets>
+            <sales_convert_quote>
+                <delivery_note>
+                    <to_order>*</to_order>
+                </delivery_note>
+            </sales_convert_quote>
+            <sales_convert_quote_address>
+                <address_proof>
+                    <to_order_address>*</to_order_address>
+                </address_proof>
+            </sales_convert_quote_address>
             <sales_convert_quote_item>
                 <brand_id>
                     <to_order_item>*</to_order_item>

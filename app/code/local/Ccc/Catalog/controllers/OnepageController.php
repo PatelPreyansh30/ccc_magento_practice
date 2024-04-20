@@ -63,4 +63,15 @@ class Ccc_Catalog_OnepageController extends Mage_Checkout_OnepageController
             $this->_prepareDataJSON($result);
         }
     }
+
+    public function saveOrderAction()
+    {
+        $deliveryNote = $this->getRequest()->getPost('delivery_note');
+        if ($deliveryNote) {
+            $quote = Mage::getSingleton('checkout/session')->getQuote();
+            $quote->setData('delivery_note', $deliveryNote);
+            $quote->save();
+        }
+        parent::saveOrderAction();
+    }
 }
