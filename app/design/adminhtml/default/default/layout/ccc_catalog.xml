@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<layout>
+    <adminhtml_sales_order_index>
+        <reference name="content">
+            <block type="catalog/adminhtml_sales_order" name="sales_order.grid.container"></block>
+        </reference>
+    </adminhtml_sales_order_index>
+    <adminhtml_sales_order_view>
+        <reference name="order_info">
+            <action method="setTemplate">
+                <template>ccc/catalog/sales/order/info.phtml</template>
+            </action>
+            <block name="order_delivery_note"
+                type="ccc_catalog/adminhtml_sales_order_view_deliverynote"
+                template="ccc/catalog/sales/order/delivery_note.phtml" />
+        </reference>
+    </adminhtml_sales_order_view>
+</layout>
