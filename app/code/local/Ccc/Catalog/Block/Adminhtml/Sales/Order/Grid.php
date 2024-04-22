@@ -82,13 +82,15 @@ class Ccc_Catalog_Block_Adminhtml_Sales_Order_Grid extends Mage_Adminhtml_Block_
             )
         );
 
-        $this->addColumn(
-            'delivery_note',
-            array(
-                'header' => Mage::helper('sales')->__('Delivery Note'),
-                'index' => 'delivery_note',
-            )
-        );
+        if (Mage::getSingleton('admin/session')->isAllowed('sales/order/view/delivery_note')) {
+            $this->addColumn(
+                'delivery_note',
+                array(
+                    'header' => Mage::helper('sales')->__('Delivery Note'),
+                    'index' => 'delivery_note',
+                )
+            );
+        }
 
         $this->addColumn(
             'base_grand_total',

@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<config>
+    <acl>
+        <resources>
+            <admin>
+                <children>
+                    <sales translate="title" module="sales">
+                        <title>Sales</title>
+                        <children>
+                            <order translate="title">
+                                <title>Orders</title>
+                                <children>
+                                    <view translate="title">
+                                        <title>View</title>
+                                        <children>
+                                            <delivery_note translate="title">
+                                                <title>Delivery note</title>
+                                            </delivery_note>
+                                        </children>
+                                    </view>
+                                </children>
+                                <sort_order>10</sort_order>
+                            </order>
+                        </children>
+                    </sales>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+</config>
