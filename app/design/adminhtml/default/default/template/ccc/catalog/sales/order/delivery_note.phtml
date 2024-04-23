@@ -3,7 +3,6 @@
     <div class="entry-edit">
         <div class="entry-edit-head">
             <h4 class="icon-head head-billing-address"><?php echo Mage::helper('sales')->__('Delivery Note') ?></h4>
-            <div class="tools"><?php echo $this->getDeliveryNoteEditLink($_order) ?></div>
         </div>
         <fieldset>
             <delivery_note><?php echo $_order->getDeliveryNote() ?></delivery_note>

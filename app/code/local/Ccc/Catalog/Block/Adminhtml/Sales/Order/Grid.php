@@ -23,8 +23,9 @@ class Ccc_Catalog_Block_Adminhtml_Sales_Order_Grid extends Mage_Adminhtml_Block_
         $collection->getSelect()->join(
             ['sfo' => $collection->getTable('sales/order')],
             'main_table.entity_id = sfo.entity_id',
-            ['sfo.delivery_note']
+            ['delivery_note' => 'sfo.delivery_note']
         );
+
         $this->setCollection($collection);
         return parent::_prepareCollection();
     }
@@ -88,6 +89,7 @@ class Ccc_Catalog_Block_Adminhtml_Sales_Order_Grid extends Mage_Adminhtml_Block_
                 array(
                     'header' => Mage::helper('sales')->__('Delivery Note'),
                     'index' => 'delivery_note',
+                    'renderer' => 'ccc_catalog/adminhtml_sales_order_grid_renderer_textarea',
                 )
             );
         }
