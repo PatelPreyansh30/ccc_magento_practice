@@ -1,4 +1,8 @@
 <?xml version="1.0"?>
 <layout version="0.1.0">
-
+    <adminhtml_orderstatus_index>
+        <reference name="content">
+            <block type="ccc_orderstatus/adminhtml_orderstatus" name="orderstatus.grid.container"></block>
+        </reference>
+    </adminhtml_orderstatus_index>
 </layout>

@@ -17,10 +17,29 @@
             </ccc_orderstatus_setup>
         </resources>
         <models>
-            <ccc_orderstatus>
+            <orderstatus>
                 <class>Ccc_Orderstatus_Model</class>
-            </ccc_orderstatus>
+                <resourceModel>orderstatus_resource</resourceModel>
+            </orderstatus>
+            <orderstatus_resource>
+                <class>Ccc_Orderstatus_Model_Resource</class>
+                <entities>
+                    <orderstatus>
+                        <table>sales_order_status_count</table>
+                    </orderstatus>
+                </entities>
+            </orderstatus_resource>
         </models>
+        <blocks>
+            <ccc_orderstatus>
+                <class>Ccc_Orderstatus_Block</class>
+            </ccc_orderstatus>
+        </blocks>
+        <helpers>
+            <ccc_orderstatus>
+                <class>Ccc_Orderstatus_Helper</class>
+            </ccc_orderstatus>
+        </helpers>
     </global>
     <adminhtml>
         <layout>
