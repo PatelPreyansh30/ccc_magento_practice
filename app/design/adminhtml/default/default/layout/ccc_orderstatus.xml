@@ -2,7 +2,33 @@
 <layout version="0.1.0">
     <adminhtml_orderstatus_index>
         <reference name="content">
-            <block type="ccc_orderstatus/adminhtml_orderstatus" name="orderstatus.grid.container"></block>
+            <block type="orderstatus/adminhtml_orderstatus" name="orderstatus.grid.container"></block>
         </reference>
     </adminhtml_orderstatus_index>
+    <adminhtml_orderstatus_new>
+        <update handle="adminhtml_orderstatus_edit" />
+    </adminhtml_orderstatus_new>
+    <adminhtml_orderstatus_edit>
+        <update handle="editor" />
+        <reference name="content">
+            <block type="orderstatus/adminhtml_orderstatus_edit" name="orderstatus.edit"></block>
+        </reference>
+        <reference name="left">
+            <block type="orderstatus/adminhtml_orderstatus_edit_tabs"
+                name="adminhtml_orderstatus_edit_tabs">
+                <block type="orderstatus/adminhtml_orderstatus_edit_tab_form"
+                    name="adminhtml_orderstatus_edit_tab_form" />
+                <block type="orderstatus/adminhtml_orderstatus_edit_tab_options"
+                    name="adminhtml_orderstatus_edit_tab_options" template="ccc/orderstatus/tab/options.phtml" />
+                <action method="addTab">
+                    <name>form_tab</name>
+                    <block>adminhtml_orderstatus_edit_tab_form</block>
+                </action>
+                <action method="addTab">
+                    <name>options_tab</name>
+                    <block>adminhtml_orderstatus_edit_tab_options</block>
+                </action>
+            </block>
+        </reference>
+    </adminhtml_orderstatus_edit>
 </layout>

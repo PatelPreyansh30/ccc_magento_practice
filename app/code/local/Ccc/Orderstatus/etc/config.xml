@@ -31,14 +31,14 @@
             </orderstatus_resource>
         </models>
         <blocks>
-            <ccc_orderstatus>
+            <orderstatus>
                 <class>Ccc_Orderstatus_Block</class>
-            </ccc_orderstatus>
+            </orderstatus>
         </blocks>
         <helpers>
-            <ccc_orderstatus>
+            <orderstatus>
                 <class>Ccc_Orderstatus_Helper</class>
-            </ccc_orderstatus>
+            </orderstatus>
         </helpers>
     </global>
     <adminhtml>

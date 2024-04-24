@@ -23,7 +23,7 @@ class Ccc_Orderstatus_Block_Adminhtml_Orderstatus_Grid extends Mage_Adminhtml_Bl
         $this->addColumn(
             'entity_id',
             array(
-                'header' => Mage::helper('ccc_orderstatus')->__('ID'),
+                'header' => Mage::helper('orderstatus')->__('ID'),
                 'width' => '50px',
                 'type' => 'number',
                 'index' => 'entity_id',
@@ -33,7 +33,7 @@ class Ccc_Orderstatus_Block_Adminhtml_Orderstatus_Grid extends Mage_Adminhtml_Bl
         $this->addColumn(
             'status',
             array(
-                'header' => Mage::helper('ccc_orderstatus')->__('Status'),
+                'header' => Mage::helper('orderstatus')->__('Status'),
                 'align' => 'left',
                 'index' => 'status',
             )
@@ -42,7 +42,7 @@ class Ccc_Orderstatus_Block_Adminhtml_Orderstatus_Grid extends Mage_Adminhtml_Bl
         $this->addColumn(
             'total_range',
             array(
-                'header' => Mage::helper('ccc_orderstatus')->__('Total Range'),
+                'header' => Mage::helper('orderstatus')->__('Total Range'),
                 'align' => 'left',
                 'index' => 'total_range',
                 'type' => 'text',
@@ -52,13 +52,13 @@ class Ccc_Orderstatus_Block_Adminhtml_Orderstatus_Grid extends Mage_Adminhtml_Bl
         $this->addColumn(
             'is_active',
             array(
-                'header' => Mage::helper('ccc_orderstatus')->__('Active'),
+                'header' => Mage::helper('orderstatus')->__('Active'),
                 'align' => 'left',
                 'index' => 'is_active',
                 'type' => 'options',
                 'options' => [
-                    '1' => Mage::helper('ccc_orderstatus')->__('Enabled'),
-                    '0' => Mage::helper('ccc_orderstatus')->__('Disabled'),
+                    '1' => Mage::helper('orderstatus')->__('Enabled'),
+                    '0' => Mage::helper('orderstatus')->__('Disabled'),
                 ],
             )
         );
@@ -66,7 +66,7 @@ class Ccc_Orderstatus_Block_Adminhtml_Orderstatus_Grid extends Mage_Adminhtml_Bl
         $this->addColumn(
             'created_by',
             array(
-                'header' => Mage::helper('ccc_orderstatus')->__('Created By'),
+                'header' => Mage::helper('orderstatus')->__('Created By'),
                 'align' => 'left',
                 'index' => 'created_by',
                 'type' => 'text',
@@ -101,9 +101,9 @@ class Ccc_Orderstatus_Block_Adminhtml_Orderstatus_Grid extends Mage_Adminhtml_Bl
         $this->getMassactionBlock()->addItem(
             'delete',
             array(
-                'label' => Mage::helper('ccc_orderstatus')->__('Delete'),
+                'label' => Mage::helper('orderstatus')->__('Delete'),
                 'url' => $this->getUrl('*/*/massDelete'),
-                'confirm' => Mage::helper('ccc_orderstatus')->__('Are you sure you want to delete selected banners?')
+                'confirm' => Mage::helper('orderstatus')->__('Are you sure you want to delete selected banners?')
             )
         );
 
@@ -113,14 +113,14 @@ class Ccc_Orderstatus_Block_Adminhtml_Orderstatus_Grid extends Mage_Adminhtml_Bl
         $this->getMassactionBlock()->addItem(
             'status',
             array(
-                'label' => Mage::helper('ccc_orderstatus')->__('Change status'),
+                'label' => Mage::helper('orderstatus')->__('Change status'),
                 'url' => $this->getUrl('*/*/massStatus', array('_current' => true)),
                 'additional' => array(
                     'visibility' => array(
                         'name' => 'status',
                         'type' => 'select',
                         'class' => 'required-entry',
-                        'label' => Mage::helper('ccc_orderstatus')->__('Status'),
+                        'label' => Mage::helper('orderstatus')->__('Status'),
                         'values' => $statuses
                     )
                 )
