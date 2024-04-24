@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Ccc_Orderstatus>
+            <version>1.6.0.0</version>
+        </Ccc_Orderstatus>
+    </modules>
+    <global>
+        <resources>
+            <ccc_orderstatus_setup>
+                <setup>
+                    <module>Ccc_Orderstatus</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </ccc_orderstatus_setup>
+        </resources>
+        <models>
+            <ccc_orderstatus>
+                <class>Ccc_Orderstatus_Model</class>
+            </ccc_orderstatus>
+        </models>
+    </global>
+    <adminhtml>
+        <layout>
+            <updates>
+                <ccc_orderstatus>
+                    <file>ccc_orderstatus.xml</file>
+                </ccc_orderstatus>
+            </updates>
+        </layout>
+    </adminhtml>
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <ccc_orderstatus before="Mage_Adminhtml">Ccc_Orderstatus_Adminhtml</ccc_orderstatus>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+</config>
