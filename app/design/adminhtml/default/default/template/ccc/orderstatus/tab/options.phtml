@@ -1,7 +1,8 @@
 <div class="entity-edit" id="matage-options-panel">
     <div class="entry-edit-head">
         <h4 class="icon-head head-edit-form fieldset-legend">
-            <?php echo $this->__('Manage Options (values of your attribute)') ?></h4>
+            <?php echo $this->__('Manage Options (values of your attribute)') ?>
+        </h4>
     </div>
     <div class="box">
         <div class="hor-scroll">
@@ -36,7 +37,6 @@
 </div>
 <?php
 $optionData = $this->getOptionData();
-
 ?>
 <script type="text/javascript">
     // <![CDATA[
@@ -55,7 +55,7 @@ $optionData = $this->getOptionData();
             '<td class="a-left">' +
             '<input type="hidden" class="delete-flag" name="option[delete][{{id}}]" value="" />' +
             <?php if (!$this->getReadOnly()): ?>
-                    '<?php echo Mage::helper('core')->jsQuoteEscape($this->getDeleteButtonHtml()) ?>' +
+                            '<?php echo Mage::helper('core')->jsQuoteEscape($this->getDeleteButtonHtml()) ?>' +
             <?php endif; ?>
             '</td>' +
             '</tr>',

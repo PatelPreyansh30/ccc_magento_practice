@@ -6,8 +6,10 @@
                 <script>ccc/catalog/order_grid.js</script>
             </action>
         </reference>
-        <reference name="content">
-            <block type="catalog/adminhtml_sales_order" name="sales_order.grid.container"></block>
+        <reference name="sales_order.grid.container">
+            <action method="setTemplate">
+                <template>ccc/catalog/sales/order/grid.phtml</template>
+            </action>
         </reference>
     </adminhtml_sales_order_index>
     <adminhtml_sales_order_view>

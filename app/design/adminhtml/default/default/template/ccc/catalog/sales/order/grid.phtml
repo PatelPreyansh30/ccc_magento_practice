@@ -1,0 +1,27 @@
+<?php foreach ($this->getOrderStatus() as $status): ?>
+    <div class="order-main-status" name="" id="<?php echo 'order-status-' . $status->getStatus(); ?>"
+        onmouseenter="focusOrderStatusBar('<?php echo 'order-status-' . $status->getStatus(); ?>')"
+        onmouseleave="unfocusOrderStatusBar('<?php echo 'order-status-' . $status->getStatus(); ?>')">
+        <span value=""><?php echo $status->getStatus() . "-" . $this->getCount($status->getStatus()); ?></span>
+        <?php echo $this->getRange($status->getTotalRange(), $status->getStatus()) ?>
+    </div>
+<?php endforeach; ?>
+<div>
+    <?php echo $this->getGridHtml() ?>
+</div>
+
+<style>
+    .order-main-status{
+        width: max-content;
+        margin-bottom: 10px;
+        padding: 5px;
+        border: 1px solid;
+    }
+    .order-status{
+        display: none;
+        margin-bottom: 5px;
+        padding: 5px;
+        border: 1px solid;
+        cursor: pointer;
+    }
+</style>

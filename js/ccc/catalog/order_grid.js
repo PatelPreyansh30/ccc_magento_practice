@@ -24,3 +24,15 @@ function focusTextarea(event) {
   event.preventDefault();
   event.stopPropagation();
 }
+
+function focusOrderStatusBar(id) {
+  document.querySelectorAll(`#${id} .order-status`).forEach(function (span) {
+    span.style.display = "block";
+  });
+}
+
+function unfocusOrderStatusBar(id) {
+  document.querySelectorAll(`#${id} .order-status`).forEach(function (span) {
+    span.style.display = "none";
+  });
+}

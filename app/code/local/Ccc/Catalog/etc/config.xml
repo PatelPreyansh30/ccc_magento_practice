@@ -63,6 +63,7 @@
             </checkout>
             <adminhtml>
                 <rewrite>
+                    <sales_order>Ccc_Catalog_Block_Adminhtml_Sales_Order</sales_order>
                     <sales_order_grid>Ccc_Catalog_Block_Adminhtml_Sales_Order_Grid</sales_order_grid>
                 </rewrite>
             </adminhtml>
