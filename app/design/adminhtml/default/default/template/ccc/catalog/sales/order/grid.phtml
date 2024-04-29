@@ -6,18 +6,28 @@
         <?php echo $this->getRange($status->getTotalRange(), $status->getStatus()) ?>
     </div>
 <?php endforeach; ?>
+<div class="page-title">
+    <h1><?php echo $this->getTitle() ?></h1>
+</div>
+<table cellspacing="0">
+    <tr>
+        <td style="<?php echo $this->getHeaderWidth() ?>"><?php echo $this->getHeaderHtml() ?></td>
+        <td class="form-buttons"><?php echo $this->getButtonsHtml() ?></td>
+    </tr>
+</table>
 <div>
     <?php echo $this->getGridHtml() ?>
 </div>
 
 <style>
-    .order-main-status{
+    .order-main-status {
         width: max-content;
         margin-bottom: 10px;
         padding: 5px;
         border: 1px solid;
     }
-    .order-status{
+
+    .order-status {
         display: none;
         margin-bottom: 5px;
         padding: 5px;
