@@ -1,0 +1,11 @@
+<?php if (Mage::getSingleton('admin/session')->isAllowed('sales/order/view/delivery_note')): ?>
+    <?php $_order = $this->getOrder() ?>
+    <div class="entry-edit">
+        <div class="entry-edit-head">
+            <h4 class="icon-head head-billing-address"><?php echo Mage::helper('sales')->__('Delivery Note') ?></h4>
+        </div>
+        <fieldset>
+            <textarea name="order[delivery_note]" id="" cols="70" rows="5"></textarea>
+        </fieldset>
+    </div>
+<?php endif; ?>

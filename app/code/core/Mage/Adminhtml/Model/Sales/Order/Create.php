@@ -1294,6 +1294,10 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
             $this->setAccountData($data['account']);
         }
 
+        if (isset($data['delivery_note'])) {
+            $this->getQuote()->setData('delivery_note',$data['delivery_note']);
+        }
+
         if (isset($data['comment'])) {
             $this->getQuote()->addData($data['comment']);
             if (empty($data['comment']['customer_note_notify'])) {

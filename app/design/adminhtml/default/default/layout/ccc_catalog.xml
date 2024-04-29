@@ -22,4 +22,14 @@
                 template="ccc/catalog/sales/order/delivery_note.phtml" />
         </reference>
     </adminhtml_sales_order_view>
+    <adminhtml_sales_order_create_index>
+        <reference name="billing_address">
+            <action method="setTemplate">
+                <template>ccc/catalog/sales/order/create.phtml</template>
+            </action>
+        </reference>
+        <reference name="data">
+            <block type="ccc_catalog/adminhtml_sales_order_create_deliverynote" name="delivery_note" template="ccc/catalog/sales/order/create/delivery_note.phtml" />
+        </reference>
+    </adminhtml_sales_order_create_index>
 </layout>

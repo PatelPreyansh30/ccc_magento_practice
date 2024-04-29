@@ -1,0 +1,5 @@
+<?php
+
+class Ccc_Catalog_Block_Adminhtml_Sales_Order_Create_Deliverynote extends Mage_Adminhtml_Block_Template
+{
+}
