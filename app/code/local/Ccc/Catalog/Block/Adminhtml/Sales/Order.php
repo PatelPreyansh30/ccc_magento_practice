@@ -33,7 +33,7 @@ class Ccc_Catalog_Block_Adminhtml_Sales_Order extends Mage_Adminhtml_Block_Widge
         $rangeAarray = array_reverse(explode(',', $totalRange));
         $options = '';
         foreach ($rangeAarray as $range) {
-            $options .= '<span class="order-status">' . $range . " - " . $this->getRangeCount($status, $range) . '</span>';
+            $options .= '<span class="order-status" onclick="getDropdownText(\'' . $range . '\',\'' . $status . '\')">' . $range . " - " . $this->getRangeCount($status, $range) . '</span>';
         }
         return $options;
     }

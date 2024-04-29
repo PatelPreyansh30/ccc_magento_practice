@@ -18,14 +18,49 @@ class Ccc_Catalog_Block_Adminhtml_Sales_Order_Grid extends Mage_Adminhtml_Block_
 
     protected function _prepareCollection()
     {
+        $status = '';
+        $start = 0;
+        $end = 0;
+        $limit = 0;
+        if ($this->getRequest()->getParam('isAjax')) {
+            $status = $this->getRequest()->getParam('status');
+            $start = $this->getRequest()->getParam('start');
+            $end = $this->getRequest()->getParam('end');
+            $limit = $end - $start + 1;
+        }
         $collection = Mage::getResourceModel($this->_getCollectionClass());
-
-        $collection->getSelect()->join(
-            ['sfo' => $collection->getTable('sales/order')],
-            'main_table.entity_id = sfo.entity_id',
-            ['delivery_note' => 'sfo.delivery_note']
+        $select = $collection->getSelect();
+        $select->join(
+            array('rc' => Mage::getSingleton('core/resource')->getTableName('sales/order')),
+            'rc.increment_id = main_table.increment_id',
+            [
+                'delivery_note' => 'rc.delivery_note'
+            ]
         );
+        if ($limit != 0) {
+            $limitedSubsetSelect = $collection->getConnection()->select()
+                ->from(
+                    array('sog' => $collection->getTable('sales/order_grid')),
+                    array('*')
+                )
+                ->join(
+                    array('so' => $collection->getTable('sales/order')),
+                    'sog.increment_id = so.increment_id',
+                    array('delivery_note' => 'so.delivery_note')
+                )
+                ->limit($limit, $start - 1);
 
+            $limitedSubsetTable = $collection->getConnection()->quoteIdentifier('limited_subset');
+
+            $collection->getSelect()->reset()
+                ->from(
+                    array($limitedSubsetTable => new Zend_Db_Expr('(' . $limitedSubsetSelect . ')')),
+                    array('*')
+                )
+                ->where('status = ?', $status);
+        } elseif ($status) {
+            $collection->addFieldToFilter('main_table.status', $status);
+        }
         $this->setCollection($collection);
         return parent::_prepareCollection();
     }

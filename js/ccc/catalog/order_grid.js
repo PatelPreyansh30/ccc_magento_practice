@@ -36,3 +36,21 @@ function unfocusOrderStatusBar(id) {
     span.style.display = "none";
   });
 }
+
+function getDropdownText(totalRange, status) {
+  let range = totalRange.split("-");
+  var url = "http://127.0.0.1/magento/index.php/admin/sales_order/index";
+  url += "/key/" + FORM_KEY;
+  var parameters = {
+    start: range[0],
+    end: range[1],
+    status: status,
+  };
+  new Ajax.Request(url, {
+    method: "post",
+    parameters: parameters,
+    onSuccess: function (response) {
+      document.body.innerHTML = response.responseText;
+    },
+  });
+}
