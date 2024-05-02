@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <adminhtml_orderstock_index>
+        <reference name="content">
+            <block type="orderstock/adminhtml_orderstock" name="orderstock.grid.container"></block>
+        </reference>
+    </adminhtml_orderstock_index>
+    <adminhtml_orderstock_new>
+        <update handle="adminhtml_orderstock_edit" />
+    </adminhtml_orderstock_new>
+    <adminhtml_orderstock_edit>
+        <update handle="editor" />
+        <reference name="content">
+            <block type="orderstock/adminhtml_orderstock_edit" name="orderstock.edit"></block>
+        </reference>
+    </adminhtml_orderstock_edit>
+</layout>
