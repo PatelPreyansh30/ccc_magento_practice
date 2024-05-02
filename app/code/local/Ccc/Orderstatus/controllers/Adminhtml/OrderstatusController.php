@@ -69,8 +69,6 @@ class Ccc_Orderstatus_Adminhtml_OrderstatusController extends Mage_Adminhtml_Con
                             }
                         }
                     }
-
-                    // Join the concatenated values with commas to form the final string
                     $output = implode(',', $result);
                     $data['total_range'] = $output;
 
@@ -80,21 +78,15 @@ class Ccc_Orderstatus_Adminhtml_OrderstatusController extends Mage_Adminhtml_Con
 
                 $model->save();
 
-
                 Mage::getSingleton('adminhtml/session')->addSuccess(
                     Mage::helper('orderstatus')->__('The Order Status has been saved.')
                 );
-
-
                 Mage::getSingleton('adminhtml/session')->setFormData(false);
-
 
                 if ($this->getRequest()->getParam('back')) {
                     $this->_redirect('*/*/edit', array('entity_id' => $model->getId(), '_current' => true));
                     return;
                 }
-
-
                 $this->_redirect('*/*/');
                 return;
             } catch (Mage_Core_Exception $e) {
@@ -105,8 +97,6 @@ class Ccc_Orderstatus_Adminhtml_OrderstatusController extends Mage_Adminhtml_Con
                     Mage::helper('orderstatus')->__('An error occurred while saving the order status.')
                 );
             }
-
-
             $this->_getSession()->setFormData($data);
             $this->_redirect('*/*/edit', array('entity_id' => $this->getRequest()->getParam('entity_id')));
             return;

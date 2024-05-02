@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<config>
+    <menu>
+        <orderstock translate="title" module="adminhtml">
+            <title>Order Stock</title>
+            <action>adminhtml/orderstock</action>
+            <sort_order>120</sort_order>
+        </orderstock>
+    </menu>
+</config>
