@@ -124,7 +124,7 @@ class Ccc_Orderstock_Adminhtml_OrderstockController extends Mage_Adminhtml_Contr
         }
 
         try {
-            $model = Mage::getModel('orderstock/orderstock');
+            $model = Mage::getModel('orderstock/manufacturer');
             $model->load($id);
             $model->delete();
 

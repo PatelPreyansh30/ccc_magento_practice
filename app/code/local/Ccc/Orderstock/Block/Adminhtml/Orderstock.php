@@ -5,8 +5,8 @@ class Ccc_Orderstock_Block_Adminhtml_Orderstock extends Mage_Adminhtml_Block_Wid
     {
         $this->_controller = 'adminhtml_orderstock';
         $this->_blockGroup = 'orderstock';
-        $this->_headerText = Mage::helper('orderstock')->__('Order Stock');
-        $this->_addButtonLabel = Mage::helper('orderstock')->__('Add New Stock');
+        $this->_headerText = Mage::helper('orderstock')->__('Manufacturer');
+        $this->_addButtonLabel = Mage::helper('orderstock')->__('Add New Manufacturer');
         parent::__construct();
     }
 }

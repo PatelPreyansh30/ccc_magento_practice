@@ -2,7 +2,7 @@
 <config>
     <menu>
         <orderstock translate="title" module="adminhtml">
-            <title>Order Stock</title>
+            <title>Manufacturer</title>
             <action>adminhtml/orderstock</action>
             <sort_order>120</sort_order>
         </orderstock>

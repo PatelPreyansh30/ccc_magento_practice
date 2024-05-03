@@ -145,7 +145,7 @@ class Ccc_Orderstock_Block_Adminhtml_Orderstock_Edit_Form extends Mage_Adminhtml
             array(
                 'label' => Mage::helper('orderstock')->__('Is Active'),
                 'title' => Mage::helper('orderstock')->__('Is Active'),
-                'name' => 'manufacturer[is_active]',
+                'name' => 'is_active',
                 'required' => true,
                 'options' => array(
                     '1' => Mage::helper('orderstock')->__('Enabled'),
