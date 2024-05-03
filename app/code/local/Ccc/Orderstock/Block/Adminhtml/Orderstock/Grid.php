@@ -12,19 +12,18 @@ class Ccc_Orderstock_Block_Adminhtml_Orderstock_Grid extends Mage_Adminhtml_Bloc
     {
         $collection = Mage::getModel('orderstock/manufacturer')->getCollection();
         $select = $collection->getSelect();
-        $select->join(
+        $select->joinLeft(
             array('cmb' => Mage::getSingleton('core/resource')->getTableName('orderstock/brand')),
             'cmb.mfr_id = main_table.entity_id',
             [
                 'brand_id' => 'cmb.brand_id'
             ]
         );
-        $select->join(
+        $select->joinLeft(
             ['eaov' => Mage::getSingleton('core/resource')->getTableName('eav_attribute_option_value')],
             'eaov.option_id = cmb.brand_id',
             ['brand_name' => new Zend_Db_Expr('GROUP_CONCAT(DISTINCT eaov.value SEPARATOR ", ")')]
         )
-        ->where('eaov.store_id', '0')
         ->group('main_table.entity_id');
         
         $this->setCollection($collection);

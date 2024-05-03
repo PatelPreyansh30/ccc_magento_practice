@@ -19,6 +19,17 @@ class Ccc_Orderstock_Block_Adminhtml_Orderstock_Edit_Form extends Mage_Adminhtml
         $model = Mage::registry('orderstock');
         $isEdit = ($model && $model->getId());
 
+        if ($isEdit) {
+            $brandModel = Mage::getModel('orderstock/brand')
+                ->getCollection()
+                ->addFieldToFilter('mfr_id', $model->getId());
+            $brand = [];
+            foreach ($brandModel->getData() as $value) {
+                $brand[] = $value['brand_id'];
+            }
+            $model->setData('brand', $brand);
+        }
+
         $form = new Varien_Data_Form(
             array('id' => 'edit_form', 'action' => $this->getUrl('*/*/save'), 'method' => 'post', 'enctype' => 'multipart/form-data')
         );
@@ -117,19 +128,6 @@ class Ccc_Orderstock_Block_Adminhtml_Orderstock_Edit_Form extends Mage_Adminhtml
                 'class' => 'validate-number',
             )
         );
-
-        $attributeCode = 'brand';
-        $attribute = Mage::getSingleton('eav/config')->getAttribute('catalog_product', $attributeCode);
-        $options = $attribute->getSource()->getAllOptions();
-        $brandOptions = [];
-        foreach ($options as $option) {
-            if ($option['value'] == '')
-                continue;
-            $brandOptions[] = [
-                'value' => $option['value'],
-                'label' => $option['label'],
-            ];
-        }
         $fieldset->addField(
             'brand',
             'multiselect',
@@ -138,10 +136,9 @@ class Ccc_Orderstock_Block_Adminhtml_Orderstock_Edit_Form extends Mage_Adminhtml
                 'label' => Mage::helper('orderstock')->__('Brand'),
                 'title' => Mage::helper('orderstock')->__('Brand'),
                 'required' => true,
-                'values' => $brandOptions,
+                'values' => $this->getBrandOptions(),
             )
         );
-
         $fieldset->addField(
             'is_active',
             'select',
@@ -165,5 +162,40 @@ class Ccc_Orderstock_Block_Adminhtml_Orderstock_Edit_Form extends Mage_Adminhtml
         $this->setForm($form);
 
         return parent::_prepareForm();
+    }
+
+    public function getBrandOptions()
+    {
+        $model = Mage::registry('orderstock');
+
+        $brands = [];
+        $brandOptions = Mage::getSingleton('eav/config')
+            ->getAttribute('catalog_product', 'brand')
+            ->getSource()
+            ->getAllOptions();
+        foreach ($brandOptions as $_brand) {
+            if (
+                empty(Mage::getModel('orderstock/brand')
+                    ->load($_brand['value'], 'brand_id')
+                    ->getId())
+            ) {
+                $brands[] = array(
+                    'value' => $_brand['value'],
+                    'label' => $_brand['label']
+                );
+            }
+            $mfrBrandCollection = Mage::getModel('orderstock/brand')
+                ->getCollection()
+                ->addFieldToFilter('mfr_id', $model->getId());
+            foreach ($mfrBrandCollection as $_mfrbrand) {
+                if ($_brand['value'] == $_mfrbrand['brand_id']) {
+                    $brands[] = array(
+                        'value' => $_brand['value'],
+                        'label' => $_brand['label']
+                    );
+                }
+            }
+        }
+        return $brands;
     }
 }

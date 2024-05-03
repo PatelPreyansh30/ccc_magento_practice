@@ -50,25 +50,45 @@ class Ccc_Orderstock_Adminhtml_OrderstockController extends Mage_Adminhtml_Contr
     {
         if ($data = $this->getRequest()->getPost()) {
             try {
+                $id = $this->getRequest()->getParam('entity_id');
                 $model = Mage::getModel('orderstock/manufacturer');
+                $brandModel = Mage::getModel('orderstock/brand');
+                $brandCollection = $brandModel->getCollection();
 
-                if ($id = $this->getRequest()->getParam('entity_id')) {
+                $brandArr = [];
+                if ($id) {
                     $model->load($id);
+                    $brandCollection->addFieldToFilter('mfr_id', $model->getId());
+                    foreach ($brandCollection->getData() as $_brand) {
+                        array_push($brandArr, $_brand['brand_id']);
+                    }
                 }
                 $model->setData($data);
                 $model->save();
 
-                $brandModel = Mage::getModel('orderstock/brand');
-                foreach ($data['brand'] as $value) {
-                    $brandModel->setData([
-                        'mfr_id' => $model->getId(),
-                        'brand_id' => $value,
-                    ]);
-                    $brandModel->save();
+                if ($id) {
+                    foreach (array_diff($brandArr, $data['brand']) as $_deletedBrand) {
+                        $brandModel->load($_deletedBrand, 'brand_id');
+                        $brandModel->delete();
+                    }
+                    foreach (array_diff($data['brand'], $brandArr) as $_saveBrand) {
+                        $brandModel->setData([
+                            'mfr_id' => $model->getId(),
+                            'brand_id' => $_saveBrand,
+                        ]);
+                        $brandModel->save();
+                    }
+                } else {
+                    foreach ($data['brand'] as $value) {
+                        $brandModel->setData([
+                            'mfr_id' => $model->getId(),
+                            'brand_id' => $value,
+                        ]);
+                        $brandModel->save();
+                    }
                 }
-
                 Mage::getSingleton('adminhtml/session')->addSuccess(
-                    Mage::helper('orderstock')->__('The Order Status has been saved.')
+                    Mage::helper('orderstock')->__('The manufacturer has been saved.')
                 );
                 Mage::getSingleton('adminhtml/session')->setFormData(false);
 
@@ -83,7 +103,7 @@ class Ccc_Orderstock_Adminhtml_OrderstockController extends Mage_Adminhtml_Contr
             } catch (Exception $e) {
                 $this->_getSession()->addException(
                     $e,
-                    Mage::helper('orderstatus')->__('An error occurred while saving the order status.')
+                    Mage::helper('orderstock')->__('An error occurred while saving the manufacturer.')
                 );
             }
             $this->_getSession()->setFormData($data);
@@ -97,19 +117,19 @@ class Ccc_Orderstock_Adminhtml_OrderstockController extends Mage_Adminhtml_Contr
         $id = $this->getRequest()->getParam('entity_id');
         if (!$id) {
             Mage::getSingleton('adminhtml/session')->addError(
-                Mage::helper('orderstatus')->__('Unable to find an order status to delete.')
+                Mage::helper('orderstock')->__('Unable to find an manufacturer to delete.')
             );
             $this->_redirect('*/*/');
             return;
         }
 
         try {
-            $model = Mage::getModel('orderstatus/orderstatus');
+            $model = Mage::getModel('orderstock/orderstock');
             $model->load($id);
             $model->delete();
 
             Mage::getSingleton('adminhtml/session')->addSuccess(
-                Mage::helper('orderstatus')->__('The order status has been deleted.')
+                Mage::helper('orderstock')->__('The manufacturer has been deleted.')
             );
 
             $this->_redirect('*/*/');
