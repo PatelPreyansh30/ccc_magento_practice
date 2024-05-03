@@ -9,7 +9,6 @@ class Ccc_Banner_Block_Adminhtml_Banner_Grid extends Mage_Adminhtml_Block_Widget
         $this->setDefaultDir('ASC');
     }
 
-
     protected function _prepareCollection()
     {
         $collection = Mage::getModel('banner/banner')->getCollection();
