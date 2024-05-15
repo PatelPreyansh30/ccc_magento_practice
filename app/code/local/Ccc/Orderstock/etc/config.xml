@@ -2,7 +2,7 @@
 <config>
     <modules>
         <Ccc_Orderstock>
-            <version>1.6.0.1</version>
+            <version>1.6.0.2</version>
         </Ccc_Orderstock>
     </modules>
     <adminhtml>
@@ -60,8 +60,26 @@
                     <brand>
                         <table>ccc_manufacturer_brand</table>
                     </brand>
+                    <orderadditional>
+                        <table>sales_flat_order_item_additional</table>
+                    </orderadditional>
                 </entities>
             </ccc_orderstock_resource>
         </models>
+        <events>
+            <sales_order_place_after>
+                <observers>
+                    <ccc_orderstock>
+                        <class>orderstock/observer</class>
+                        <method>insertInSalesFlatOrderAdditional</method>
+                    </ccc_orderstock>
+                    <custom_email_send_order_email>
+                        <type>singleton</type>
+                        <class>orderstock/observer</class>
+                        <method>sendOrderEmail</method>
+                    </custom_email_send_order_email>
+                </observers>
+            </sales_order_place_after>
+        </events>
     </global>
 </config>
