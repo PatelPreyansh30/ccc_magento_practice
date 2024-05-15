@@ -141,4 +141,56 @@ class Ccc_Orderstock_Adminhtml_OrderstockController extends Mage_Adminhtml_Contr
             return;
         }
     }
+    public function sendemailAction()
+    {
+        $data = $this->getRequest()->getParam('data');
+        $itemsToUpdate = json_decode($data, true);
+        foreach ($itemsToUpdate as $_itemid) {
+            $data = Mage::getModel('sales/order_item')->load($_itemid);
+            $productData = Mage::getModel('catalog/product')->load($data->getProductId());
+
+            $attribute = Mage::getSingleton('eav/config')->getAttribute('catalog_product', 'brand');
+            if ($attribute->usesSource()) {
+                $brandOptionText = $attribute->getSource()->getOptionText($data->getBrand());
+            }
+            $brandData = Mage::getModel('orderstock/brand')->load($data->getBrandId(), 'brand_id');
+            $mfrData = Mage::getModel('orderstock/manufacturer')->load($brandData->getMfrId());
+
+            $senderName = Mage::getStoreConfig('trans_email/ident_general/name');
+            $senderEmail = Mage::getStoreConfig('trans_email/ident_general/email');
+
+            $recipientEmail = $mfrData->getEmail();
+            $recipientName = $mfrData->getManufacturerName();
+
+            $emailTemplateVariables = array(
+                'product_name' => $productData->getName(),
+                'sku' => $productData->getSku(),
+                'qty' => $data->getQtyOrdered(),
+                'brand' => $brandOptionText,
+            );
+            
+            $emailTemplate = Mage::getModel('core/email_template')->load('mfr_email', 'template_code');
+            $emailTemplate->setSenderName($senderName);
+            $emailTemplate->setSenderEmail($senderEmail);
+            $emailTemplate->send($recipientEmail, $recipientName, $emailTemplateVariables);
+        }
+    }
+    public function updateAction()
+    {
+        $data = $this->getRequest()->getPost('value');
+        $itemsToUpdate = json_decode($data, true);
+        foreach ($itemsToUpdate as $item) {
+            $itemValue = $item['id'];
+            $selectedValue = $item['stock'];
+            $model = Mage::getModel('orderstock/orderadditional');
+            $data = $model->load($itemValue, 'item_id');
+            if ($selectedValue == 1) {
+                $data['is_discontinued'] = $selectedValue;
+            } else {
+                $data['is_discontinued'] = 0;
+                $data['stock_date'] = $selectedValue;
+            }
+            $model->setData($data->getData())->save();
+        }
+    }
 }

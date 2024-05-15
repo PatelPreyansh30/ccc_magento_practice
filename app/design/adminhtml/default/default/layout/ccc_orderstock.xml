@@ -14,5 +14,27 @@
             <block type="orderstock/adminhtml_orderstock_edit" name="orderstock.edit"></block>
         </reference>
     </adminhtml_orderstock_edit>
-    
+    <adminhtml_sales_order_view>
+        <reference name='head'>
+            <action method='addJs'>
+                <script>ccc/orderstock/stock.js</script>
+            </action>
+        </reference>
+        <reference name="order_items">
+            <action method='setTemplate'>
+                <template>ccc/sales/order/view/items.phtml</template>
+            </action>
+            <action method="addItemRender">
+                <type>default</type>
+                <block>orderstock/adminhtml_orderadditional</block>
+                <template>ccc/sales/order/view/items/renderer/default.phtml</template>
+            </action>
+        </reference>
+        <reference name='order_tab_info'>
+            <block type='orderstock/adminhtml_orderadditionalupdate' name='update_button'
+                template='ccc/sales/order/view/tab/update.phtml' />
+            <block type='orderstock/adminhtml_orderadditionalemail' name='email_button'
+                template='ccc/sales/order/view/tab/email.phtml' />
+        </reference>
+    </adminhtml_sales_order_view>
 </layout>
