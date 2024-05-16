@@ -37,4 +37,32 @@ class Ccc_Catalog_Sales_OrderController extends Mage_Adminhtml_Sales_OrderContro
         Mage::getSingleton('adminhtml/session')
             ->addSuccess('Address validate successfully');
     }
+    public function emailvalidationAction()
+    {
+        $orderIds = $this->getRequest()->getPost('order_ids', array());
+        foreach ($orderIds as $orderId) {
+            $order = Mage::getModel('sales/order')->load($orderId);
+            if ($order->getAddressValidationRequired() == 1 && $order->getStatus() != 'complete' && $order->getStatus() != 'canceled') {
+                $customerId = $order->getCustomerId();
+                $customer = Mage::getModel('customer/customer')->load($customerId);
+                $senderName = Mage::getStoreConfig('trans_email/ident_general/name');
+                $senderEmail = Mage::getStoreConfig('trans_email/ident_general/email');
+                $recipientEmail = $customer->getEmail();
+                $recipientName = $customer->getName();
+                $emailTemplateVariables = array(
+                    'name' => $recipientName,
+                    'ordernum' => $order->getIncrementId(),
+                );
+                $emailTemplate = Mage::getModel('core/email_template')->load('address_validation', 'template_code');
+                $emailTemplate->setSenderName($senderName);
+                $emailTemplate->setSenderEmail($senderEmail);
+                $emailTemplate->setTemplateSubject('Address Validation Email');
+                $emailTemplate->send($recipientEmail, $recipientName, $emailTemplateVariables);
+                $order->setValidationEmailSentCount($order->getValidationEmailSentCount() + 1);
+                $order->save();
+                $this->_getSession()->addSuccess($this->__('Email send successful'));
+            }
+        }
+        $this->_redirect('*/*/');
+    }
 }

@@ -212,6 +212,14 @@ class Ccc_Catalog_Block_Adminhtml_Sales_Order_Grid extends Mage_Adminhtml_Block_
         $this->getMassactionBlock()->setFormFieldName('order_ids');
         $this->getMassactionBlock()->setUseSelectAll(false);
 
+        if (Mage::getSingleton('admin/session')->isAllowed('sales/order/actions/emailvalidation')) {
+            $this->getMassactionBlock()->addItem('emailvalidation', array(
+                'label' => Mage::helper('sales')->__('Email Validation'),
+                'url' => $this->getUrl('*/sales_order/emailvalidation'),
+            )
+            );
+        }
+
         if (Mage::getSingleton('admin/session')->isAllowed('sales/order/actions/cancel')) {
             $this->getMassactionBlock()->addItem(
                 'cancel_order',
