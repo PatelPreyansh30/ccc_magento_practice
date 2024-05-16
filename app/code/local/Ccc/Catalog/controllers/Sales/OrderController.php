@@ -60,9 +60,9 @@ class Ccc_Catalog_Sales_OrderController extends Mage_Adminhtml_Sales_OrderContro
                 $emailTemplate->send($recipientEmail, $recipientName, $emailTemplateVariables);
                 $order->setValidationEmailSentCount($order->getValidationEmailSentCount() + 1);
                 $order->save();
-                $this->_getSession()->addSuccess($this->__('Email send successful'));
             }
         }
+        $this->_getSession()->addSuccess($this->__('All Email Send Successful'));
         $this->_redirect('*/*/');
     }
 }
