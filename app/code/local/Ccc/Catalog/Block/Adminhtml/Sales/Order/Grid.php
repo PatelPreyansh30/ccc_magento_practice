@@ -34,7 +34,8 @@ class Ccc_Catalog_Block_Adminhtml_Sales_Order_Grid extends Mage_Adminhtml_Block_
             array('rc' => Mage::getSingleton('core/resource')->getTableName('sales/order')),
             'rc.increment_id = main_table.increment_id',
             [
-                'delivery_note' => 'rc.delivery_note'
+                'delivery_note' => 'rc.delivery_note',
+                'address_validation_required' => 'rc.address_validation_required'
             ]
         );
         if ($limit != 0) {
@@ -78,19 +79,19 @@ class Ccc_Catalog_Block_Adminhtml_Sales_Order_Grid extends Mage_Adminhtml_Block_
             )
         );
 
-        if (!Mage::app()->isSingleStoreMode()) {
-            $this->addColumn(
-                'store_id',
-                array(
-                    'header' => Mage::helper('sales')->__('Purchased From (Store)'),
-                    'index' => 'store_id',
-                    'type' => 'store',
-                    'store_view' => true,
-                    'display_deleted' => true,
-                    'escape' => true,
-                )
-            );
-        }
+        // if (!Mage::app()->isSingleStoreMode()) {
+        //     $this->addColumn(
+        //         'store_id',
+        //         array(
+        //             'header' => Mage::helper('sales')->__('Purchased From (Store)'),
+        //             'index' => 'store_id',
+        //             'type' => 'store',
+        //             'store_view' => true,
+        //             'display_deleted' => true,
+        //             'escape' => true,
+        //         )
+        //     );
+        // }
 
         $this->addColumn(
             'created_at',
@@ -110,13 +111,13 @@ class Ccc_Catalog_Block_Adminhtml_Sales_Order_Grid extends Mage_Adminhtml_Block_
             )
         );
 
-        $this->addColumn(
-            'shipping_name',
-            array(
-                'header' => Mage::helper('sales')->__('Ship to Name'),
-                'index' => 'shipping_name',
-            )
-        );
+        // $this->addColumn(
+        //     'shipping_name',
+        //     array(
+        //         'header' => Mage::helper('sales')->__('Ship to Name'),
+        //         'index' => 'shipping_name',
+        //     )
+        // );
 
         if (Mage::getSingleton('admin/session')->isAllowed('sales/order/view/delivery_note')) {
             $this->addColumn(
@@ -129,15 +130,29 @@ class Ccc_Catalog_Block_Adminhtml_Sales_Order_Grid extends Mage_Adminhtml_Block_
             );
         }
 
-        $this->addColumn(
-            'base_grand_total',
-            array(
-                'header' => Mage::helper('sales')->__('G.T. (Base)'),
-                'index' => 'base_grand_total',
-                'type' => 'currency',
-                'currency' => 'base_currency_code',
-            )
+        $this->addColumn('address_validation_required', array(
+            'header' => Mage::helper('sales')->__('Address Validation'),
+            'index' => 'address_validation_required',
+            'type' => 'options',
+            'width' => '70px',
+            'renderer' => 'Ccc_Catalog_Block_Adminhtml_Renderer_Validation',
+            'options' => array(
+                0 => Mage::helper('sales')->__('N/A'),
+                1 => Mage::helper('sales')->__('Validate'),
+                2 => Mage::helper('sales')->__('Validated'),
+            ),
+        )
         );
+
+        // $this->addColumn(
+        //     'base_grand_total',
+        //     array(
+        //         'header' => Mage::helper('sales')->__('G.T. (Base)'),
+        //         'index' => 'base_grand_total',
+        //         'type' => 'currency',
+        //         'currency' => 'base_currency_code',
+        //     )
+        // );
 
         $this->addColumn(
             'grand_total',
@@ -270,13 +285,13 @@ class Ccc_Catalog_Block_Adminhtml_Sales_Order_Grid extends Mage_Adminhtml_Block_
         return $this;
     }
 
-    public function getRowUrl($row)
-    {
-        if (Mage::getSingleton('admin/session')->isAllowed('sales/order/actions/view')) {
-            return $this->getUrl('*/sales_order/view', array('order_id' => $row->getId()));
-        }
-        return false;
-    }
+    // public function getRowUrl($row)
+    // {
+        // if (Mage::getSingleton('admin/session')->isAllowed('sales/order/actions/view')) {
+        //     return $this->getUrl('*/sales_order/view', array('order_id' => $row->getId()));
+        // }
+        // return false;
+    // }
 
     public function getGridUrl()
     {

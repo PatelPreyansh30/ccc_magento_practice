@@ -27,4 +27,14 @@ class Ccc_Catalog_Sales_OrderController extends Mage_Adminhtml_Sales_OrderContro
         $this->getResponse()->setHeader('Content-type', 'application/json');
         $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($responce));
     }
+    public function validateAddressAction()
+    {
+        $orderId = $this->getRequest()->getParam('order_id');
+        $orderModel = Mage::getModel('sales/order')->load($orderId);
+        $orderModel->setData('address_validation_required', 2);
+        $orderModel->save();
+
+        Mage::getSingleton('adminhtml/session')
+            ->addSuccess('Address validate successfully');
+    }
 }

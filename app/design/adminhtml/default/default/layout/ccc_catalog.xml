@@ -5,6 +5,9 @@
             <action method="addJs">
                 <script>ccc/catalog/order_grid.js</script>
             </action>
+            <action method="addJs">
+                <script>ccc/catalog/address_validation.js</script>
+            </action>
         </reference>
         <reference name="sales_order.grid.container">
             <action method="setTemplate">
@@ -20,6 +23,14 @@
             <block name="order_delivery_note"
                 type="ccc_catalog/adminhtml_sales_order_view_deliverynote"
                 template="ccc/catalog/sales/order/delivery_note.phtml" />
+        </reference>
+        <reference name='sales_order_edit'>
+            <block type="ccc_catalog/adminhtml_sales_order_tabedit" name='order_edit2' />
+        </reference>
+        <reference name='head'>
+            <action method='addJs'>
+                <script>ccc/catalog/address_validation.js</script>
+            </action>
         </reference>
     </adminhtml_sales_order_view>
     <adminhtml_sales_order_create_index>
