@@ -5,27 +5,15 @@ class Ccc_Catalog_Sales_OrderController extends Mage_Adminhtml_Sales_OrderContro
 {
     public function editAction()
     {
-        $responce = [];
-        $entityId = $this->getRequest()->getPost('entity_id');
-        $newDeliveryNote = $this->getRequest()->getPost('delivery_note');
+        $entityId = $this->getRequest()->getPost('id');
+        $newDeliveryNote = $this->getRequest()->getPost('value');
 
-        try {
-            $order = Mage::getModel('sales/order')->load($entityId);
-            if ($order->getId()) {
-                $order->setData('delivery_note', $newDeliveryNote);
-                $order->save();
-                $responce['success'] = true;
-                $responce['message'] = 'Delivery note updated successfully';
-            } else {
-                $responce['success'] = false;
-                $responce['message'] = 'Order does not exist';
-            }
-        } catch (Exception $e) {
-            $responce['success'] = false;
-            $responce['message'] = $e->getMessage();
+        $order = Mage::getModel('sales/order')->load($entityId);
+        if ($order->getId()) {
+            $order->setData('delivery_note', $newDeliveryNote);
+            $order->save();
         }
-        $this->getResponse()->setHeader('Content-type', 'application/json');
-        $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($responce));
+        $this->_redirect('*/*/index');
     }
     public function validateAddressAction()
     {

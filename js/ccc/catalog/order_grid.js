@@ -1,28 +1,45 @@
-function submitTextarea(textareaId) {
-  event.preventDefault();
-  event.stopPropagation();
-  var textarea = document.getElementById(textareaId);
-  var url = "http://127.0.0.1/magento/index.php/admin/sales_order/edit";
-  url += "/key/" + FORM_KEY;
+function toggleDeliveryNote(id, value, url) {
+  var div = document.getElementById(`deliveryNote-${id}`);
 
+  if (div.getAttribute("toggleDiv") == "true") {
+    div.innerText = "";
+    var textarea = document.createElement("textarea");
+    textarea.value = value;
+    textarea.id = `deliveryNote-textarea-${id}`;
+    div.appendChild(textarea);
+    textarea.focus();
+
+    var saveButton = document.createElement("button");
+    saveButton.innerText = "✔";
+    saveButton.id = `deliveryNote-savebtn-${id}`;
+    saveButton.addEventListener("click", function () {
+      handleDeliveryNoteClick(id, textarea.value, url);
+    });
+    div.appendChild(saveButton);
+
+    var closeButton = document.createElement("button");
+    closeButton.innerText = "✖";
+    closeButton.id = `deliveryNote-closebtn-${id}`;
+    closeButton.addEventListener("click", function () {
+      location.reload();
+    });
+    div.appendChild(closeButton);
+    div.setAttribute("toggleDiv", false);
+  }
+}
+
+function handleDeliveryNoteClick(id, value, url) {
   var parameters = {
-    delivery_note: textarea.value,
-    entity_id: textareaId.split("_")[2],
+    value: value,
+    id: id,
   };
   new Ajax.Request(url, {
     method: "post",
     parameters: parameters,
+    onSuccess: function (res) {
+      document.body.innerHTML = res.responseText;
+    },
   });
-}
-
-function resetTextarea(textareaId) {
-  var textarea = document.getElementById(textareaId);
-  textarea.value = "";
-}
-
-function focusTextarea(event) {
-  event.preventDefault();
-  event.stopPropagation();
 }
 
 function focusOrderStatusBar(id) {
