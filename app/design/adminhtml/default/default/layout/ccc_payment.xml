@@ -6,4 +6,17 @@
                 template="ccc/sales/order/view/tab/payment.phtml" />
         </reference>
     </adminhtml_sales_order_view>
+    <adminhtml_payment_index>
+        <reference name="head">
+            <action method="addJs">
+                <script>ccc/payment/shippingMethod.js</script>
+            </action>
+            <action method="addCss">
+                <script>ccc/popupbox.css</script>
+            </action>
+        </reference>
+        <reference name="content">
+            <block type="ccc_payment/adminhtml_shipping" name="shipping.grid.container"></block>
+        </reference>
+    </adminhtml_payment_index>
 </layout>
