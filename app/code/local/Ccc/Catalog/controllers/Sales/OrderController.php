@@ -53,4 +53,12 @@ class Ccc_Catalog_Sales_OrderController extends Mage_Adminhtml_Sales_OrderContro
         $this->_getSession()->addSuccess($this->__('All Email Send Successful'));
         $this->_redirect('*/*/');
     }
+    public function gridAction()
+    {
+        $this->loadLayout();
+        $this->getResponse()->setBody(
+            $this->getLayout()->createBlock('ccc_catalog/adminhtml_sales_order_grid')
+                ->toHtml()
+        );
+    }
 }

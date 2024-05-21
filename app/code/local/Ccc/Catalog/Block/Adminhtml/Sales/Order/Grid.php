@@ -26,7 +26,9 @@ class Ccc_Catalog_Block_Adminhtml_Sales_Order_Grid extends Mage_Adminhtml_Block_
             $status = $this->getRequest()->getParam('status');
             $start = $this->getRequest()->getParam('start');
             $end = $this->getRequest()->getParam('end');
-            $limit = $end - $start + 1;
+            if($start != 0){
+                $limit = $end - $start + 1;
+            }
         }
         $collection = Mage::getResourceModel($this->_getCollectionClass());
         $select = $collection->getSelect();
@@ -172,6 +174,7 @@ class Ccc_Catalog_Block_Adminhtml_Sales_Order_Grid extends Mage_Adminhtml_Block_
                 'type' => 'options',
                 'width' => '70px',
                 'options' => Mage::getSingleton('sales/order_config')->getStatuses(),
+                'filter_condition_callback' => array($this, '_filterStatusCallback'),
             )
         );
 
@@ -303,7 +306,19 @@ class Ccc_Catalog_Block_Adminhtml_Sales_Order_Grid extends Mage_Adminhtml_Block_
 
     public function getGridUrl()
     {
-        return $this->getUrl('*/*/grid', array('_current' => true));
+        return $this->getUrl('*/sales_order/grid', array('_current' => true));
     }
+    protected function _filterStatusCallback($collection, $column)
+    {
+        if (!$value = $column->getFilter()->getValue()) {
+            return $this;
+        }
 
+        $collection->getSelect()->where(
+            "main_table.status = ?",
+            "$value"
+        );
+
+        return $this;
+    }
 }
