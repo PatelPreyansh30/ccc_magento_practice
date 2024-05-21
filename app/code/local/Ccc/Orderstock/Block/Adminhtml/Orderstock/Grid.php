@@ -48,6 +48,7 @@ class Ccc_Orderstock_Block_Adminhtml_Orderstock_Grid extends Mage_Adminhtml_Bloc
                 'header' => Mage::helper('orderstock')->__('Manufacturer Name'),
                 'type' => 'text',
                 'index' => 'manufacturer_name',
+                'column_css_class' => 'editable',
             )
         );
         $this->addColumn(
@@ -56,6 +57,7 @@ class Ccc_Orderstock_Block_Adminhtml_Orderstock_Grid extends Mage_Adminhtml_Bloc
                 'header' => Mage::helper('orderstock')->__('Email'),
                 'type' => 'text',
                 'index' => 'email',
+                'column_css_class' => 'editable',
             )
         );
         $this->addColumn(
@@ -79,6 +81,28 @@ class Ccc_Orderstock_Block_Adminhtml_Orderstock_Grid extends Mage_Adminhtml_Bloc
                 ),
             )
         );
+        $this->addColumn(
+            'edit',
+            array(
+                'header' => Mage::helper('orderstock')->__('Action'),
+                'align' => 'left',
+                'type' => 'action',
+                'getter' => 'getId',
+                'actions' => array(
+                    array(
+                        'caption' => Mage::helper('orderstock')->__('Edit'),
+                        // 'url' => array(
+                        //     'base' => '*/*/edit',
+                        // ),
+                        'field' => 'entity_id',
+                    )
+                ),
+                'filter' => false,
+                'sortable' => false,
+                'index' => 'edit',
+                'renderer' => 'orderstock/adminhtml_orderstock_grid_renderer_editbutton',
+            )
+        );
         return parent::_prepareColumns();
     }
 
@@ -95,8 +119,8 @@ class Ccc_Orderstock_Block_Adminhtml_Orderstock_Grid extends Mage_Adminhtml_Bloc
         $this->getCollection();
         $this->addFieldToFilter('entity_id', $value);
     }
-    public function getRowUrl($row)
-    {
-        return $this->getUrl('*/*/edit', array('entity_id' => $row->getId()));
-    }
+    // public function getRowUrl($row)
+    // {
+    //     return $this->getUrl('*/*/edit', array('entity_id' => $row->getId()));
+    // }
 }

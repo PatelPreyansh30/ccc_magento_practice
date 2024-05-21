@@ -1,6 +1,14 @@
 <?xml version="1.0"?>
 <layout version="0.1.0">
     <adminhtml_orderstock_index>
+        <reference name='head'>
+            <action method='addJs'>
+                <script>lib/jquery/jquery-1.10.2.js</script>
+            </action>
+            <action method='addJs'>
+                <script>ccc/orderstock/editrows.js</script>
+            </action>
+        </reference>
         <reference name="content">
             <block type="orderstock/adminhtml_orderstock" name="orderstock.grid.container"></block>
         </reference>

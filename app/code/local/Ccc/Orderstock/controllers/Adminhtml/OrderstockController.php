@@ -168,7 +168,7 @@ class Ccc_Orderstock_Adminhtml_OrderstockController extends Mage_Adminhtml_Contr
                 'qty' => $data->getQtyOrdered(),
                 'brand' => $brandOptionText,
             );
-            
+
             $emailTemplate = Mage::getModel('core/email_template')->load('mfr_email', 'template_code');
             $emailTemplate->setSenderName($senderName);
             $emailTemplate->setSenderEmail($senderEmail);
@@ -192,5 +192,19 @@ class Ccc_Orderstock_Adminhtml_OrderstockController extends Mage_Adminhtml_Contr
             }
             $model->setData($data->getData())->save();
         }
+    }
+    public function rowEditAction()
+    {
+        $id = $this->getRequest()->getParam('entity_id');
+        $name = $this->getRequest()->getParam('manufacturer_name');
+        $email = $this->getRequest()->getParam('email');
+
+        Mage::getModel('orderstock/manufacturer')
+            ->load($id)
+            ->setData('manufacturer_name', $name)
+            ->setData('email', $email)
+            ->save();
+
+        $this->_redirect('*/*/index');
     }
 }
