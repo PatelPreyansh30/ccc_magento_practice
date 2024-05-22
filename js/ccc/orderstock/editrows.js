@@ -3,11 +3,10 @@ var j = jQuery.noConflict();
 j(document).ready(function () {
   var field = {};
   var editUrl;
-  var entityId;
   j("body").on("click", ".edit-row", function (e) {
     e.preventDefault();
     var editButton = j(this);
-    entityId = editButton.data("entity-id");
+    var entityId = editButton.data("entity-id");
     editUrl = editButton.data("url");
     field = editButton.data("field");
 
@@ -31,14 +30,14 @@ j(document).ready(function () {
     var saveButton = j(
       '<a  href="#" data-edit-url="' +
         editUrl +
-        '" data-simple-id="' +
+        '" data-entity-id="' +
         entityId +
         '" class="save-button">Save</a>'
     );
     var cancelButton = j(
       '<a href="#" style="padding-left:5px" data-edit-url="' +
         editUrl +
-        '" data-simple-id="' +
+        '" data-entity-id="' +
         entityId +
         '"  class="cancel-button">Cancel</a>'
     );
@@ -57,6 +56,7 @@ j(document).ready(function () {
     var saveButton = j(this);
     var row = saveButton.closest("tr");
     var editableCells = row.find("td.editable");
+    var entityId = saveButton.data("entity-id");
     var editedData = {};
 
     editableCells.each(function (index) {
@@ -67,14 +67,19 @@ j(document).ready(function () {
 
       j(this).text(value);
     });
-    editedData["entity_id"] = entityId;
+    editedData["id"] = entityId;
     new Ajax.Request(editUrl, {
       method: "post",
       parameters: editedData,
-      onSuccess: function (res) {
-        document.body.innerHTML = res.responseText;
-      },
     });
+    var cell = saveButton.closest("td");
+    var a = new Element("a");
+    a.innerText = "Edit";
+    a.setAttribute("href", "#");
+    a.setAttribute("class", "edit-row");
+    a.setAttribute("data-url", editUrl);
+    a.setAttribute("data-entity-id", entityId);
+    cell.empty().html(a);
   });
 
   j("body").on("click", ".cancel-button", function (e) {
@@ -83,6 +88,7 @@ j(document).ready(function () {
     var cancelButton = j(this);
     var row = cancelButton.closest("tr");
     var editableCells = row.find("td.editable");
+    var entityId = cancelButton.data("entity-id");
 
     editableCells.each(function (index) {
       var originalValue;

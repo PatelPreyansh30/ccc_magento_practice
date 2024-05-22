@@ -195,7 +195,7 @@ class Ccc_Orderstock_Adminhtml_OrderstockController extends Mage_Adminhtml_Contr
     }
     public function rowEditAction()
     {
-        $id = $this->getRequest()->getParam('entity_id');
+        $id = $this->getRequest()->getParam('id');
         $name = $this->getRequest()->getParam('manufacturer_name');
         $email = $this->getRequest()->getParam('email');
 
