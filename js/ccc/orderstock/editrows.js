@@ -9,7 +9,9 @@ j(document).ready(function () {
     var entityId = editButton.data("entity-id");
     editUrl = editButton.data("url");
     field = editButton.data("field");
-
+    if (typeof field === "string") {
+      field = JSON.parse(field);
+    }
     var row = editButton.closest("tr");
     var editableCells = row.find("td.editable");
 
@@ -79,6 +81,7 @@ j(document).ready(function () {
     a.setAttribute("class", "edit-row");
     a.setAttribute("data-url", editUrl);
     a.setAttribute("data-entity-id", entityId);
+    a.setAttribute("data-field", JSON.stringify(field));
     cell.empty().html(a);
   });
 
@@ -103,6 +106,7 @@ j(document).ready(function () {
     a.setAttribute("class", "edit-row");
     a.setAttribute("data-url", editUrl);
     a.setAttribute("data-entity-id", entityId);
+    a.setAttribute("data-field", JSON.stringify(field));
     cell.empty().html(a);
   });
 });
