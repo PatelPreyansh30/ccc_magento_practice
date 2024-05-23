@@ -39,31 +39,12 @@
                             <reportmanager translate="title" module="ccc_reportmanager">
                                 <title>Report manager</title>
                                 <children>
-                                    <reportmanager translate="title">
-                                        <title>Report manager</title>
-                                        <children>
-                                            <actions translate="title">
-                                                <title>Actions</title>
-                                                <children>
-                                                    <index translate="title">
-                                                        <title>Index</title>
-                                                    </index>
-                                                    <new translate="title">
-                                                        <title>New</title>
-                                                    </new>
-                                                    <edit translate="title">
-                                                        <title>Edit</title>
-                                                    </edit>
-                                                    <save translate="title">
-                                                        <title>Save</title>
-                                                    </save>
-                                                    <delete translate="title">
-                                                        <title>Delete</title>
-                                                    </delete>
-                                                </children>
-                                            </actions>
-                                        </children>
-                                    </reportmanager>
+                                    <grid translate="title">
+                                        <title>All Records</title>
+                                    </grid>
+                                    <grid2 translate="title">
+                                        <title>Load By User</title>
+                                    </grid2>
                                 </children>
                             </reportmanager>
                         </children>

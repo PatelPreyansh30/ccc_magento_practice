@@ -113,4 +113,20 @@ class Ccc_Reportmanager_Adminhtml_ReportmanagerController extends Mage_Adminhtml
             ->getData();
         $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($collection));
     }
+    protected function _isAllowed()
+    {
+        $action = strtolower($this->getRequest()->getActionName());
+        switch ($action) {
+            case 'index':
+                $aclResource = 'system/reportmanager/grid';
+                break;
+            case 'index2':
+                $aclResource = 'system/reportmanager/grid2';
+                break;
+            default:
+                $aclResource = 'system/reportmanager';
+                break;
+        }
+        return Mage::getSingleton('admin/session')->isAllowed($aclResource);
+    }
 }
