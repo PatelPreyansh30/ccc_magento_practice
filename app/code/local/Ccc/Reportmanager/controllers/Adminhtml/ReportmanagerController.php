@@ -15,6 +15,13 @@ class Ccc_Reportmanager_Adminhtml_ReportmanagerController extends Mage_Adminhtml
         $this->_title($this->__("Grid"));
         $this->renderLayout();
     }
+    public function index2Action()
+    {
+        $this->loadLayout();
+        $this->_setActiveMenu('grid');
+        $this->_title($this->__("Grid"));
+        $this->renderLayout();
+    }
     public function newAction()
     {
         $this->_forward('edit');

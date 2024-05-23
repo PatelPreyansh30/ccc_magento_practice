@@ -18,12 +18,6 @@ class Ccc_Reportmanager_Block_Adminhtml_Reportmanager_Grid extends Mage_Adminhtm
         $this->setCollection($collection);
         return parent::_prepareCollection();
     }
-    // protected function _prepareCollection()
-    // {
-    //     $collection = Mage::getModel('reportmanager/reportmanager')->getCollection();
-    //     $this->setCollection($collection);
-    //     return parent::_prepareCollection();
-    // }
     protected function _prepareColumns()
     {
         $this->addColumn(

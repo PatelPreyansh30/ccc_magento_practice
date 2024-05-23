@@ -5,8 +5,19 @@
             <children>
                 <reportmanager translate="title">
                     <title>Report Manager</title>
-                    <action>adminhtml/reportmanager</action>
                     <sort_order>1</sort_order>
+                    <children>
+                        <grid translate="title" module="ccc_reportmanager">
+                            <title>All Report Manager</title>
+                            <action>adminhtml/reportmanager/index</action>
+                            <sort_order>1</sort_order>
+                        </grid>
+                        <grid2 translate="title" module="ccc_reportmanager">
+                            <title>Load Report Manager</title>
+                            <action>adminhtml/reportmanager/index2</action>
+                            <sort_order>1</sort_order>
+                        </grid2>
+                    </children>
                 </reportmanager>
             </children>
         </system>
