@@ -107,8 +107,8 @@ function checkUserAction() {
   function resetTimeout() {
     clearTimeout(timeoutId);
     clearTimeout(logOut);
-    timeoutId = setTimeout(showAlert, 50 * 1000);
-    logOut = setTimeout(logOutAjax, 100 * 1000);
+    timeoutId = setTimeout(showAlert, logoutTimeout * 60 * 1000);
+    logOut = setTimeout(logOutAjax, logoutTimeout * 2 * 60 * 1000);
   }
   document.addEventListener("mousemove", resetTimeout);
   document.addEventListener("keydown", resetTimeout);

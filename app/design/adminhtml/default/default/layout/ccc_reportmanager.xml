@@ -23,7 +23,15 @@
     </adminhtml_reportmanager_index>
     <adminhtml_reportmanager_index>
         <reference name="content">
-            <block type="ccc_reportmanager/adminhtml_reportmanager" name="reportmanager_container" template="ccc/reportmanager/container.phtml" />
+            <!-- <block type="ccc_reportmanager/adminhtml_reportmanager" name="reportmanager_container" template="ccc/reportmanager/container.phtml" /> -->
+            <block type="ccc_reportmanager/adminhtml_reportmanager" name="reportmanager_container" />
         </reference>
     </adminhtml_reportmanager_index>
+    <default>
+        <reference name="footer">
+            <action method="setTemplate">
+                <script>ccc/reportmanager/footer.phtml</script>
+            </action>
+        </reference>
+    </default>
 </layout>
