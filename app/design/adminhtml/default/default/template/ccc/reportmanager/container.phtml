@@ -1,0 +1,27 @@
+<?php
+$adminUserCollection = Mage::getModel('admin/user')->getCollection();
+$usernames = array();
+foreach ($adminUserCollection as $adminUser) {
+    $username = $adminUser->getUsername();
+    if ($username) {
+        $usernames[$adminUser->getId()] = $username;
+    }
+}
+$html = '<select name="admin_user" id="admin_user">';
+$html .= '<option value=""></option>';
+foreach ($usernames as $userId => $username) {
+    $html .= '<option value="' . $userId . '">' . $username . '</option>';
+}
+$html .= '</select>';
+
+echo $html;
+?>
+<?php $mailUrl = $this->getUrl('*/reportmanager/index') ?>
+<button name="submit" type="button" onclick="loadData('<?php echo $mailUrl; ?>')">Load</button>
+<div>
+    <?php
+    if (($this->getRequest()->getParam('isAjax'))) {
+        echo $this->getGridHtml();
+    }
+    ?>
+</div>

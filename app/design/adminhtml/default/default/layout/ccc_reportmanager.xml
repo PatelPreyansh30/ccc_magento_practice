@@ -15,8 +15,15 @@
         </reference>
     </adminhtml_customer_index>
     <adminhtml_reportmanager_index>
+        <reference name="head">
+            <action method="addJs">
+                <script>ccc/reportmanager/report.js</script>
+            </action>
+        </reference>
+    </adminhtml_reportmanager_index>
+    <adminhtml_reportmanager_index>
         <reference name="content">
-            <block type="ccc_reportmanager/adminhtml_reportmanager" name="reportmanager_container" />
+            <block type="ccc_reportmanager/adminhtml_reportmanager" name="reportmanager_container" template="ccc/reportmanager/container.phtml" />
         </reference>
     </adminhtml_reportmanager_index>
 </layout>

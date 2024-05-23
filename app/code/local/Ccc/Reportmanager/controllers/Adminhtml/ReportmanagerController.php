@@ -97,4 +97,15 @@ class Ccc_Reportmanager_Adminhtml_ReportmanagerController extends Mage_Adminhtml
 
         $this->_redirect('*/*/index');
     }
+    public function loadFilterAction()
+    {
+        $userId = Mage::getSingleton('admin/session')->getUser()->getId();
+        $collection = Mage::getModel('reportmanager/reportmanager')
+            ->getCollection()
+            ->addFieldToFilter('user_id', $userId)
+            ->addFieldToSelect('report_type')
+            ->addFieldToSelect('filter_data')
+            ->getData();
+        $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($collection));
+    }
 }

@@ -11,9 +11,19 @@ class Ccc_Reportmanager_Block_Adminhtml_Reportmanager_Grid extends Mage_Adminhtm
     protected function _prepareCollection()
     {
         $collection = Mage::getModel('reportmanager/reportmanager')->getCollection();
+        if ($this->getRequest()->getParam('isAjax')) {
+            $userid = $this->getRequest()->getParam('id');
+            $collection->addFieldToFilter('user_id', $userid);
+        }
         $this->setCollection($collection);
         return parent::_prepareCollection();
     }
+    // protected function _prepareCollection()
+    // {
+    //     $collection = Mage::getModel('reportmanager/reportmanager')->getCollection();
+    //     $this->setCollection($collection);
+    //     return parent::_prepareCollection();
+    // }
     protected function _prepareColumns()
     {
         $this->addColumn(
