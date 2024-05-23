@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<layout>
+    <adminhtml_catalog_product_index>
+        <reference name="head">
+            <action method="addJs">
+                <script>ccc/reportmanager/report.js</script>
+            </action>
+        </reference>
+    </adminhtml_catalog_product_index>
+    <adminhtml_customer_index>
+        <reference name="head">
+            <action method="addJs">
+                <script>ccc/reportmanager/report.js</script>
+            </action>
+        </reference>
+    </adminhtml_customer_index>
+    <adminhtml_reportmanager_index>
+        <reference name="content">
+            <block type="ccc_reportmanager/adminhtml_reportmanager" name="reportmanager_container" />
+        </reference>
+    </adminhtml_reportmanager_index>
+</layout>

@@ -54,6 +54,11 @@ class Mage_Adminhtml_Block_Catalog_Product extends Mage_Adminhtml_Block_Widget_C
             'onclick' => "setLocation('{$this->getUrl('*/*/new')}')",
             'class'   => 'add'
         ));
+        $this->_addButton('add_new2', array(
+            'label'   => Mage::helper('catalog')->__('Add Product'),
+            'onclick' => "setLocation('{$this->getUrl('*/*/new')}')",
+            'class'   => 'add'
+        ));
 
         $this->setChild('grid', $this->getLayout()->createBlock('adminhtml/catalog_product_grid', 'product.grid'));
         return parent::_prepareLayout();

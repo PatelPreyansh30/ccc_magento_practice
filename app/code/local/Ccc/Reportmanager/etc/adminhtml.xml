@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<config>
+    <menu>
+        <system>
+            <children>
+                <report_manager translate="title" module="ccc_reportmanager">
+                    <title>Report Manager</title>
+                    <action>adminhtml/reportmanager</action>
+                    <sort_order>1</sort_order>
+                </report_manager>
+            </children>
+        </system>
+    </menu>
+    <acl>
+        <resources>
+            <admin>
+                <children>
+                    <system>
+                        <children>
+                            <report_manager translate="title" module="ccc_reportmanager">
+                                <title>Report Manager</title>
+                                <children>
+                                    <actions translate="title">
+                                        <title>Actions</title>
+                                        <children>
+                                            <index translate="title">
+                                                <title>Grid</title>
+                                            </index>
+                                            <view translate="title">
+                                                <title>View</title>
+                                            </view>
+                                        </children>
+                                    </actions>
+                                </children>
+                            </report_manager>
+                        </children>
+                    </system>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+</config>
