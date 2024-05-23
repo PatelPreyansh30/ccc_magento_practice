@@ -8,5 +8,6 @@ class Ccc_Reportmanager_Block_Adminhtml_Reportmanager extends Mage_Adminhtml_Blo
         $this->_headerText = Mage::helper('ccc_reportmanager')->__('Reportmanager');
         $this->_addButtonLabel = Mage::helper('ccc_reportmanager')->__('Add');
         parent::__construct();
+        $this->_removeButton('add');
     }
 }

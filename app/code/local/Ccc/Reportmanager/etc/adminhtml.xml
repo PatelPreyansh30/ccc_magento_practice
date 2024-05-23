@@ -1,13 +1,13 @@
 <?xml version="1.0"?>
 <config>
     <menu>
-        <system>
+        <system translate="title" module="ccc_reportmanager">
             <children>
-                <report_manager translate="title" module="ccc_reportmanager">
+                <reportmanager translate="title">
                     <title>Report Manager</title>
                     <action>adminhtml/reportmanager</action>
                     <sort_order>1</sort_order>
-                </report_manager>
+                </reportmanager>
             </children>
         </system>
     </menu>
@@ -17,22 +17,44 @@
                 <children>
                     <system>
                         <children>
-                            <report_manager translate="title" module="ccc_reportmanager">
-                                <title>Report Manager</title>
+                            <config>
                                 <children>
-                                    <actions translate="title">
-                                        <title>Actions</title>
-                                        <children>
-                                            <index translate="title">
-                                                <title>Grid</title>
-                                            </index>
-                                            <view translate="title">
-                                                <title>View</title>
-                                            </view>
-                                        </children>
-                                    </actions>
+                                    <ccc_reportmanager translate="title" module="ccc_reportmanager">
+                                        <title>Report Manager</title>
+                                        <sort_order>1</sort_order>
+                                    </ccc_reportmanager>
                                 </children>
-                            </report_manager>
+                            </config>
+                            <reportmanager translate="title" module="ccc_reportmanager">
+                                <title>Report manager</title>
+                                <children>
+                                    <reportmanager translate="title">
+                                        <title>Report manager</title>
+                                        <children>
+                                            <actions translate="title">
+                                                <title>Actions</title>
+                                                <children>
+                                                    <index translate="title">
+                                                        <title>Index</title>
+                                                    </index>
+                                                    <new translate="title">
+                                                        <title>New</title>
+                                                    </new>
+                                                    <edit translate="title">
+                                                        <title>Edit</title>
+                                                    </edit>
+                                                    <save translate="title">
+                                                        <title>Save</title>
+                                                    </save>
+                                                    <delete translate="title">
+                                                        <title>Delete</title>
+                                                    </delete>
+                                                </children>
+                                            </actions>
+                                        </children>
+                                    </reportmanager>
+                                </children>
+                            </reportmanager>
                         </children>
                     </system>
                 </children>

@@ -108,13 +108,13 @@ class Ccc_Reportmanager_Block_Adminhtml_Reportmanager_Grid extends Mage_Adminhtm
         $this->getMassactionBlock()->setFormFieldName('id');
 
         $this->getMassactionBlock()->addItem(
-            'status',
+            'is_active',
             array(
                 'label' => Mage::helper('ccc_reportmanager')->__('Change status'),
                 'url' => $this->getUrl('*/*/massStatus', array('_current' => true)),
                 'additional' => array(
                     'visibility' => array(
-                        'name' => 'status',
+                        'name' => 'is_active',
                         'type' => 'select',
                         'class' => 'required-entry',
                         'label' => Mage::helper('ccc_reportmanager')->__('Status'),
@@ -123,8 +123,6 @@ class Ccc_Reportmanager_Block_Adminhtml_Reportmanager_Grid extends Mage_Adminhtm
                 )
             )
         );
-
-        Mage::dispatchEvent('banner_adminhtml_banner_grid_prepare_massaction', array('block' => $this));
         return $this;
     }
 }

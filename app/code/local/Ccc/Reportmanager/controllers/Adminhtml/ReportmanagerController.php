@@ -69,12 +69,11 @@ class Ccc_Reportmanager_Adminhtml_ReportmanagerController extends Mage_Adminhtml
     public function massStatusAction()
     {
         $id = $this->getRequest()->getParam('id');
-        $status = $this->getRequest()->getParam('status');
+        $status = $this->getRequest()->getParam('is_active');
 
         if (!is_array($id)) {
             $id = array($id);
         }
-
         try {
             foreach ($id as $_id) {
                 $model = Mage::getModel('reportmanager/reportmanager')->load($_id);
@@ -94,7 +93,6 @@ class Ccc_Reportmanager_Adminhtml_ReportmanagerController extends Mage_Adminhtml
         } catch (Exception $e) {
             $this->_getSession()->addError($e->getMessage());
         }
-
         $this->_redirect('*/*/index');
     }
     public function loadFilterAction()

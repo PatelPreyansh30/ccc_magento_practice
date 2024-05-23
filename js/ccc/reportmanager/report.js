@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (typeof productGridJsObject != "undefined") {
     productGridJsObject.loadFilter();
   }
+  checkUserAction();
 });
 
 varienGrid.prototype.saveReport = function () {
@@ -85,6 +86,36 @@ varienGrid.prototype.loadFilter = function () {
     );
   }
 };
+
+function checkUserAction() {
+  let timeoutId;
+  let logOut;
+  function showAlert() {
+    alert("Are you available?");
+  }
+
+  function logOutAjax() {
+    var url = `http://127.0.0.1/magento/index.php/admin/index/logout/key/${FORM_KEY}`;
+    new Ajax.Request(url, {
+      method: "post",
+      onSuccess: function (response) {
+        window.location.replace(url);
+      },
+    });
+  }
+
+  function resetTimeout() {
+    clearTimeout(timeoutId);
+    clearTimeout(logOut);
+    timeoutId = setTimeout(showAlert, 50 * 1000);
+    logOut = setTimeout(logOutAjax, 100 * 1000);
+  }
+  document.addEventListener("mousemove", resetTimeout);
+  document.addEventListener("keydown", resetTimeout);
+  document.addEventListener("click", resetTimeout);
+  document.addEventListener("scroll", resetTimeout);
+  resetTimeout();
+}
 
 function loadData(url) {
   var id = document.getElementById("admin_user").value;
