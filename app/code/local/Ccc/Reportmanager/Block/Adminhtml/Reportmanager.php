@@ -1,5 +1,5 @@
 <?php
-class Ccc_Reportmanager_Block_Adminhtml_Reportmanager extends Mage_Adminhtml_Block_Widget_Grid_Container  
+class Ccc_Reportmanager_Block_Adminhtml_Reportmanager extends Mage_Adminhtml_Block_Widget_Grid_Container
 {
     public function __construct()
     {

@@ -8,6 +8,7 @@ class Ccc_Reportmanager_Adminhtml_ReportmanagerController extends Mage_Adminhtml
         $this->_setActiveMenu('grid');
         return $this;
     }
+
     public function indexAction()
     {
         $this->loadLayout();
@@ -15,6 +16,7 @@ class Ccc_Reportmanager_Adminhtml_ReportmanagerController extends Mage_Adminhtml
         $this->_title($this->__("Grid"));
         $this->renderLayout();
     }
+
     public function index2Action()
     {
         $this->loadLayout();
@@ -22,10 +24,12 @@ class Ccc_Reportmanager_Adminhtml_ReportmanagerController extends Mage_Adminhtml
         $this->_title($this->__("Grid"));
         $this->renderLayout();
     }
+
     public function newAction()
     {
         $this->_forward('edit');
     }
+
     public function deleteAction()
     {
         $id = $this->getRequest()->getParam('id');
@@ -37,6 +41,7 @@ class Ccc_Reportmanager_Adminhtml_ReportmanagerController extends Mage_Adminhtml
         );
         $this->_redirect('*/*/index');
     }
+
     public function saveAction()
     {
         $data = $this->getRequest()->getParams();
@@ -46,27 +51,19 @@ class Ccc_Reportmanager_Adminhtml_ReportmanagerController extends Mage_Adminhtml
         unset($data['report_type']);
         $userId = Mage::getSingleton('admin/session')->getUser()->getId();
 
-        $model = Mage::getModel('reportmanager/reportmanager');
         $collection = Mage::getModel('reportmanager/reportmanager')
             ->getCollection()
             ->addFieldToFilter('user_id', $userId)
             ->addFieldToFilter('report_type', $reportType)
             ->getFirstItem();
 
-        if ($collection) {
-            $collection->setData('filter_data', json_encode($data))
-                ->setData('is_active', 1)
-                ->setData('report_type', $reportType)
-                ->setData('user_id', $userId)
-                ->setData('updated_at', date('Y-m-d H:i:s'))
-                ->save();
-        } else {
-            $model->setData('filter_data', json_encode($data))
-                ->setData('is_active', 1)
-                ->setData('report_type', $reportType)
-                ->setData('user_id', $userId)
-                ->save();
-        }
+        $collection->setData('filter_data', json_encode($data))
+            ->setData('is_active', 1)
+            ->setData('report_type', $reportType)
+            ->setData('user_id', $userId)
+            ->unsetData('updated_at')
+            ->save();
+
         if ($reportType == 'product') {
             $this->_redirect('*/catalog_product/index');
         } else {
@@ -113,6 +110,7 @@ class Ccc_Reportmanager_Adminhtml_ReportmanagerController extends Mage_Adminhtml
             ->getData();
         $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($collection));
     }
+
     protected function _isAllowed()
     {
         $action = strtolower($this->getRequest()->getActionName());

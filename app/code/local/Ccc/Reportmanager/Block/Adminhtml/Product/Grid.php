@@ -282,36 +282,42 @@ class Ccc_Reportmanager_Block_Adminhtml_Product_Grid extends Mage_Adminhtml_Bloc
         $this->setMassactionIdField('entity_id');
         $this->getMassactionBlock()->setFormFieldName('product');
 
-        $this->getMassactionBlock()->addItem('delete', array(
-            'label' => Mage::helper('catalog')->__('Delete'),
-            'url' => $this->getUrl('*/*/massDelete'),
-            'confirm' => Mage::helper('catalog')->__('Are you sure?')
-        )
+        $this->getMassactionBlock()->addItem(
+            'delete',
+            array(
+                'label' => Mage::helper('catalog')->__('Delete'),
+                'url' => $this->getUrl('*/*/massDelete'),
+                'confirm' => Mage::helper('catalog')->__('Are you sure?')
+            )
         );
 
         $statuses = Mage::getSingleton('catalog/product_status')->getOptionArray();
 
         array_unshift($statuses, array('label' => '', 'value' => ''));
-        $this->getMassactionBlock()->addItem('status', array(
-            'label' => Mage::helper('catalog')->__('Change status'),
-            'url' => $this->getUrl('*/*/massStatus', array('_current' => true)),
-            'additional' => array(
-                'visibility' => array(
-                    'name' => 'status',
-                    'type' => 'select',
-                    'class' => 'required-entry',
-                    'label' => Mage::helper('catalog')->__('Status'),
-                    'values' => $statuses
+        $this->getMassactionBlock()->addItem(
+            'status',
+            array(
+                'label' => Mage::helper('catalog')->__('Change status'),
+                'url' => $this->getUrl('*/*/massStatus', array('_current' => true)),
+                'additional' => array(
+                    'visibility' => array(
+                        'name' => 'status',
+                        'type' => 'select',
+                        'class' => 'required-entry',
+                        'label' => Mage::helper('catalog')->__('Status'),
+                        'values' => $statuses
+                    )
                 )
             )
-        )
         );
 
         if (Mage::getSingleton('admin/session')->isAllowed('catalog/update_attributes')) {
-            $this->getMassactionBlock()->addItem('attributes', array(
-                'label' => Mage::helper('catalog')->__('Update Attributes'),
-                'url' => $this->getUrl('*/catalog_product_action_attribute/edit', array('_current' => true))
-            )
+            $this->getMassactionBlock()->addItem(
+                'attributes',
+                array(
+                    'label' => Mage::helper('catalog')->__('Update Attributes'),
+                    'url' => $this->getUrl('*/catalog_product_action_attribute/edit', array('_current' => true))
+                )
             );
         }
 

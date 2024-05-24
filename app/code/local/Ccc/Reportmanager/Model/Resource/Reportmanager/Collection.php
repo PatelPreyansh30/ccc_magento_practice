@@ -5,6 +5,6 @@ class Ccc_Reportmanager_Model_Resource_Reportmanager_Collection extends Mage_Cor
     protected function _construct()
     {
         parent::_construct();
-        $this->_init('reportmanager/reportmanager'); 
+        $this->_init('reportmanager/reportmanager');
     }
 }

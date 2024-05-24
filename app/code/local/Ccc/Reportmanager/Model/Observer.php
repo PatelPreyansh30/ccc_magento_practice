@@ -30,10 +30,7 @@ class Ccc_Reportmanager_Model_Observer
             if ($attribute != 0) {
                 $soldCount = $attribute - $qty;
                 $product->setSoldCount($soldCount)->save();
-                Mage::log($soldCount, null, 'cancel.log', true);
-                Mage::log($attribute, null, 'cancel2.log', true);
             }
-            Mage::log($item->getQtyOrdered(), null, 'cancel3.log', true);
         }
     }
 }
