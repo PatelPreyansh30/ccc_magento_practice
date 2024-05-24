@@ -63,12 +63,6 @@ class Ccc_Reportmanager_Adminhtml_ReportmanagerController extends Mage_Adminhtml
             ->setData('user_id', $userId)
             ->unsetData('updated_at')
             ->save();
-
-        if ($reportType == 'product') {
-            $this->_redirect('*/catalog_product/index');
-        } else {
-            $this->_redirect('*/customer/index');
-        }
     }
     public function massStatusAction()
     {

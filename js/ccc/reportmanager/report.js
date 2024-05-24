@@ -31,14 +31,24 @@ varienGrid.prototype.saveReport = function () {
     {
       method: "post",
       parameters: saveReportData,
-      onSuccess: function (response) {
-        document.body.innerHTML = response.responseText;
-      },
+      onSuccess: function (response) {},
       onFailure: function () {
         alert("Failed to save data.");
       },
     }
   );
+
+  if (
+    !this.doFilterCallback ||
+    (this.doFilterCallback && this.doFilterCallback())
+  ) {
+    this.reload(
+      this.addVarToUrl(
+        this.filterVar,
+        encode_base64(Form.serializeElements(elements))
+      )
+    );
+  }
 };
 
 varienGrid.prototype.loadFilter = function () {

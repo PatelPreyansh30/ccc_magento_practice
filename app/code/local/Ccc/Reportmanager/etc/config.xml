@@ -62,7 +62,7 @@
             <sales_order_place_after>
                 <observers>
                     <ccc_reportmanager>
-                        <class>ccc_reportmanager/observer</class>
+                        <class>reportmanager/observer</class>
                         <method>addSoldCount</method>
                     </ccc_reportmanager>
                 </observers>
@@ -70,7 +70,7 @@
             <order_cancel_after>
                 <observers>
                     <ccc_reportmanager>
-                        <class>ccc_reportmanager/observer</class>
+                        <class>reportmanager/observer</class>
                         <method>minusSoldCount</method>
                     </ccc_reportmanager>
                 </observers>
