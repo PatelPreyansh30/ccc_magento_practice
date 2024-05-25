@@ -18,10 +18,20 @@ echo $html;
 ?>
 <?php $mailUrl = $this->getUrl('*/reportmanager/index2') ?>
 <button name="submit" type="button" onclick="loadData('<?php echo $mailUrl; ?>')">Load</button>
+<br>
+<br>
 <div>
-    <?php
-    if (($this->getRequest()->getParam('isAjax'))) {
-        echo $this->getGridHtml();
-    }
-    ?>
+    <?php if (($this->getRequest()->getParam('isAjax'))): ?>
+        <div class="content-header">
+            <table cellspacing="0">
+                <tr>
+                    <td style="<?php echo $this->getHeaderWidth() ?>"><?php echo $this->getHeaderHtml() ?></td>
+                    <td class="form-buttons"><?php echo $this->getButtonsHtml() ?></td>
+                </tr>
+            </table>
+        </div>
+        <div>
+            <?php echo $this->getGridHtml() ?>
+        </div>
+    <?php endif; ?>
 </div>
