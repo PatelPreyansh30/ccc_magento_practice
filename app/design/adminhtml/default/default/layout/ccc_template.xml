@@ -1,13 +1,19 @@
 <?xml version="1.0"?>
 <layout>
     <adminhtml_template_index>
-        <reference name="head">
-            <action method="addJs">
-                <script>ccc/reportmanager/report.js</script>
-            </action>
-        </reference>
         <reference name="content">
             <block type="ccc_template/adminhtml_template" name="template_container" />
         </reference>
     </adminhtml_template_index>
+
+    <adminhtml_template_new>
+        <update handle="adminhtml_template_edit" />
+    </adminhtml_template_new>
+
+    <adminhtml_template_edit>
+        <update handle="editor" />
+        <reference name="content">
+            <block type="ccc_template/adminhtml_template_edit" name="template_edit" />
+        </reference>
+    </adminhtml_template_edit>
 </layout>
