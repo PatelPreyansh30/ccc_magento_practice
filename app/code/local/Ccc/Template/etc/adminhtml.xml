@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<config>
+    <menu>
+        <template translate="title" module="ccc_template">
+            <title>Template</title>
+            <action>adminhtml/template</action>
+            <sort_order>130</sort_order>
+        </template>
+    </menu>
+</config>
