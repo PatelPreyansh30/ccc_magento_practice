@@ -15,15 +15,15 @@ if ($installer->getConnection()->isTableExists($tableNameManufacturer) !== true)
         ->addColumn('user_name', Varien_Db_Ddl_Table::TYPE_VARCHAR, 255, array(
             'nullable' => false,
         ), 'User Name')
-        ->addColumn('password', Varien_Db_Ddl_Table::TYPE_VARCHAR, 255, array(
+        ->addColumn('client_id', Varien_Db_Ddl_Table::TYPE_VARCHAR, 255, array(
             'nullable' => false,
-        ), 'Password')
-        ->addColumn('api_url', Varien_Db_Ddl_Table::TYPE_TEXT, null, array(
+        ), 'Client Id')
+        ->addColumn('client_secret', Varien_Db_Ddl_Table::TYPE_VARCHAR, 255, array(
             'nullable' => false,
-        ), 'API Url')
-        ->addColumn('api_key', Varien_Db_Ddl_Table::TYPE_TEXT, null, array(
+        ), 'Client Secret')
+        ->addColumn('refresh_token', Varien_Db_Ddl_Table::TYPE_TEXT, null, array(
             'nullable' => false,
-        ), 'API Key')
+        ), 'Refresh Token')
         ->addColumn('is_active', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, array(
             'nullable' => false,
         ), 'Is Active')

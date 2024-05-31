@@ -30,31 +30,21 @@ class Ccc_Outlook_Block_Adminhtml_Configuration_Edit_Tab_Config extends Mage_Adm
             )
         );
         $fieldset->addField(
-            'password',
+            'client_id',
             'text',
             array(
-                'name' => 'password',
-                'label' => Mage::helper('ccc_outlook')->__('Password'),
+                'name' => 'client_id',
+                'label' => Mage::helper('ccc_outlook')->__('Client Id'),
                 'class' => 'required-entry',
                 'required' => true,
             )
         );
         $fieldset->addField(
-            'api_url',
+            'client_secret',
             'text',
             array(
-                'name' => 'api_url',
-                'label' => Mage::helper('ccc_outlook')->__('Api URL'),
-                'class' => 'required-entry',
-                'required' => true,
-            )
-        );
-        $fieldset->addField(
-            'api_key',
-            'text',
-            array(
-                'name' => 'api_key',
-                'label' => Mage::helper('ccc_outlook')->__('Api Key'),
+                'name' => 'client_secret',
+                'label' => Mage::helper('ccc_outlook')->__('Client Secret'),
                 'class' => 'required-entry',
                 'required' => true,
             )
@@ -68,11 +58,23 @@ class Ccc_Outlook_Block_Adminhtml_Configuration_Edit_Tab_Config extends Mage_Adm
                 'class' => 'required-entry',
                 'required' => true,
                 'options' => array(
-                        '1' => Mage::helper('ccc_outlook')->__('Enable'),
-                        '0' => Mage::helper('ccc_outlook')->__('Disable'),
-                    )
+                    '1' => Mage::helper('ccc_outlook')->__('Enable'),
+                    '0' => Mage::helper('ccc_outlook')->__('Disable'),
+                )
             )
         );
+        if ($isEdit && $model->getClientId()) {
+            $fieldset->addField(
+                'login_btn',
+                'note',
+                array(
+                    'client_id' => $model->getClientId(),
+                    'entity_id' => $model->getId(),
+                )
+            )->setRenderer($this
+                    ->getLayout()
+                    ->createBlock('ccc_outlook/adminhtml_configuration_renderer_link'));
+        }
         $form->setValues($model->getData());
         $this->setForm($form);
 

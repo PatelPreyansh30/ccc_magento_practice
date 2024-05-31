@@ -35,20 +35,11 @@ class Ccc_Outlook_Block_Adminhtml_Configuration_Grid extends Mage_Adminhtml_Bloc
             )
         );
         $this->addColumn(
-            'api_url',
+            'client_id',
             array(
-                'header' => Mage::helper('ccc_outlook')->__('Api URL'),
+                'header' => Mage::helper('ccc_outlook')->__('Client Id'),
                 'align' => 'left',
-                'index' => 'api_url',
-                'type' => 'text',
-            )
-        );
-        $this->addColumn(
-            'api_key',
-            array(
-                'header' => Mage::helper('ccc_outlook')->__('Api Key'),
-                'align' => 'left',
-                'index' => 'api_key',
+                'index' => 'client_id',
                 'type' => 'text',
             )
         );
@@ -97,7 +88,7 @@ class Ccc_Outlook_Block_Adminhtml_Configuration_Grid extends Mage_Adminhtml_Bloc
                     array(
                         'caption' => Mage::helper('ccc_outlook')->__('View'),
                         'url' => array('base' => '*/*/edit'),
-                        'field' => 'first_id',
+                        'field' => 'entity_id',
                         'data-column' => 'action',
                     )
                 ),
