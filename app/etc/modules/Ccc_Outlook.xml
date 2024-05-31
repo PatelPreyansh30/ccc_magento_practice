@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <config>
     <modules>
-        <Ccc_Template>
-            <active>false</active>
+        <Ccc_Outlook>
+            <active>true</active>
             <codePool>local</codePool>
-        </Ccc_Template>
+        </Ccc_Outlook>
     </modules>
 </config>

@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<layout>
+    <adminhtml_outlook_index>
+        <reference name="content">
+            <block type="ccc_outlook/adminhtml_configuration" name="configuration_container" />
+        </reference>
+    </adminhtml_outlook_index>
+
+    <adminhtml_outlook_new>
+        <update handle="adminhtml_outlook_edit" />
+    </adminhtml_outlook_new>
+
+    <adminhtml_outlook_edit>
+        <reference name="content">
+            <block type="ccc_outlook/adminhtml_configuration_edit"
+                name="configuration_edit" />
+        </reference>
+        <reference name="left">
+            <block type="ccc_outlook/adminhtml_configuration_edit_tabs"
+                name="configuration_edit_tabs">
+                <block type="ccc_outlook/adminhtml_configuration_edit_tab_config"
+                    name="outlook_edit_tabs_config" />
+                <block type="ccc_outlook/adminhtml_configuration_edit_tab_event"
+                    name="outlook_edit_tabs_event" />
+                <action method="addTab">
+                    <name>main_section</name>
+                    <block>outlook_edit_tabs_config</block>
+                </action>
+                <action method="addTab">
+                    <name>content_section</name>
+                    <block>outlook_edit_tabs_event</block>
+                </action>
+            </block>
+        </reference>
+    </adminhtml_outlook_edit>
+</layout>

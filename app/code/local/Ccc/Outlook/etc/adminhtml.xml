@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+    <menu>
+        <outlook translate="title" module="ccc_outlook">
+            <title>Outlook</title>
+            <action>adminhtml/outlook</action>
+        </outlook>
+    </menu>
+</config>
