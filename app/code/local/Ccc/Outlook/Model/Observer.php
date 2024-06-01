@@ -1,36 +1,16 @@
 <?php
 
-class Ccc_Reportmanager_Model_Observer
+class Ccc_Outlook_Model_Observer
 {
-    public function addSoldCount(Varien_Event_Observer $observer)
+    public function storeEmails()
     {
-        $order = $observer->getEvent()->getOrder();
+        $configCollection = Mage::getModel('outlook/configuration')
+        ->getCollection()
+        ->addFieldToFilter('is_active',1);
+        // ->addFieldToFilter('is_active',1);
 
-        foreach ($order->getAllItems() as $item) {
-            $product = Mage::getModel('catalog/product')->load($item->getProductId());
-            $soldCount = 0;
-            $attribute = (int) $product->getSoldCount();
-            $qty = (int) $item->getQtyOrdered();
-            if ($qty != 0) {
-                $soldCount = $attribute + $qty;
-            } else {
-                $soldCount = (int) $qty;
-            }
-            $product->setSoldCount($soldCount)->save();
-        }
-    }
-    public function minusSoldCount(Varien_Event_Observer $observer)
-    {
-        $order = $observer->getEvent()->getOrder();
-
-        foreach ($order->getAllItems() as $item) {
-            $product = Mage::getModel('catalog/product')->load($item->getProductId());
-            $attribute = (int) $product->getSoldCount();
-            $qty = (int) $item->getQtyOrdered();
-            if ($attribute != 0) {
-                $soldCount = $attribute - $qty;
-                $product->setSoldCount($soldCount)->save();
-            }
+        foreach($configCollection as $configData){
+            $configData->getEmails();
         }
     }
 }

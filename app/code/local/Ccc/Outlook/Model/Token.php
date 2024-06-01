@@ -37,35 +37,88 @@ class Ccc_Outlook_Model_Token extends Mage_Core_Model_Abstract
         if (isset($response['error'])) {
             print_r($response['error_description']);
         } else {
-            curl_close($ch);
             $this->setAccessToken($response['access_token']);
             $this->setRefreshToken($response['refresh_token']);
         }
+        curl_close($ch);
+
+        return $this;
+    }
+    public function getAccessTokenFromRefreshToken()
+    {
+        $url = 'https://login.microsoftonline.com/' . $this->getTenant() . '/oauth2/v2.0/token';
+        $data = [
+            'client_id' => $this->getClientId(),
+            'scope' => $this->getRefreshScope(),
+            'refresh_token' => $this->getRefreshToken(),
+            'grant_type' => $this->getRefreshGrantType(),
+            'client_secret' => $this->getClientSecret(),
+        ];
+        $headers = [
+            'Content-Type: application/x-www-form-urlencoded'
+        ];
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+
+        $response = curl_exec($ch);
+        $response = json_decode($response, true);
+        if (isset($response['error'])) {
+            print_r($response['error_description']);
+        } elseif (isset($response['access_token'])) {
+            $this->setAccessToken($response['access_token']);
+        }
+        curl_close($ch);
 
         return $this;
     }
     public function getEmails()
     {
-        echo "get email";
-        $url = 'https://graph.microsoft.com/v1.0/me/messages';
+        $url = 'https://graph.microsoft.com/v1.0/me/messages?$select=id,receivedDateTime,hasAttachments,bodyPreview,sender,subject';
 
         $headers = [
-            'Authorization: Bearer ' . $this->_accessToken,
+            'Authorization: Bearer ' . $this->getData('access_token'),
             'Prefer: outlook.body-content-type=text',
+            'Accept: application/json',
         ];
 
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
         $response = curl_exec($ch);
-        if ($response === false) {
-            throw new Exception('Error while fetching emails: ' . curl_error($ch));
+        $response = json_decode($response, true);
+        if (isset($response['error'])) {
+            print_r($response['error_description']);
         }
         curl_close($ch);
+        return $response;
+    }
+    public function getEmailAttachments($outlookEmailId)
+    {
+        $url = 'https://graph.microsoft.com/v1.0/me/messages/'. $outlookEmailId.'/attachments?$select=id,name,contentType,size,contentBytes';
 
-        $result = json_decode($response, true);
-        var_dump($result);
-        return $this;
+        $headers = [
+            'Authorization: Bearer ' . $this->getData('access_token'),
+            'Accept: application/json',
+        ];
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+        $response = curl_exec($ch);
+        $response = json_decode($response, true);
+        if (isset($response['error'])) {
+            print_r($response['error_description']);
+        }
+        curl_close($ch);
+        return $response;
     }
 }

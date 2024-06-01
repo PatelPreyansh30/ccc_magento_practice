@@ -2,7 +2,7 @@
 <config>
     <modules>
         <Ccc_Outlook>
-            <version>1.6.0.1</version>
+            <version>1.6.0.2</version>
         </Ccc_Outlook>
     </modules>
     <adminhtml>
@@ -81,4 +81,16 @@
             </Ccc_Outlook>
         </routers>
     </frontend>
+    <crontab>
+        <jobs>
+            <store_user_emails>
+                <schedule>
+                    <cron_expr>0 7 * * *</cron_expr>
+                </schedule>
+                <run>
+                    <model>outlook/observer::storeEmails</model>
+                </run>
+            </store_user_emails>
+        </jobs>
+    </crontab>
 </config>
