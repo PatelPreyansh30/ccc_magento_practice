@@ -6,11 +6,10 @@ class Ccc_Outlook_Block_Adminhtml_Configuration_Renderer_Link extends Mage_Admin
     {
         $url = 'https://login.microsoftonline.com/common/oauth2/v2.0/authorize?';
         $url .= "client_id={$element->getClientId()}";
-        $url .= "&entity_id={$element->getEntityId()}";
         $url .= "&scope=offline_access user.read mail.read";
         $url .= "&response_mode=query";
         $url .= "&response_type=code";
-        $url .= "&redirect_uri=http://localhost/magento/outlook/outlook/getCode";
+        $url .= "&redirect_uri=http://localhost/magento/outlook/outlook/getCode?entity_id={$element->getEntityId()}";
         $url .= "&state=12345";
 
         $html = '<tr>';

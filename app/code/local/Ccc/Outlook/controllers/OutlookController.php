@@ -3,9 +3,20 @@ class Ccc_Outlook_OutlookController extends Mage_Core_Controller_Front_Action
 {
     public function getCodeAction()
     {
-        echo "<pre>";
-        // echo 123;
-        var_dump($this->getRequest()->getParams());
-        // die;
+        $code = $this->getRequest()->getParam('code');
+        $id = $this->getRequest()->getParam('entity_id');
+
+        if ($id && $code) {
+            $configModel = Mage::getModel('outlook/configuration')->load($id);
+            $model = Mage::getModel('outlook/token')
+                ->setClientId($configModel->getClientId())
+                ->setClientSecret($configModel->getClientSecret())
+                ->setCode($code)
+                ->setEntityId($id)
+                ->getAccessToken();
+
+            $configModel->setRefreshToken($model->getRefreshToken())->save();
+            echo "Successfully logged in";
+        }
     }
 }
