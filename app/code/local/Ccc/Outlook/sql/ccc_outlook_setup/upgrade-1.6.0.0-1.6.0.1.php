@@ -12,6 +12,13 @@ if ($installer->getConnection()->isTableExists($tableNameManufacturer) !== true)
             'primary' => true,
             'unsigned' => true,
         ), 'Email Id')
+        ->addColumn('config_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
+            'nullable' => false,
+            'unsigned' => true,
+        ), 'Config Id')
+        ->addColumn('outlook_email_id', Varien_Db_Ddl_Table::TYPE_TEXT, null, array(
+            'nullable' => false,
+        ), 'Outlook Email Id')
         ->addColumn('from', Varien_Db_Ddl_Table::TYPE_VARCHAR, 255, array(
             'nullable' => false,
         ), 'From')
@@ -30,6 +37,14 @@ if ($installer->getConnection()->isTableExists($tableNameManufacturer) !== true)
         ->addColumn('received_date', Varien_Db_Ddl_Table::TYPE_TIMESTAMP, null, array(
             'nullable' => false,
         ), 'Received At')
+        ->addForeignKey(
+            $installer->getFkName('ccc_outlook_email', 'config_id', 'ccc_outlook_configuration', 'entity_id'),
+            'config_id',
+            $installer->getTable('ccc_outlook_configuration'),
+            'entity_id',
+            Varien_Db_Ddl_Table::ACTION_CASCADE,
+            Varien_Db_Ddl_Table::ACTION_CASCADE
+        )
         ->setComment('Outlook Email Table');
     $installer->getConnection()->createTable($tableManufacturer);
 }

@@ -2,7 +2,7 @@
 <config>
     <modules>
         <Ccc_Outlook>
-            <version>1.6.0.0</version>
+            <version>1.6.0.1</version>
         </Ccc_Outlook>
     </modules>
     <adminhtml>
@@ -36,6 +36,15 @@
                     <configuration>
                         <table>ccc_outlook_configuration</table>
                     </configuration>
+                    <email>
+                        <table>ccc_outlook_email</table>
+                    </email>
+                    <attachment>
+                        <table>ccc_outlook_attachment</table>
+                    </attachment>
+                    <event>
+                        <table>ccc_outlook_event</table>
+                    </event>
                 </entities>
             </ccc_outlook_resource>
         </models>
