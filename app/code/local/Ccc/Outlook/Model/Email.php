@@ -18,8 +18,18 @@ class Ccc_Outlook_Model_Email extends Mage_Core_Model_Abstract
                 $this->setHasAttachment($email['hasAttachments']);
                 $this->setReceivedDate($email['receivedDateTime']);
                 $this->save();
+
+                if ($this->getHasAttachment()) {
+                    $attachments = $apiModel->getEmailAttachments($this->getOutlookEmailId());
+
+                    if (isset($attachments) && $attachments['value'] != null) {
+                        foreach ($attachments['value'] as $attachment) {
+                            Mage::getModel('outlook/attachment')
+                                ->setAttachment($attachment, $this->getId());
+                        }
+                    }
+                }
             }
         }
-        print_r($apiModel);
     }
 }

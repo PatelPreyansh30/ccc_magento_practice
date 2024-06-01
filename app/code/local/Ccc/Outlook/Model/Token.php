@@ -80,6 +80,10 @@ class Ccc_Outlook_Model_Token extends Mage_Core_Model_Abstract
     {
         $url = 'https://graph.microsoft.com/v1.0/me/messages?$select=id,receivedDateTime,hasAttachments,bodyPreview,sender,subject';
 
+        // if($this->getLastReadedDate()){
+        //     $url .= '&filter=receivedDateTime gt 2024-06-01';
+        // }
+
         $headers = [
             'Authorization: Bearer ' . $this->getData('access_token'),
             'Prefer: outlook.body-content-type=text',
@@ -101,7 +105,7 @@ class Ccc_Outlook_Model_Token extends Mage_Core_Model_Abstract
     }
     public function getEmailAttachments($outlookEmailId)
     {
-        $url = 'https://graph.microsoft.com/v1.0/me/messages/'. $outlookEmailId.'/attachments?$select=id,name,contentType,size,contentBytes';
+        $url = 'https://graph.microsoft.com/v1.0/me/messages/' . $outlookEmailId . '/attachments';
 
         $headers = [
             'Authorization: Bearer ' . $this->getData('access_token'),

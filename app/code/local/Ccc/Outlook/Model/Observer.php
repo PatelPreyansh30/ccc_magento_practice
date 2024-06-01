@@ -6,8 +6,8 @@ class Ccc_Outlook_Model_Observer
     {
         $configCollection = Mage::getModel('outlook/configuration')
         ->getCollection()
-        ->addFieldToFilter('is_active',1);
-        // ->addFieldToFilter('is_active',1);
+        ->addFieldToFilter('is_active',1)
+        ->addFieldToFilter('logged_in',1);
 
         foreach($configCollection as $configData){
             $configData->getEmails();

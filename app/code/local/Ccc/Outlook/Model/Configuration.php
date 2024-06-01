@@ -12,6 +12,7 @@ class Ccc_Outlook_Model_Configuration extends Mage_Core_Model_Abstract
                 ->setRefreshToken($this->getRefreshToken())
                 ->setClientId($this->getClientId())
                 ->setClientSecret($this->getClientSecret())
+                ->setLastReadedDate($this->getLastReadedDate())
                 ->getAccessTokenFromRefreshToken();
 
             $emails = $apiModel->getEmails();
