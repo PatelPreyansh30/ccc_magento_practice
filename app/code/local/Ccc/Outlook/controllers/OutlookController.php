@@ -15,8 +15,12 @@ class Ccc_Outlook_OutlookController extends Mage_Core_Controller_Front_Action
                 ->setEntityId($id)
                 ->getAccessToken();
 
-            $configModel->setRefreshToken($model->getRefreshToken())->save();
-            echo "Successfully logged in";
+            if($model->getRefreshToken()){
+                $configModel->setRefreshToken($model->getRefreshToken())
+                ->setLoggedIn(1)
+                ->save();
+                echo "Successfully logged in";
+            }
         }
     }
 }

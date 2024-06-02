@@ -11,6 +11,11 @@
     </adminhtml_outlook_new>
 
     <adminhtml_outlook_edit>
+        <reference name="head">
+            <action method="addJs">
+                <script>ccc/outlook/event.js</script>
+            </action>
+        </reference>
         <reference name="content">
             <block type="ccc_outlook/adminhtml_configuration_edit"
                 name="configuration_edit" />
@@ -21,7 +26,7 @@
                 <block type="ccc_outlook/adminhtml_configuration_edit_tab_config"
                     name="outlook_edit_tabs_config" />
                 <block type="ccc_outlook/adminhtml_configuration_edit_tab_event"
-                    name="outlook_edit_tabs_event" />
+                    name="outlook_edit_tabs_event" template="ccc/outlook/configuration/event.phtml" />
                 <action method="addTab">
                     <name>main_section</name>
                     <block>outlook_edit_tabs_config</block>
