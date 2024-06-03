@@ -15,6 +15,9 @@
             <action method="addJs">
                 <script>ccc/outlook/event.js</script>
             </action>
+            <action method="addCss">
+                <style>ccc/outlook/event.css</style>
+            </action>
         </reference>
         <reference name="content">
             <block type="ccc_outlook/adminhtml_configuration_edit"

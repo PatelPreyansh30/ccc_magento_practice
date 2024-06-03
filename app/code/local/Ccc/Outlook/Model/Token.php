@@ -37,6 +37,7 @@ class Ccc_Outlook_Model_Token extends Mage_Core_Model_Abstract
         if (isset($response['error'])) {
             print_r($response['error_description']);
         } else {
+            print_r($response);
             $this->setAccessToken($response['access_token']);
             $this->setRefreshToken($response['refresh_token']);
         }
@@ -78,11 +79,12 @@ class Ccc_Outlook_Model_Token extends Mage_Core_Model_Abstract
     }
     public function getEmails()
     {
-        $url = 'https://graph.microsoft.com/v1.0/me/messages?$select=id,receivedDateTime,hasAttachments,bodyPreview,sender,subject';
+        $url = 'https://graph.microsoft.com/v1.0/me/messages?$select=id,receivedDateTime,hasAttachments,bodyPreview,sender,subject&count=true&top=2';
 
-        // if($this->getLastReadedDate()){
-        //     $url .= '&filter=receivedDateTime gt 2024-06-01';
-        // }
+        // if top is greater than skip that condition handle -> pending
+        if ($this->getSkipPara() != null) {
+            $url .= "&skip=" . $this->getSkipPara();
+        }
 
         $headers = [
             'Authorization: Bearer ' . $this->getData('access_token'),

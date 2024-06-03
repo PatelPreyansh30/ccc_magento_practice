@@ -15,12 +15,23 @@ class Ccc_Outlook_Model_Configuration extends Mage_Core_Model_Abstract
                 ->setLastReadedDate($this->getLastReadedDate())
                 ->getAccessTokenFromRefreshToken();
 
+            if ($this->getSkipEmailCount() != null) {
+                $apiModel->setSkipPara($this->getSkipEmailCount());
+            }
+
             $emails = $apiModel->getEmails();
             if (isset($emails['value']) && $emails['value'] != null) {
                 foreach ($emails['value'] as $email) {
                     Mage::getModel('outlook/email')
                         ->setEmails($email, $this->getId(), $apiModel);
                 }
+                if ($this->getSkipEmailCount() != null) {
+                    $count = (int) $this->getSkipEmailCount() + count($emails['value']);
+                    $this->setSkipEmailCount($count);
+                } else {
+                    $this->setSkipEmailCount(count($emails['value']));
+                }
+                $this->save();
             }
         }
     }
