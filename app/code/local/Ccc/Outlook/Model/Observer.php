@@ -10,7 +10,7 @@ class Ccc_Outlook_Model_Observer
         ->addFieldToFilter('logged_in',1);
 
         foreach($configCollection as $configData){
-            $configData->getEmails();
+            $configData->fetchEmails();
         }
     }
 }

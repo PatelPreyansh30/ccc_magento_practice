@@ -5,7 +5,7 @@ class Ccc_Outlook_Model_Attachment extends Mage_Core_Model_Abstract
     {
         $this->_init('outlook/attachment');
     }
-    public function setAttachment($attachent, $emailId)
+    public function setRowData($attachent)
     {
         $fileName = $attachent['name'];
         $fileData = base64_decode($attachent['contentBytes']);
@@ -17,9 +17,9 @@ class Ccc_Outlook_Model_Attachment extends Mage_Core_Model_Abstract
 
         $this->setPath($filePath);
         $this->setOutlookAttachmentId($attachent['id']);
-        $this->setEmailId($emailId);
+        $this->setEmailId($this->getEmailObj()->getId());
         $this->setOriginalName($attachent['name']);
-        $this->save();
+        return $this;
     }
     protected function _getUniqueFilePath($path, $fileName, $fileData)
     {

@@ -107,20 +107,20 @@ class Ccc_Outlook_Block_Adminhtml_Configuration_Grid extends Mage_Adminhtml_Bloc
     }
     protected function _prepareMassaction()
     {
-        $this->setMassactionIdField('id');
-        $this->getMassactionBlock()->setFormFieldName('id');
+        $this->setMassactionIdField('entity_id');
+        $this->getMassactionBlock()->setFormFieldName('entity_id');
 
         $this->getMassactionBlock()->addItem(
             'is_active',
             array(
-                'label' => Mage::helper('ccc_reportmanager')->__('Change status'),
+                'label' => Mage::helper('ccc_outlook')->__('Change status'),
                 'url' => $this->getUrl('*/*/massStatus', array('_current' => true)),
                 'additional' => array(
                     'visibility' => array(
                         'name' => 'is_active',
                         'type' => 'select',
                         'class' => 'required-entry',
-                        'label' => Mage::helper('ccc_reportmanager')->__('Status'),
+                        'label' => Mage::helper('ccc_outlook')->__('Status'),
                         'values' => [1 => 'Yes', 0 => 'No']
                     )
                 )

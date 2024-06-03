@@ -5,33 +5,26 @@ class Ccc_Outlook_Model_Configuration extends Mage_Core_Model_Abstract
     {
         $this->_init('outlook/configuration');
     }
-    public function getEmails()
+    public function fetchEmails()
     {
         if ($this->getRefreshToken() && $this->getId()) {
-            $apiModel = Mage::getModel('outlook/token')
-                ->setRefreshToken($this->getRefreshToken())
-                ->setClientId($this->getClientId())
-                ->setClientSecret($this->getClientSecret())
-                ->setLastReadedDate($this->getLastReadedDate())
-                ->getAccessTokenFromRefreshToken();
-
-            if ($this->getSkipEmailCount() != null) {
-                $apiModel->setSkipPara($this->getSkipEmailCount());
-            }
+            $apiModel = Mage::getModel('outlook/token')->setConfigObj($this);
 
             $emails = $apiModel->getEmails();
             if (isset($emails['value']) && $emails['value'] != null) {
                 foreach ($emails['value'] as $email) {
-                    Mage::getModel('outlook/email')
-                        ->setEmails($email, $this->getId(), $apiModel);
+                    $emailModel = Mage::getModel('outlook/email')
+                        ->setApiObj($apiModel)
+                        ->setRowData($email);
+
+                    if($emailModel->getConfigId()){
+                        $emailModel->save();
+                    }
+
+                    if ($emailModel->getHasAttachment()) {
+                        $emailModel->fetchAndSaveAttachments();
+                    }
                 }
-                if ($this->getSkipEmailCount() != null) {
-                    $count = (int) $this->getSkipEmailCount() + count($emails['value']);
-                    $this->setSkipEmailCount($count);
-                } else {
-                    $this->setSkipEmailCount(count($emails['value']));
-                }
-                $this->save();
             }
         }
     }

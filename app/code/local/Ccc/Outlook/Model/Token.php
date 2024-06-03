@@ -45,15 +45,15 @@ class Ccc_Outlook_Model_Token extends Mage_Core_Model_Abstract
 
         return $this;
     }
-    public function getAccessTokenFromRefreshToken()
+    private function _getAccessTokenFromRefreshToken()
     {
         $url = 'https://login.microsoftonline.com/' . $this->getTenant() . '/oauth2/v2.0/token';
         $data = [
-            'client_id' => $this->getClientId(),
+            'client_id' => $this->getConfigObj()->getClientId(),
+            'client_secret' => $this->getConfigObj()->getClientSecret(),
+            'refresh_token' => $this->getConfigObj()->getRefreshToken(),
             'scope' => $this->getRefreshScope(),
-            'refresh_token' => $this->getRefreshToken(),
             'grant_type' => $this->getRefreshGrantType(),
-            'client_secret' => $this->getClientSecret(),
         ];
         $headers = [
             'Content-Type: application/x-www-form-urlencoded'
@@ -79,12 +79,8 @@ class Ccc_Outlook_Model_Token extends Mage_Core_Model_Abstract
     }
     public function getEmails()
     {
-        $url = 'https://graph.microsoft.com/v1.0/me/messages?$select=id,receivedDateTime,hasAttachments,bodyPreview,sender,subject&count=true&top=2';
-
-        // if top is greater than skip that condition handle -> pending
-        if ($this->getSkipPara() != null) {
-            $url .= "&skip=" . $this->getSkipPara();
-        }
+        $this->_getAccessTokenFromRefreshToken();
+        $url = 'https://graph.microsoft.com/v1.0/me/messages?$select=id,receivedDateTime,hasAttachments,bodyPreview,sender,subject';
 
         $headers = [
             'Authorization: Bearer ' . $this->getData('access_token'),

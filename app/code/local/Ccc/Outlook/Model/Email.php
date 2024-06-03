@@ -5,30 +5,33 @@ class Ccc_Outlook_Model_Email extends Mage_Core_Model_Abstract
     {
         $this->_init('outlook/email');
     }
-    public function setEmails($email, $configId, Ccc_Outlook_Model_Token $apiModel)
+    public function setRowData($email)
     {
         if (isset($email['sender']['emailAddress']['address'])) {
             $emailAddress = $email['sender']['emailAddress']['address'];
             if (!strpos($emailAddress, 'microsoft')) {
-                $this->setConfigId($configId);
+                $this->setConfigId($this->getApiObj()->getConfigObj()->getId());
                 $this->setOutlookEmailId($email['id']);
                 $this->setFrom($emailAddress);
                 $this->setSubject($email['subject']);
                 $this->setBody($email['bodyPreview']);
                 $this->setHasAttachment($email['hasAttachments']);
                 $this->setReceivedDate($email['receivedDateTime']);
-                $this->save();
+            }
+        }
+        return $this;
+    }
+    public function fetchAndSaveAttachments()
+    {
+        $attachments = $this->getApiObj()
+            ->getEmailAttachments($this->getOutlookEmailId());
 
-                if ($this->getHasAttachment()) {
-                    $attachments = $apiModel->getEmailAttachments($this->getOutlookEmailId());
-
-                    if (isset($attachments) && $attachments['value'] != null) {
-                        foreach ($attachments['value'] as $attachment) {
-                            Mage::getModel('outlook/attachment')
-                                ->setAttachment($attachment, $this->getId());
-                        }
-                    }
-                }
+        if (isset($attachments['value']) && $attachments['value'] != null) {
+            foreach ($attachments['value'] as $attachment) {
+                Mage::getModel('outlook/attachment')
+                ->setEmailObj($this)
+                ->setRowData($attachment)
+                ->save();
             }
         }
     }
