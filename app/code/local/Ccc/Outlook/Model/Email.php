@@ -29,10 +29,21 @@ class Ccc_Outlook_Model_Email extends Mage_Core_Model_Abstract
         if (isset($attachments['value']) && $attachments['value'] != null) {
             foreach ($attachments['value'] as $attachment) {
                 Mage::getModel('outlook/attachment')
-                ->setEmailObj($this)
-                ->setRowData($attachment)
-                ->save();
+                    ->setEmailObj($this)
+                    ->setRowData($attachment)
+                    ->save();
             }
         }
+    }
+
+    protected function _afterSave()
+    {
+        if ($this->getReceivedDate() && $this->getId()) {
+            $this->getApiObj()
+                ->getConfigObj()
+                ->setLastReadedDate($this->getReceivedDate())
+                ->save();
+        }
+        return $this;
     }
 }

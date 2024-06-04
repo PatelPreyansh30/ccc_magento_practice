@@ -2,7 +2,7 @@
 <config>
     <modules>
         <Ccc_Outlook>
-            <version>1.6.0.4</version>
+            <version>1.6.0.5</version>
         </Ccc_Outlook>
     </modules>
     <adminhtml>
@@ -58,6 +58,16 @@
                 </connection>
             </ccc_outlook_setup>
         </resources>
+        <events>
+            <first_event>
+                <observers>
+                    <ccc_outlook>
+                        <class>outlook/observer</class>
+                        <method>getEvent</method>
+                    </ccc_outlook>
+                </observers>
+            </first_event>
+        </events>
     </global>
     <admin>
         <routers>

@@ -80,7 +80,17 @@ class Ccc_Outlook_Model_Token extends Mage_Core_Model_Abstract
     public function getEmails()
     {
         $this->_getAccessTokenFromRefreshToken();
-        $url = 'https://graph.microsoft.com/v1.0/me/messages?$select=id,receivedDateTime,hasAttachments,bodyPreview,sender,subject';
+        $url = 'https://graph.microsoft.com/v1.0/me/messages';
+        $url .= '?select=id,receivedDateTime,hasAttachments,bodyPreview,sender,subject';
+        $url .= '&top=2';
+        $url .= '&orderby=receivedDateTime';
+
+        if (!empty($this->getConfigObj()->getLastReadedDate()) && $this->getConfigObj()->getLastReadedDate() != null) {
+            $date = new DateTime($this->getConfigObj()->getLastReadedDate());
+            $date = $date->modify('+1 second');
+            $date = $date->format('Y-m-d\TH:i:s\Z');
+            $url .= '&filter=' . urlencode('receivedDateTime gt ' . $date);
+        }
 
         $headers = [
             'Authorization: Bearer ' . $this->getData('access_token'),
