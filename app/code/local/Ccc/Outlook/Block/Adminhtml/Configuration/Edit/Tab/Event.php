@@ -10,30 +10,14 @@ class Ccc_Outlook_Block_Adminhtml_Configuration_Edit_Tab_Event extends Mage_Admi
         $form->setHtmlIdPrefix('block_');
         $fieldset = $form->addFieldset('base_fieldset', array('legend' => Mage::helper('ccc_outlook')->__('Event Information'), 'class' => 'fieldset-wide'));
 
-        // if ($isEdit && $model->getSecondId()) {
-        //     $fieldset->addField(
-        //         'second_id',
-        //         'hidden',
-        //         array(
-        //             'name' => 'second_id',
-        //         )
-        //     );
-        // }
-        // $fieldset->addField(
-        //     'middle_name',
-        //     'text',
-        //     array(
-        //         'name'      => 'middle_name',
-        //         'label'     => Mage::helper('ccc_outlook')->__('Middle Name'),
-        //         'class'     => 'required-entry',
-        //         'value'     => $model->getMiddleName(),
-        //         'required'  => true,
-        //     )
-        // );
         $form->setValues($model->getData());
         $this->setForm($form);
 
         return parent::_prepareForm();
+    }
+    public function getEventsData()
+    {
+        return Mage::registry('event_data');
     }
     public function getTabLabel()
     {

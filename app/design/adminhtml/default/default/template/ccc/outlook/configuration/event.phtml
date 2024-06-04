@@ -1,0 +1,38 @@
+<div id="event-form">
+    <div id="new-row-container"></div>
+    <button id="addevent" onclick="page_tabsJsTabs.addEvent()" name="event">Add Event</button>
+</div>
+<span id='events-data-json' style="display: none;">
+    <?php print_r(json_encode($this->getEventsData())); ?>
+</span>
+
+<!-- <button id="renderHtmlButton">Click Me</button>
+<div id="mainContainer"></div> -->
+
+<!-- <script type="text/javascript">
+    document.observe('dom:loaded', function () {
+        var button = $('renderHtmlButton');
+        let eventCounter = 1;
+
+        button.observe('click', function (event) {
+            event.preventDefault();
+
+            new Ajax.Request('<?php echo $this->getSkinUrl('ccc/outlook/eventTab.phtml'); ?>?eventId='+eventCounter, {
+                method: 'get',
+                onSuccess: function (transport) {
+                    var eventTab = document.createElement("div");
+                    eventTab.className = 'eventDiv';
+                    eventTab.id = `eventDiv-${eventCounter}`;
+                    eventTab.setAttribute('eventCounter', eventCounter);
+                    eventTab.innerHTML = transport.responseText;
+                    document.getElementById("mainContainer").appendChild(eventTab);
+                    eventCounter += 1;
+                    // console.log(eventCounter)
+                },
+                onFailure: function () {
+                    alert('Failed to load content.');
+                }
+            });
+        });
+    });
+</script> -->
