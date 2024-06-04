@@ -35,7 +35,54 @@ class Ccc_Outlook_Model_Email extends Mage_Core_Model_Abstract
             }
         }
     }
+    public function dispatchEmailEvent()
+    {
+        $eventCollection = Mage::getModel('outlook/event')
+            ->getCollection()
+            ->addFieldToFilter('config_id', $this->getConfigId());
 
+        $groupCollection = [];
+
+        foreach ($eventCollection as $event) {
+            if (!isset($groupCollection[$event->getGroupId()])) {
+                $groupCollection[$event->getGroupId()][] = $event;
+            } else {
+                $groupCollection[$event->getGroupId()][] = $event;
+            }
+        }
+
+        foreach ($groupCollection as $group) {
+            $hasDispatchEvent = true;
+            foreach ($group as $row) {
+                $comparizonValue = null;
+                $rowName = $row->getName();
+                $rowOperator = $row->getOperator();
+                $rowValue = $row->getValue();
+
+                if ($rowName == 'from') {
+                    $comparizonValue = $this->getFrom();
+                } elseif ($rowName == 'subject') {
+                    $comparizonValue = $this->getSubject();
+                }
+
+                if ($rowOperator == '%like%') {
+                    if (strpos($comparizonValue, $rowValue) === false) {
+                        $hasDispatchEvent = false;
+                        break;
+                    }
+                } elseif ($rowOperator == 'like' || $rowOperator == '==') {
+                    if (strcmp($comparizonValue, $rowValue) !== 0) {
+                        $hasDispatchEvent = false;
+                        break;
+                    }
+                }
+            }
+            if ($hasDispatchEvent) {
+                echo $row->getEventName();
+                Mage::dispatchEvent($row->getEventName(), ['email' => $this]);
+            }
+        }
+    }
     protected function _afterSave()
     {
         if ($this->getReceivedDate() && $this->getId()) {
