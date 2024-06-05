@@ -20,6 +20,7 @@ class Ccc_Filemanager_Model_Filemanager extends Varien_Data_Collection_Filesyste
             'extension' => $pathInfo['extension'],
             'fullpath' => $filename,
             'main_directory' => array_keys($this->_targetDirs)[0],
+            'basename' => $pathInfo['basename'],
         );
     }
 }

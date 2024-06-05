@@ -8,6 +8,7 @@ changeFolderPath = function (url) {
       document.open();
       document.write(response.responseText);
       document.close();
+      $("folder_path").value = selectValue;
     },
   });
 };
