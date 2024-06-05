@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<layout>
+    <adminhtml_filemanager_index>
+        <reference name="content">
+            <block
+                type="ccc_filemanager/adminhtml_filemanager"
+                name="filemanager_container"
+                template="ccc/filemanager/container.phtml"
+            />
+        </reference>
+    </adminhtml_filemanager_index>
+</layout>

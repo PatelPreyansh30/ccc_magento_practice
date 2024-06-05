@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<config>
+    <menu>
+        <filemanager translate="title" module="ccc_filemanager">
+            <title>File Manager</title>
+            <action>adminhtml/filemanager</action>
+            <sort_order>150</sort_order>
+        </filemanager>
+    </menu>
+</config>

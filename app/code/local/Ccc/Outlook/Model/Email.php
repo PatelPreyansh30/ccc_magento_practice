@@ -44,11 +44,7 @@ class Ccc_Outlook_Model_Email extends Mage_Core_Model_Abstract
         $groupCollection = [];
 
         foreach ($eventCollection as $event) {
-            if (!isset($groupCollection[$event->getGroupId()])) {
-                $groupCollection[$event->getGroupId()][] = $event;
-            } else {
-                $groupCollection[$event->getGroupId()][] = $event;
-            }
+            $groupCollection[$event->getGroupId()][] = $event;
         }
 
         foreach ($groupCollection as $group) {
