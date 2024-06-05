@@ -9,4 +9,7 @@ class Ccc_Filemanager_Block_Adminhtml_Filemanager extends Mage_Adminhtml_Block_W
         parent::__construct();
         $this->_removeButton('add');
     }
+    public function getFilemanagerConfigData(){
+        return Mage::getStoreConfig('ccc_filemanager/general/mediapath');
+    }
 }

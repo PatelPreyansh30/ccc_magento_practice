@@ -1,4 +1,18 @@
-Hello
+<?php
+$configPath = preg_replace('!\s+!', ' ', $this->getFilemanagerConfigData());
+$paths = explode(" ", $configPath);
+$basePath = Mage::getBaseUrl() . 'admin/filemanager/index';
+?>
+
+<select name="folder_path" id="folder_path" onchange="changeFolderPath('<?php echo $basePath ?>')">
+    <option value="">--- SELECT FOLDER PATH ---</option>
+    <?php foreach ($paths as $path): ?>
+        <option value="<?php echo $path; ?>">
+            <?php echo strtoupper($path); ?>
+        </option>
+    <?php endforeach; ?>
+</select>
+
 <div class="content-header">
     <table cellspacing="0">
         <tr>
@@ -9,5 +23,5 @@ Hello
     </table>
 </div>
 <div>
-    <!-- <?php echo $this->getGridHtml() ?> -->
+    <?php echo $this->getGridHtml() ?>
 </div>

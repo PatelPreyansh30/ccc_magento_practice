@@ -1,6 +1,11 @@
 <?xml version="1.0"?>
 <layout>
     <adminhtml_filemanager_index>
+        <reference name="head">
+            <action method="addJs">
+                <script>ccc/filemanager/container.js</script>
+            </action>
+        </reference>
         <reference name="content">
             <block
                 type="ccc_filemanager/adminhtml_filemanager"
