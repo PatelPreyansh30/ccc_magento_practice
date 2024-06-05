@@ -7,4 +7,24 @@
             <sort_order>150</sort_order>
         </filemanager>
     </menu>
+    <acl>
+        <resources>
+            <admin>
+                <children>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <ccc_filemanager translate="title" module="ccc_filemanager">
+                                        <title>Filemanager System Config</title>
+                                        <sort_order>1</sort_order>
+                                    </ccc_filemanager>
+                                </children>
+                            </config>
+                        </children>
+                    </system>
+                </children>
+            </admin>
+        </resources>
+    </acl>
 </config>
