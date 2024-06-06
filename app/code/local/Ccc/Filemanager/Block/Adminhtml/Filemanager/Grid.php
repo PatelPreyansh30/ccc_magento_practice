@@ -32,7 +32,7 @@ class Ccc_Filemanager_Block_Adminhtml_Filemanager_Grid extends Mage_Adminhtml_Bl
             array(
                 'header' => Mage::helper('ccc_filemanager')->__('Filename'),
                 'index' => 'filename',
-                'type' => 'text',
+                'renderer' => 'Ccc_Filemanager_Block_Adminhtml_Filemanager_Renderer_Input',
             )
         );
         $this->addColumn(
