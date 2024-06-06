@@ -20,7 +20,11 @@ function inlineChange(obj) {
     if (!obj.querySelector("input")) {
       var input = document.createElement("input");
       input.type = "text";
-      input.value = data.filename;
+      if (obj.getAttribute("changed-name")) {
+        input.value = obj.getAttribute("changed-name");
+      } else {
+        input.value = data.filename;
+      }
       input.name = "filename";
 
       var submit = document.createElement("button");
@@ -41,7 +45,7 @@ function inlineChange(obj) {
             var response = JSON.parse(response.responseText);
             if (response.success) {
               obj.innerHTML = input.value;
-              data.filename = input.value;
+              obj.setAttribute("changed-name", input.value);
             } else {
               obj.innerHTML = data.filename;
             }
@@ -62,7 +66,11 @@ function inlineChange(obj) {
         e.stopPropagation();
 
         obj.classList.remove("editable");
-        obj.innerHTML = data.filename;
+        if (obj.getAttribute("changed-name")) {
+          obj.innerHTML = obj.getAttribute("changed-name");
+        } else {
+          obj.innerHTML = data.filename;
+        }
 
         var inputElements = obj.querySelectorAll("input, button");
         for (var i = 0; i < inputElements.length; i++) {
