@@ -14,6 +14,14 @@ class Ccc_Filemanager_Adminhtml_FilemanagerController extends Mage_Adminhtml_Con
         $this->_title($this->__("Filemanager"));
         $this->renderLayout();
     }
+    public function gridAction()
+    {
+        $this->loadLayout();
+        $this->getResponse()->setBody(
+            $this->getLayout()->createBlock('ccc_filemanager/adminhtml_filemanager_grid')
+                ->toHtml()
+        );
+    }
     public function deleteAction()
     {
         $path = $this->getRequest()->getParam('path');
@@ -44,22 +52,15 @@ class Ccc_Filemanager_Adminhtml_FilemanagerController extends Mage_Adminhtml_Con
     }
     public function renameAction()
     {
-        $newFilename = $this->getRequest()->getParam('new_filename');
-        $oldFilename = $this->getRequest()->getParam('old_filename');
-        $fullpath = $this->getRequest()->getParam('fullpath');
-
         try {
-            $pathArray = explode("\\", $fullpath);
-            $newPath = str_replace($oldFilename, $newFilename, array_slice($pathArray, -1)[0]);
-
-            array_pop($pathArray);
-            $pathArray[] = $newPath;
-            $newPath = implode("\\", $pathArray);
+            $newFilename = $this->getRequest()->getParam('new_filename');
+            $oldFilename = $this->getRequest()->getParam('old_filename');
+            $fullpath = $this->getRequest()->getParam('fullpath');
+            $newPath = str_replace($oldFilename, $newFilename, $fullpath);
 
             if (file_exists($fullpath)) {
                 rename($fullpath, $newPath);
             }
-
             $response = ['success' => true, 'message' => "Rename completed successfully."];
         } catch (Exception $e) {
             $response = ['success' => false, 'message' => $e->getMessage()];

@@ -1,7 +1,7 @@
 <?php
 $configPath = preg_replace('!\s+!', ' ', $this->getFilemanagerConfigData());
 $paths = explode(" ", $configPath);
-$basePath = Mage::getBaseUrl() . 'admin/filemanager/index';
+$basePath = Mage::getBaseUrl() . 'admin/filemanager/grid';
 ?>
 
 <select name="folder_path" id="folder_path" onchange="changeFolderPath('<?php echo $basePath ?>')">
@@ -22,6 +22,6 @@ $basePath = Mage::getBaseUrl() . 'admin/filemanager/index';
         </tr>
     </table>
 </div>
-<div>
+<div id="filemanager-grid">
     <?php echo $this->getGridHtml() ?>
 </div>

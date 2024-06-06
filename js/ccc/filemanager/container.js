@@ -3,12 +3,10 @@ changeFolderPath = function (url) {
 
   new Ajax.Request(url, {
     method: "post",
-    parameters: { value: selectValue },
+    evalScripts: true,
+    parameters: { value: btoa(selectValue) },
     onSuccess: function (response) {
-      document.open();
-      document.write(response.responseText);
-      document.close();
-      $("folder_path").value = selectValue;
+      $("filemanager-grid").update(response.responseText);
     },
   });
 };
@@ -35,14 +33,15 @@ function inlineChange(obj) {
         new Ajax.Request(url, {
           method: "post",
           parameters: {
-            new_filename: input.value,
-            old_filename: data.filename,
+            new_filename: `${input.value}.${data.extension}`,
+            old_filename: data.basename,
             fullpath: data.fullpath,
           },
           onSuccess: function (response) {
             var response = JSON.parse(response.responseText);
             if (response.success) {
               obj.innerHTML = input.value;
+              data.filename = input.value;
             } else {
               obj.innerHTML = data.filename;
             }
@@ -52,8 +51,6 @@ function inlineChange(obj) {
             for (var i = 0; i < inputElements.length; i++) {
               inputElements[i].style.display = "none";
             }
-            console.log(response);
-            Prototype.emptyFunction;
           },
         });
       };
@@ -87,3 +84,59 @@ function inlineChange(obj) {
     console.log("Making non-editable");
   }
 }
+
+varienGrid.prototype.doSort = function (event) {
+  var element = Event.findElement(event, "a");
+
+  this.addVarToUrl("value", btoa($F("folder_path")));
+
+  if (element.name && element.title) {
+    this.addVarToUrl(this.sortVar, element.name);
+    this.addVarToUrl(this.dirVar, element.title);
+    this.reload(this.url);
+  }
+  Event.stop(event);
+  return false;
+};
+
+varienGrid.prototype.resetFilter = function () {
+  this.addVarToUrl("value", btoa($F("folder_path")));
+  this.reload(this.addVarToUrl(this.filterVar, ""));
+};
+
+varienGrid.prototype.doFilter = function () {
+  var filters = $$(
+    "#" + this.containerId + " .filter input",
+    "#" + this.containerId + " .filter select"
+  );
+  var elements = [];
+
+  this.addVarToUrl("value", btoa($F("folder_path")));
+
+  for (var i in filters) {
+    if (filters[i].value && filters[i].value.length) elements.push(filters[i]);
+  }
+  if (
+    !this.doFilterCallback ||
+    (this.doFilterCallback && this.doFilterCallback())
+  ) {
+    this.reload(
+      this.addVarToUrl(
+        this.filterVar,
+        encode_base64(Form.serializeElements(elements))
+      )
+    );
+  }
+};
+
+varienGrid.prototype.setPage = function (pageNumber) {
+  this.addVarToUrl("value", btoa($F("folder_path")));
+  this.reload(this.addVarToUrl(this.pageVar, pageNumber));
+};
+
+varienGrid.prototype.loadByElement = function (element) {
+  if (element && element.name) {
+    this.addVarToUrl("value", btoa($F("folder_path")));
+    this.reload(this.addVarToUrl(element.name, element.value));
+  }
+};
