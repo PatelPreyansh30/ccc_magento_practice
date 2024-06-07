@@ -46,6 +46,22 @@ function inlineChange(obj) {
             if (response.success) {
               obj.innerHTML = input.value;
               obj.setAttribute("changed-name", input.value);
+
+              var download = document.getElementById(`download-${data.id}`);
+              var downloadHref = download.getAttribute("href");
+              downloadHref = downloadHref.replaceAll(
+                data.basename,
+                `${input.value}.${data.extension}`
+              );
+              download.setAttribute("href", downloadHref);
+
+              var deletee = document.getElementById(`delete-${data.id}`);
+              var deleteHref = deletee.getAttribute("href");
+              deleteHref = deleteHref.replaceAll(
+                data.basename,
+                `${input.value}.${data.extension}`
+              );
+              deletee.setAttribute("href", deleteHref);
             } else {
               obj.innerHTML = data.filename;
             }
@@ -55,6 +71,7 @@ function inlineChange(obj) {
             for (var i = 0; i < inputElements.length; i++) {
               inputElements[i].style.display = "none";
             }
+            alert(response.message);
           },
         });
       };

@@ -23,4 +23,10 @@ class Ccc_Filemanager_Model_Filemanager extends Varien_Data_Collection_Filesyste
             'basename' => $pathInfo['basename'],
         );
     }
+    public function filterCallbackLike($field, $filterValue, $row)
+    {
+        $filterValueRegex = str_replace('%', '(.*?)', preg_quote($filterValue, '/'));
+        $filterValueRegex = trim($filterValueRegex, "''");
+        return (bool) preg_match("/^{$filterValueRegex}$/i", $row[$field]);
+    }
 }

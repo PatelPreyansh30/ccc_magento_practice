@@ -7,7 +7,12 @@ $basePath = Mage::getBaseUrl() . 'admin/filemanager/grid';
 <select name="folder_path" id="folder_path" onchange="changeFolderPath('<?php echo $basePath ?>')">
     <option value="">--- SELECT FOLDER PATH ---</option>
     <?php foreach ($paths as $path): ?>
-        <option value="<?php echo $path; ?>">
+        <?php if ($this->getRequest()->getParam('value')): ?>
+            <?php $selected = $path == base64_decode($this->getRequest()->getParam('value')) ? 'selected' : '' ?>
+        <?php else: ?>
+            <?php $selected = ""; ?>
+        <?php endif; ?>
+        <option value="<?php echo $path; ?>" <?php echo $selected; ?>>
             <?php echo strtoupper($path); ?>
         </option>
     <?php endforeach; ?>

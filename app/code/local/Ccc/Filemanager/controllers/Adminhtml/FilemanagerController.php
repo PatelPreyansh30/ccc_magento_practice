@@ -32,23 +32,15 @@ class Ccc_Filemanager_Adminhtml_FilemanagerController extends Mage_Adminhtml_Con
         } else {
             Mage::getSingleton('adminhtml/session')->addError('Error occured while deleting file.');
         }
-        $this->_redirect('*/*/index', ['_query' => ['isAjax' => true, 'value' => $value]]);
+        $this->_redirect('*/*/index', ['_query' => ['isAjax' => true, 'value' => base64_encode($value)]]);
     }
     public function downloadAction()
     {
-        $path = $this->getRequest()->getParam('path');
-        $path = Mage::getBaseDir() . DS . $path;
+        $path = Mage::getBaseDir() . DS . ($this->getRequest()->getParam('path'));
         $basename = $this->getRequest()->getParam('basename');
-        $value = $this->getRequest()->getParam('value');
-        try {
-            if (file_exists($path)) {
-                $this->_prepareDownloadResponse($basename, array('type' => 'filename', 'value' => $path));
-                Mage::getSingleton('adminhtml/session')->addSuccess('File has been downloaded.');
-            }
-        } catch (Exception $e) {
-            Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
+        if (file_exists($path)) {
+            $this->_prepareDownloadResponse($basename, array('type' => 'filename', 'value' => $path));
         }
-        $this->_redirect('*/*/index', ['_query' => ['isAjax' => true, 'value' => $value]]);
     }
     public function renameAction()
     {
@@ -58,10 +50,12 @@ class Ccc_Filemanager_Adminhtml_FilemanagerController extends Mage_Adminhtml_Con
             $fullpath = $this->getRequest()->getParam('fullpath');
             $newPath = str_replace($oldFilename, $newFilename, $fullpath);
 
-            if (file_exists($fullpath)) {
+            if (file_exists($fullpath) && !file_exists($newPath)) {
                 rename($fullpath, $newPath);
+                $response = ['success' => true, 'message' => "Rename completed successfully."];
+            } else {
+                throw new Exception("File name already exists.");
             }
-            $response = ['success' => true, 'message' => "Rename completed successfully."];
         } catch (Exception $e) {
             $response = ['success' => false, 'message' => $e->getMessage()];
         }

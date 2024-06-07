@@ -19,29 +19,11 @@ class Ccc_Filemanager_Block_Adminhtml_Filemanager_Grid extends Mage_Adminhtml_Bl
             $collection = Mage::getModel('ccc_filemanager/filemanager')
                 ->addTargetDir($path);
 
-            if ($this->getRequest()->getParam('sort')) {
-                $collection->setOrder(
-                    $this->getRequest()->getParam('sort'),
-                    $this->getRequest()->getParam('dir')
-                );
-            }
-
-            if ($this->getRequest()->getParam('filter')) {
-                $filters = $this->helper('adminhtml')
-                    ->prepareFilterString($this->getRequest()->getParam('filter'));
-                foreach ($filters as $_field => $value) {
-                    $collection->addFieldToFilter($_field, ['like' => "%$value%"]);
-                }
-            }
-
-            $collection->setPageSize($this->getRequest()->getParam('limit', 20));
-            $collection->setCurPage($this->getRequest()->getParam('page', 1));
-
-            $collection->loadData();
             $this->setCollection($collection);
             return parent::_prepareCollection();
         }
     }
+    
     protected function _prepareColumns()
     {
         $this->addColumn(
@@ -88,5 +70,9 @@ class Ccc_Filemanager_Block_Adminhtml_Filemanager_Grid extends Mage_Adminhtml_Bl
             )
         );
         return parent::_prepareColumns();
+    }
+    public function getGridUrl()
+    {
+        return $this->getUrl('*/*/grid', array('_current' => true));
     }
 }
