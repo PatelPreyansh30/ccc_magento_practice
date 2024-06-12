@@ -16,4 +16,10 @@
                 name="configuration_edit" />
         </reference>
     </adminhtml_ftp_configuration_edit>
+
+    <adminhtml_ftp_file_index>
+        <reference name="content">
+            <block type="ccc_ftp/adminhtml_file" name="ftp_file_container" />
+        </reference>
+    </adminhtml_ftp_file_index>
 </layout>
