@@ -2,7 +2,7 @@
 <config>
     <modules>
         <Ccc_Ftp>
-            <version>1.6.0.5</version>
+            <version>1.6.0.1</version>
         </Ccc_Ftp>
     </modules>
     <adminhtml>
@@ -64,4 +64,16 @@
             </adminhtml>
         </routers>
     </admin>
+    <crontab>
+        <jobs>
+            <transfer_ftp_files>
+                <schedule>
+                    <cron_expr>0 7 * * *</cron_expr>
+                </schedule>
+                <run>
+                    <model>ccc_ftp/observer::transferFile</model>
+                </run>
+            </transfer_ftp_files>
+        </jobs>
+    </crontab>
 </config>

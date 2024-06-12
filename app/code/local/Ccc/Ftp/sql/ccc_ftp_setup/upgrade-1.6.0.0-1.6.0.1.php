@@ -19,6 +19,9 @@ if ($installer->getConnection()->isTableExists($tableName) !== true) {
         ->addColumn('file_name', Varien_Db_Ddl_Table::TYPE_VARCHAR, 255, array(
             'nullable' => false,
         ), 'File Name')
+        ->addColumn('path', Varien_Db_Ddl_Table::TYPE_VARCHAR, 255, array(
+            'nullable' => false,
+        ), 'Path')
         ->addColumn('received_date', Varien_Db_Ddl_Table::TYPE_TIMESTAMP, null, array(
             'nullable' => false,
         ), 'Received At')
