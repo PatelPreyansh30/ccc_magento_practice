@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<config>
+    <menu>
+        <ftp translate="title" module="ccc_ftp">
+            <title>FTP</title>
+            <sort_order>1</sort_order>
+            <children>
+                <configuration translate="title">
+                    <title>Configuration</title>
+                    <action>adminhtml/ftp_configuration</action>
+                    <sort_order>1</sort_order>
+                </configuration>
+                <file translate="title">
+                    <title>Files</title>
+                    <action>adminhtml/ftp_file</action>
+                    <sort_order>2</sort_order>
+                </file>
+            </children>
+        </ftp>
+    </menu>
+</config>
