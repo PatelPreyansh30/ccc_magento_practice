@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<layout>
+    <adminhtml_ftp_configuration_index>
+        <reference name="content">
+            <block type="ccc_ftp/adminhtml_configuration" name="ftp_configuration_container" />
+        </reference>
+    </adminhtml_ftp_configuration_index>
+
+    <adminhtml_ftp_configuration_new>
+        <update handle="adminhtml_ftp_configuration_edit" />
+    </adminhtml_ftp_configuration_new>
+
+    <adminhtml_ftp_configuration_edit>
+        <reference name="content">
+            <block type="ccc_ftp/adminhtml_configuration_edit"
+                name="configuration_edit" />
+        </reference>
+    </adminhtml_ftp_configuration_edit>
+</layout>
