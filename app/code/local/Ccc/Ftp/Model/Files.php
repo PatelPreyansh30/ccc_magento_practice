@@ -10,7 +10,7 @@ class Ccc_Ftp_Model_Files extends Mage_Core_Model_Abstract
         $this->setConfigId($this->getConfigModel()->getId());
         $this->setFileName($file['newname']);
         $this->setPath($file['path']);
-        $this->setRecievedDate(date('Y-m-d H:i:s', $file['date']));
+        $this->setReceivedDate(date('Y-m-d H:i:s', $file['date']));
 
         return $this;
     }

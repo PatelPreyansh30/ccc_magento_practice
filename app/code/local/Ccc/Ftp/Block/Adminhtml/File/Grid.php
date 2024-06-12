@@ -68,4 +68,8 @@ class Ccc_Ftp_Block_Adminhtml_File_Grid extends Mage_Adminhtml_Block_Widget_Grid
 
         return parent::_prepareColumns();
     }
+    public function getGridUrl()
+    {
+        return $this->getUrl('*/*/grid', array('_current' => true));
+    }
 }
