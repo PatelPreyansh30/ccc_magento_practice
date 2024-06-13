@@ -108,6 +108,45 @@ class Ccc_Ftp_Adminhtml_Ftp_FileController extends Mage_Adminhtml_Controller_Act
     }
     public function convertAction()
     {
-        
+        $id = $this->getRequest()->getParam('id');
+        if ($id) {
+            $localPath = Mage::helper('ccc_ftp')->getLocalDir();
+            $fileModel = Mage::getModel('ccc_ftp/files')->load($id);
+            $config = new Varien_Simplexml_Config();
+            $config->loadFile($localPath . $fileModel->getPath() . DS . $fileModel->getFileName());
+
+            $mapping = Mage::helper('ccc_ftp')->xmlMapping();
+
+            $csv = [];
+            foreach ($config->getNode('items')->children() as $item) {
+                $data = [];
+                foreach ($mapping as $key => $map) {
+                    $map = explode(':', $map);
+                    $path = str_replace('.', '/', $map[0]);
+                    $attribute = $map[1];
+
+                    if ($item->descend($path)) {
+                        $value = (string) $item->descend($path)->attributes()->$attribute;
+                        $data[$key] = $value;
+                    }
+                }
+                $csv[] = $data;
+            }
+            if (!empty($csv)) {
+                $csvFileName = $localPath . $fileModel->getPath() . DS . $fileModel->getFileName();
+                $csvFileName = explode('.', $csvFileName)[0] . '.csv';
+                $cs = fopen($csvFileName, 'w');
+                fputcsv($cs, array_keys($mapping), ',');
+
+                foreach ($csv as $_csv) {
+                    fputcsv($cs, $_csv, ',');
+                }
+                fclose($cs);
+                Mage::getSingleton('adminhtml/session')->addSuccess(
+                    Mage::helper('ccc_ftp')->__('The XML file has been converted into CSV.')
+                );
+            }
+        }
+        $this->_redirect('*/*/index');
     }
 }
