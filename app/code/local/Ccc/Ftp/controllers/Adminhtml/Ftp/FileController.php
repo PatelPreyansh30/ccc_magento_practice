@@ -22,4 +22,92 @@ class Ccc_Ftp_Adminhtml_Ftp_FileController extends Mage_Adminhtml_Controller_Act
                 ->toHtml()
         );
     }
+    public function downloadAction()
+    {
+        $path = Mage::helper('ccc_ftp')->getLocalDir() . DS . ($this->getRequest()->getParam('path'));
+        if (file_exists($path)) {
+            $this->_prepareDownloadResponse(basename($path), array('type' => 'filename', 'value' => $path));
+        }
+    }
+    public function extractAction()
+    {
+        $id = $this->getRequest()->getParam('id');
+        if ($id) {
+            $file = Mage::getModel('ccc_ftp/files')->load($id);
+            if ($file->getFileName()) {
+                $localPath = Mage::helper('ccc_ftp')->getLocalDir();
+                $folderName = explode('.', $file->getFileName())[0];
+                $zipPath = $file->getFileName();
+                if ($file->getPath()) {
+                    $zipPath = substr($file->getPath(), 1) . DS . $file->getFileName();
+                    $folderName = substr($file->getPath(), 1) . DS . $folderName;
+                }
+                $zipPath = $localPath . DS . $zipPath;
+                $folderName = $localPath . DS . $folderName;
+                if (!file_exists($folderName)) {
+                    mkdir($folderName, 0777);
+                }
+
+                $zipModel = new Zend_Filter_Compress_Zip();
+                $zipModel->setTarget($folderName);
+                $zipModel->decompress($zipPath);
+
+                $files = $this->recursiveLs($folderName);
+                if (!empty($files)) {
+                    $status = $this->transferFiles($files, $file);
+                    if ($status) {
+                        $file->delete();
+                        unlink($zipPath);
+                        Mage::getSingleton('adminhtml/session')->addSuccess(
+                            Mage::helper('ccc_ftp')->__('The Zip file has been extracted.')
+                        );
+                    }
+                }
+            }
+        }
+        $this->_redirect('*/*/index');
+    }
+    protected function recursiveLs($dir, &$results = [])
+    {
+        $files = scandir($dir);
+
+        foreach ($files as $key => $value) {
+            $path = realpath($dir . DS . $value);
+            if (!is_dir($path)) {
+                $results[] = $path;
+            } else if ($value != "." && $value != "..") {
+                $this->recursiveLs($path, $results);
+            }
+        }
+
+        return $results;
+    }
+    protected function transferFiles($files, $fileModel)
+    {
+        try {
+            $configModel = Mage::getModel('ccc_ftp/configuration')->load($fileModel->getConfigId());
+            foreach ($files as $file) {
+                $localPath = Mage::helper('ccc_ftp')->getLocalDir();
+                $file = str_replace($localPath, '', $file);
+
+                $fileData = [
+                    'newname' => basename($file),
+                    'path' => stristr($file, DS . basename($file), true),
+                    'date' => filemtime($localPath . $file),
+                ];
+
+                Mage::getModel('ccc_ftp/files')
+                    ->setConfigModel($configModel)
+                    ->setRawData($fileData)
+                    ->save();
+            }
+            return true;
+        } catch (Exception $e) {
+            return false;
+        }
+    }
+    public function convertAction()
+    {
+        
+    }
 }

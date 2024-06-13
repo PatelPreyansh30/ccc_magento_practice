@@ -18,7 +18,9 @@ class Ccc_Ftp_Block_Adminhtml_File_Grid extends Mage_Adminhtml_Block_Widget_Grid
             'file_id' => 'file_id',
             'user_name' => 'CFC.user_name',
             'file_name' => 'file_name',
-            'received_date' => 'received_date'
+            'received_date' => 'received_date',
+            'path' => 'path',
+            'config_id' => 'config_id',
         ];
 
         $select->join(
@@ -36,7 +38,7 @@ class Ccc_Ftp_Block_Adminhtml_File_Grid extends Mage_Adminhtml_Block_Widget_Grid
         $this->addColumn(
             'file_id',
             array(
-                'header' => Mage::helper('ccc_ftp')->__('Config_id'),
+                'header' => Mage::helper('ccc_ftp')->__('Id'),
                 'type' => 'number',
                 'index' => 'file_id',
             )
@@ -63,6 +65,15 @@ class Ccc_Ftp_Block_Adminhtml_File_Grid extends Mage_Adminhtml_Block_Widget_Grid
                 'header' => Mage::helper('ccc_ftp')->__('Received Date'),
                 'type' => 'date',
                 'index' => 'received_date',
+            )
+        );
+        $this->addColumn(
+            'action',
+            array(
+                'header' => Mage::helper('ccc_ftp')->__('Action'),
+                'renderer' => 'Ccc_Ftp_Block_Adminhtml_File_Renderer_Action',
+                'sortable' => false,
+                'filter' => false,
             )
         );
 
