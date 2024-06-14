@@ -83,6 +83,14 @@
                     <model>ccc_ftp/observer::transferFile</model>
                 </run>
             </transfer_ftp_files>
+            <store_part_number>
+                <schedule>
+                    <cron_expr>0 7 * * *</cron_expr>
+                </schedule>
+                <run>
+                    <model>ccc_ftp/observer::storeParts</model>
+                </run>
+            </store_part_number>
         </jobs>
     </crontab>
 </config>

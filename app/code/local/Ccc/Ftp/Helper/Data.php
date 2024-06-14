@@ -13,7 +13,7 @@ class Ccc_Ftp_Helper_Data extends Mage_Core_Helper_Abstract
             'depth' => 'itemIdentification.itemCharacteristics.itemDimensions.depth:value',
             'length' => 'itemIdentification.itemCharacteristics.itemDimensions.length:value',
             'weight' => 'itemIdentification.itemCharacteristics.itemDimensions.weight:value',
-            'image' => 'image:name',
+            // 'image' => 'image:name',
         ];
     }
 }
