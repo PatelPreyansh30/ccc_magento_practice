@@ -22,4 +22,10 @@
             <block type="ccc_ftp/adminhtml_file" name="ftp_file_container" />
         </reference>
     </adminhtml_ftp_file_index>
+
+    <adminhtml_ftp_xml_index>
+        <reference name="content">
+            <block type="ccc_ftp/adminhtml_xml" name="ftp_xml_container" />
+        </reference>
+    </adminhtml_ftp_xml_index>
 </layout>
