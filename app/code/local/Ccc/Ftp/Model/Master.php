@@ -15,15 +15,22 @@ class Ccc_Ftp_Model_Master extends Mage_Core_Model_Abstract
             }
         } else {
             $masterData = $this->getCollection()->getColumnValues('part_number');
+            $existingDiscontinuePart = Mage::getModel('ccc_ftp/discontinuepart')
+                ->getCollection()
+                ->getColumnValues('part_number');
 
+            $nonDiscontinueItems = array_intersect($this->getPartNumberArray(), $existingDiscontinuePart);
             $newItems = array_diff($this->getPartNumberArray(), $masterData);
             $discontinueItems = array_diff($masterData, $this->getPartNumberArray());
 
+            if (!empty($nonDiscontinueItems)) {
+                foreach ($nonDiscontinueItems as $_discontinue) {
+                    Mage::getModel('ccc_ftp/discontinuepart')
+                        ->load($_discontinue, 'part_number')
+                        ->delete();
+                }
+            }
             if (!empty($discontinueItems)) {
-                $existingDiscontinuePart = Mage::getModel('ccc_ftp/discontinuepart')
-                    ->getCollection()
-                    ->getColumnValues('part_number');
-
                 foreach (array_diff($discontinueItems, $existingDiscontinuePart) as $_discontinue) {
                     $masterObj = Mage::getModel('ccc_ftp/master')
                         ->load($_discontinue, 'part_number');
@@ -46,9 +53,6 @@ class Ccc_Ftp_Model_Master extends Mage_Core_Model_Abstract
                         ->save();
                 }
             }
-
-            print_r($discontinueItems);
-            print_r($newItems);
         }
     }
 }
