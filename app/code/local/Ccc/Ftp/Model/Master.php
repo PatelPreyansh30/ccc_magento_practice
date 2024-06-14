@@ -53,6 +53,17 @@ class Ccc_Ftp_Model_Master extends Mage_Core_Model_Abstract
                         ->save();
                 }
             }
+
+            $updateArray = array_diff($masterData, $newItems);
+            $updateArray = array_diff($updateArray, $existingDiscontinuePart);
+            foreach ($updateArray as $_update) {
+                Mage::getModel('ccc_ftp/master')
+                ->load($_update, 'part_number')
+                ->addData($this->getXmlData()[$_update])
+                ->save();
+            }
+            
+            print_r($updateArray);
         }
     }
 }
