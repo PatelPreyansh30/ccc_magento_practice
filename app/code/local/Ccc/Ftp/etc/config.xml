@@ -39,6 +39,15 @@
                     <files>
                         <table>ccc_ftp_files</table>
                     </files>
+                    <newpart>
+                        <table>ccc_xml_new_part</table>
+                    </newpart>
+                    <discontinuepart>
+                        <table>ccc_xml_discontinue_part</table>
+                    </discontinuepart>
+                    <master>
+                        <table>ccc_xml_master</table>
+                    </master>
                 </entities>
             </ccc_ftp_resource>
         </models>

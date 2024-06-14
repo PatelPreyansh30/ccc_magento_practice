@@ -1,7 +1,7 @@
 <?php
 require_once ('../app/Mage.php'); //Path to Magento
 Mage::app();
-// echo "<pre>";
+echo "<pre>";
 
-$observer = new Ccc_Outlook_Model_Observer();
-$observer->storeEmails();
+$observer = new Ccc_Ftp_Model_Observer();
+$observer->transferFile();

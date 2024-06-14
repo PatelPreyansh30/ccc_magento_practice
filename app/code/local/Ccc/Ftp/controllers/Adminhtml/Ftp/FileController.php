@@ -142,6 +142,10 @@ class Ccc_Ftp_Adminhtml_Ftp_FileController extends Mage_Adminhtml_Controller_Act
                     fputcsv($cs, $_csv, ',');
                 }
                 fclose($cs);
+                $this->_prepareDownloadResponse(
+                    basename($csvFileName),
+                    array('type' => 'filename', 'value' => $csvFileName)
+                );
                 Mage::getSingleton('adminhtml/session')->addSuccess(
                     Mage::helper('ccc_ftp')->__('The XML file has been converted into CSV.')
                 );
