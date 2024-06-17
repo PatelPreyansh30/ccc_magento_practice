@@ -1,0 +1,42 @@
+<table>
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Assign To</th>
+            <th>Assign By</th>
+            <th>Status</th>
+            <th>Priority</th>
+            <th>View</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php foreach ($this->getTickets() as $tickets) : ?>
+            <tr>
+                <td><?php echo $tickets->getId(); ?></td>
+                <td><?php echo $tickets->getTitle(); ?></td>
+                <td><?php echo $tickets->getDescription(); ?></td>
+                <td><?php echo $tickets->getAssignTo(); ?></td>
+                <td><?php echo $tickets->getAssignBy(); ?></td>
+                <td style="background-color: <?php echo $tickets->getStatusColor(); ?>;">
+                    <?php echo $tickets->getStatusLabel(); ?>
+                </td>
+                <td><?php echo $tickets->getPriority(); ?></td>
+                <td>
+                    <a href="<?php echo $this->getUrl('*/*/view', ['id' => $tickets->getId()]); ?>">View</a>
+                </td>
+            </tr>
+        <?php endforeach; ?>
+    </tbody>
+</table>
+
+<style>
+    table,
+    th,
+    td {
+        border: 1px solid;
+        padding: 5px;
+        text-align: center;
+    }
+</style>

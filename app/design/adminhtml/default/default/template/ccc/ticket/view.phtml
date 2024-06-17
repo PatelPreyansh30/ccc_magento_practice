@@ -15,11 +15,27 @@
         </tr>
         <tr>
             <th>Assign To</th>
-            <td id="assign-to"><?php echo $this->getTicket()->getAssignTo(); ?></td>
+            <td id="assign-to">
+                <select onchange="updateTicket(this,'assignTo')" name="assign_to" id="assign_to">
+                    <?php foreach ($this->getUsers() as $admin) : ?>
+                        <option value="<?php echo $admin->getId(); ?>" <?php echo $this->getTicket()->getAssignToId() == $admin->getId() ? 'selected' : ''; ?>>
+                            <?php echo $admin->getUsername(); ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </td>
         </tr>
         <tr>
             <th>Assign By</th>
-            <td id="assign-by"><?php echo $this->getTicket()->getAssignBy(); ?></td>
+            <td id="assign-by">
+                <select onchange="updateTicket(this,'assignBy')" name="assign_by" id="assign_by">
+                    <?php foreach ($this->getUsers() as $admin) : ?>
+                        <option value="<?php echo $admin->getId(); ?>" <?php echo $this->getTicket()->getAssignById() == $admin->getId() ? 'selected' : ''; ?>>
+                            <?php echo $admin->getUsername(); ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </td>
         </tr>
         <tr>
             <th>Priority</th>
@@ -27,7 +43,15 @@
         </tr>
         <tr>
             <th>Status</th>
-            <td id="status" style="background-color: <?php echo $this->getTicket()->getStatusColor(); ?>;"><?php echo $this->getTicket()->getStatusLabel(); ?></td>
+            <td id="status">
+                <select onchange="updateTicket(this, 'status')" name="status" id="status" style="background-color: <?php echo $this->getTicket()->getStatusColor(); ?>;">
+                    <?php foreach ($this->getStatus() as $status) : ?>
+                        <option style="background-color: white;" value=" <?php echo $status->getCode(); ?>" <?php echo $this->getTicket()->getStatusCode() == $status->getCode() ? 'selected' : ''; ?>>
+                            <?php echo $status->getLabel(); ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </td>
         </tr>
         <tr>
             <th>Created Date</th>
@@ -39,3 +63,8 @@
         </tr>
     </table>
 </div>
+
+<script>
+    var ticketId = <?php echo $this->getTicket()->getId() ?>;
+    var saveUrl = "<?php echo $this->getUrl('*/ticket/update') ?>";
+</script>

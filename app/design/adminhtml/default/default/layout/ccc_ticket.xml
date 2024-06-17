@@ -21,6 +21,9 @@
             <action method="addCss">
                 <style>ccc/ticket/view.css</style>
             </action>
+            <action method="addJs">
+                <script>ccc/ticket/ticket.js</script>
+            </action>
         </reference>
         <reference name="content">
             <block type="ccc_ticket/adminhtml_view" name="ticket_view"

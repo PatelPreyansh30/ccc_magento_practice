@@ -14,6 +14,8 @@ class Ccc_Ticket_Block_Adminhtml_Abstract extends Mage_Adminhtml_Block_Template
         $columns = [
             'ticket_id' => 'ticket_id',
             'title' => 'title',
+            'assign_to_id' => 'admin_user',
+            'assign_by_id' => 'assign_by',
             'description' => 'description',
             'priority' => 'priority',
             'created_date' => 'created_at',
@@ -25,17 +27,17 @@ class Ccc_Ticket_Block_Adminhtml_Abstract extends Mage_Adminhtml_Block_Template
             'assign_by' => 'AB.username',
         ];
 
-        $select->join(
+        $select->joinLeft(
             array('AB' => Mage::getSingleton('core/resource')->getTableName('admin/user')),
             'AB.user_id = main_table.assign_by',
             ['username']
         );
-        $select->join(
+        $select->joinLeft(
             array('AT' => Mage::getSingleton('core/resource')->getTableName('admin/user')),
             'AT.user_id = main_table.admin_user',
             ['username']
         );
-        $select->join(
+        $select->joinLeft(
             array('S' => Mage::getSingleton('core/resource')->getTableName('ccc_ticket/status')),
             'S.code = main_table.status',
             ['code', 'label']

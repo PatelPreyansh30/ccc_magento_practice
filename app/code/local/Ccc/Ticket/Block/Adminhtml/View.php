@@ -14,4 +14,12 @@ class Ccc_Ticket_Block_Adminhtml_View extends Ccc_Ticket_Block_Adminhtml_Abstrac
     {
         return $this->_ticketDetails['comment'];
     }
+    public function getUsers()
+    {
+        return Mage::getModel('admin/user')->getCollection();
+    }
+    public function getStatus()
+    {
+        return Mage::getModel('ccc_ticket/status')->getCollection();
+    }
 }
