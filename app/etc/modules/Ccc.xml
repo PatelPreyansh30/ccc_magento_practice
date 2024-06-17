@@ -2,11 +2,11 @@
 <config>
     <modules>
         <Ccc_Banner>
-            <active>true</active>
+            <active>false</active>
             <codePool>local</codePool>
         </Ccc_Banner>
         <Ccc_Test>
-            <active>true</active>
+            <active>false</active>
             <codePool>local</codePool>
         </Ccc_Test>
     </modules>

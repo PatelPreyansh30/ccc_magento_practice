@@ -2,7 +2,7 @@
 <config>
     <modules>
         <Magestore_Bannerslider>
-            <active>true</active>
+            <active>false</active>
             <codePool>community</codePool>
         </Magestore_Bannerslider>
     </modules>
