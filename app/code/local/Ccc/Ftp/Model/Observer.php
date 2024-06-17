@@ -14,7 +14,7 @@ class Ccc_Ftp_Model_Observer
     public function storeParts()
     {
         $fileModel = Mage::getModel('ccc_ftp/files')
-            ->load(20);
+            ->load(15);
         $basePath = Mage::helper('ccc_ftp')->getLocalDir();
         $mapping = Mage::helper('ccc_ftp')->xmlMapping();
 

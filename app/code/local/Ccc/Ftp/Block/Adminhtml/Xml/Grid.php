@@ -16,20 +16,32 @@ class Ccc_Ftp_Block_Adminhtml_Xml_Grid extends Mage_Adminhtml_Block_Widget_Grid
         $select = $collection->getSelect();
         $columns = [
             'entity_id' => 'entity_id',
-            'part_number' => 'part_number',
+            'part_number' => 'main_table.part_number',
             'length' => 'length',
             'depth' => 'depth',
             'height' => 'height',
             'weight' => 'weight',
-            // 'status' => 'status',
+            'status' => new Zend_Db_Expr("
+            CASE
+                WHEN CXNP.part_number IS NOT NULL AND CXNP.new_part_date >= DATE_SUB(CURDATE(), INTERVAL 30 DAY) THEN 'New'
+                WHEN CXDP.part_number IS NOT NULL THEN 'Discontinue'
+                ELSE 'Regular'
+            END
+            "),
+            'date' => new Zend_Db_Expr("
+            CASE
+                WHEN CXNP.part_number IS NOT NULL THEN CXNP.new_part_date
+                WHEN CXDP.part_number IS NOT NULL THEN CXDP.discontinue_part_date
+            END
+            "),
         ];
 
-        $select->join(
+        $select->joinLeft(
             array('CXNP' => Mage::getSingleton('core/resource')->getTableName('ccc_ftp/newpart')),
             'CXNP.entity_id = main_table.entity_id',
             ['']
         );
-        $select->join(
+        $select->joinLeft(
             array('CXDP' => Mage::getSingleton('core/resource')->getTableName('ccc_ftp/discontinuepart')),
             'CXDP.entity_id = main_table.entity_id',
             ['']
@@ -55,13 +67,14 @@ class Ccc_Ftp_Block_Adminhtml_Xml_Grid extends Mage_Adminhtml_Block_Widget_Grid
                 'header' => Mage::helper('ccc_ftp')->__('Part Number'),
                 'type' => 'text',
                 'index' => 'part_number',
+                'filter_condition_callback' => array($this, '_filterPartNumberCallback'),
             )
         );
         $this->addColumn(
             'depth',
             array(
                 'header' => Mage::helper('ccc_ftp')->__('Depth'),
-                'type' => 'text',
+                'type' => 'number',
                 'index' => 'depth',
             )
         );
@@ -69,7 +82,7 @@ class Ccc_Ftp_Block_Adminhtml_Xml_Grid extends Mage_Adminhtml_Block_Widget_Grid
             'height',
             array(
                 'header' => Mage::helper('ccc_ftp')->__('Height'),
-                'type' => 'text',
+                'type' => 'number',
                 'index' => 'height',
             )
         );
@@ -77,7 +90,7 @@ class Ccc_Ftp_Block_Adminhtml_Xml_Grid extends Mage_Adminhtml_Block_Widget_Grid
             'length',
             array(
                 'header' => Mage::helper('ccc_ftp')->__('Length'),
-                'type' => 'text',
+                'type' => 'number',
                 'index' => 'length',
             )
         );
@@ -85,7 +98,7 @@ class Ccc_Ftp_Block_Adminhtml_Xml_Grid extends Mage_Adminhtml_Block_Widget_Grid
             'weight',
             array(
                 'header' => Mage::helper('ccc_ftp')->__('Weight'),
-                'type' => 'text',
+                'type' => 'number',
                 'index' => 'weight',
             )
         );
@@ -93,12 +106,58 @@ class Ccc_Ftp_Block_Adminhtml_Xml_Grid extends Mage_Adminhtml_Block_Widget_Grid
             'status',
             array(
                 'header' => Mage::helper('ccc_ftp')->__('Status'),
-                'type' => 'text',
+                'type' => 'options',
                 'index' => 'status',
+                'align' => 'right',
+                'options' => [
+                    'new'=>'New',
+                    'regular'=>'Regular',
+                    'discontinue'=> 'Discontinue',
+                ],
+                'filter_condition_callback' => array($this, '_filterStatusCallback'),
+            )
+        );
+        $this->addColumn(
+            'date',
+            array(
+                'header' => Mage::helper('ccc_ftp')->__('Date'),
+                'type' => 'datetime',
+                'index' => 'date',
+                'align' => 'right',
             )
         );
 
         return parent::_prepareColumns();
+    }
+    protected function _filterPartNumberCallback($collection, $column)
+    {
+        if (!$value = $column->getFilter()->getValue()) {
+            return $this;
+        }
+
+        $collection->getSelect()->where(
+            "main_table.part_number LIKE ?",
+            "%$value%"
+        );
+
+        return $this;
+    }
+    protected function _filterStatusCallback($collection, $column)
+    {
+        if (!$value = $column->getFilter()->getValue()) {
+            return $this;
+        }
+
+        $collection->getSelect()->where(
+            "CASE
+                WHEN CXNP.entity_id IS NOT NULL THEN 'New'
+                WHEN CXDP.entity_id IS NOT NULL THEN 'Discontinue'
+                ELSE 'Regular'
+             END = ?",
+            $value
+        );
+
+        return $this;
     }
     public function getGridUrl()
     {

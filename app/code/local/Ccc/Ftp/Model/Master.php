@@ -18,16 +18,21 @@ class Ccc_Ftp_Model_Master extends Mage_Core_Model_Abstract
             $existingDiscontinuePart = Mage::getModel('ccc_ftp/discontinuepart')
                 ->getCollection()
                 ->getColumnValues('part_number');
+            // $existingNewPart = Mage::getModel('ccc_ftp/newpart')
+            //     ->getCollection()
+            //     ->getColumnValues('part_number');
 
             $nonDiscontinueItems = array_intersect($this->getPartNumberArray(), $existingDiscontinuePart);
             $newItems = array_diff($this->getPartNumberArray(), $masterData);
             $discontinueItems = array_diff($masterData, $this->getPartNumberArray());
+            // print_r(array_intersect($existingNewPart, $discontinueItems));
 
             if (!empty($nonDiscontinueItems)) {
-                foreach ($nonDiscontinueItems as $_discontinue) {
-                    Mage::getModel('ccc_ftp/discontinuepart')
-                        ->load($_discontinue, 'part_number')
-                        ->delete();
+                $collection = Mage::getModel('ccc_ftp/discontinuepart')
+                    ->getCollection()
+                    ->addFieldToFilter('part_number', ['in' => $nonDiscontinueItems]);
+                foreach ($collection as $_row) {
+                    $_row->delete();
                 }
             }
             if (!empty($discontinueItems)) {
@@ -57,13 +62,13 @@ class Ccc_Ftp_Model_Master extends Mage_Core_Model_Abstract
             $updateArray = array_diff($masterData, $newItems);
             $updateArray = array_diff($updateArray, $existingDiscontinuePart);
             foreach ($updateArray as $_update) {
-                Mage::getModel('ccc_ftp/master')
-                ->load($_update, 'part_number')
-                ->addData($this->getXmlData()[$_update])
-                ->save();
+                if (!is_null($this->getXmlData()[$_update])) {
+                    Mage::getModel('ccc_ftp/master')
+                        ->load($_update, 'part_number')
+                        ->addData($this->getXmlData()[$_update])
+                        ->save();
+                }
             }
-            
-            print_r($updateArray);
         }
     }
 }
