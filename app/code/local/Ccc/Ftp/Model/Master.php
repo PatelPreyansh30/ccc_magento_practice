@@ -18,15 +18,23 @@ class Ccc_Ftp_Model_Master extends Mage_Core_Model_Abstract
             $existingDiscontinuePart = Mage::getModel('ccc_ftp/discontinuepart')
                 ->getCollection()
                 ->getColumnValues('part_number');
-            // $existingNewPart = Mage::getModel('ccc_ftp/newpart')
-            //     ->getCollection()
-            //     ->getColumnValues('part_number');
+            $existingNewPart = Mage::getModel('ccc_ftp/newpart')
+                ->getCollection()
+                ->getColumnValues('part_number');
 
             $nonDiscontinueItems = array_intersect($this->getPartNumberArray(), $existingDiscontinuePart);
             $newItems = array_diff($this->getPartNumberArray(), $masterData);
             $discontinueItems = array_diff($masterData, $this->getPartNumberArray());
-            // print_r(array_intersect($existingNewPart, $discontinueItems));
+            $nonNewItems = array_intersect($existingNewPart, $discontinueItems);
 
+            if (!empty($nonNewItems)) {
+                $collection = Mage::getModel('ccc_ftp/newpart')
+                    ->getCollection()
+                    ->addFieldToFilter('part_number', ['in' => $nonNewItems]);
+                foreach ($collection as $_row) {
+                    $_row->delete();
+                }
+            }
             if (!empty($nonDiscontinueItems)) {
                 $collection = Mage::getModel('ccc_ftp/discontinuepart')
                     ->getCollection()
