@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<layout>
+    <default>
+        <reference name="head">
+            <action method="addJs">
+                <script>ccc/ticket/ticket.js</script>
+            </action>
+            <action method="addCss">
+                <style>ccc/ticket/ticket.css</style>
+            </action>
+        </reference>
+    </default>
+</layout>

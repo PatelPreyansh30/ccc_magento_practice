@@ -1,0 +1,53 @@
+<div class="nav-bar">
+    <?php echo $this->getMenuLevel($this->getMenuArray()); ?>
+
+    <button onclick="openCreateTicketPopup()">Create Ticket</button>
+
+    <div style="display: none;" class="popup-overlay" id="popup-overlay">
+        <div class="popup-content" id="popup-content">
+            <span class="popup-close" onclick="closeCreateTicketPopup()">&times;</span>
+            <h2>Add New Ticket</h2>
+            <form id="ticketForm" method="get" action="<?php echo $this->getSaveUrl(); ?>">
+                <label for="title">Title:</label>
+                <input type="text" id="title" name="title" required><br><br>
+                <label for="description">Description:</label>
+                <textarea id="description" name="description" required></textarea><br><br>
+                <label for="admin_user">Admin User:</label>
+                <select name="admin_user" id="admin_user" required>
+                    <?php foreach ($this->getUsers() as $admin) : ?>
+                        <option value="<?php echo $admin->getId(); ?>">
+                            <?php echo $admin->getUsername(); ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+                <br>
+                <br>
+                <label for="priority">Priority:</label>
+                <input type="text" id="priority" name="priority" required><br><br>
+                <label for="status">Status:</label>
+                <select name="status" id="status" required>
+                    <?php foreach ($this->getStatus() as $status) : ?>
+                        <option value="<?php echo $status->getCode(); ?>">
+                            <?php echo $status->getLabel(); ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select><br><br>
+                <label for="assign_by">Assign By:</label>
+                <select name="assign_by" id="assign_by" required>
+                    <?php foreach ($this->getUsers() as $admin) : ?>
+                        <option value="<?php echo $admin->getId(); ?>" <?php echo $this->getCurrentUserId() == $admin->getId() ? 'selected' : ''; ?>>
+                            <?php echo $admin->getUsername(); ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+                <br>
+                <br>
+                <button type="submit">Save</button>
+            </form>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        $('page-help-link').target = 'magento_page_help'
+    </script>
+</div>
