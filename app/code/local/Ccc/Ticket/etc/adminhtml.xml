@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<config>
+    <menu>
+        <ticket translate="title" module="ccc_ticket">
+            <title>Ticket</title>
+            <sort_order>130</sort_order>
+            <action>adminhtml/ticket</action>
+        </ticket>
+    </menu>
+</config>

@@ -10,4 +10,21 @@
             </action>
         </reference>
     </default>
+    <adminhtml_ticket_index>
+        <reference name="content">
+            <block type="ccc_ticket/adminhtml_grid" name="ticket_grid"
+                template="ccc/ticket/grid.phtml" />
+        </reference>
+    </adminhtml_ticket_index>
+    <adminhtml_ticket_view>
+        <reference name="head">
+            <action method="addCss">
+                <style>ccc/ticket/view.css</style>
+            </action>
+        </reference>
+        <reference name="content">
+            <block type="ccc_ticket/adminhtml_view" name="ticket_view"
+                template="ccc/ticket/view.phtml" />
+        </reference>
+    </adminhtml_ticket_view>
 </layout>

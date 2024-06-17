@@ -1,0 +1,41 @@
+<div class="container">
+    <h1>Ticket Details</h1>
+    <table>
+        <tr>
+            <th>Ticket ID</th>
+            <td id="ticket-id"><?php echo $this->getTicket()->getId(); ?></td>
+        </tr>
+        <tr>
+            <th>Title</th>
+            <td id="title"><?php echo $this->getTicket()->getTitle(); ?></td>
+        </tr>
+        <tr>
+            <th>Description</th>
+            <td id="description"><?php echo $this->getTicket()->getDescription(); ?></td>
+        </tr>
+        <tr>
+            <th>Assign To</th>
+            <td id="assign-to"><?php echo $this->getTicket()->getAssignTo(); ?></td>
+        </tr>
+        <tr>
+            <th>Assign By</th>
+            <td id="assign-by"><?php echo $this->getTicket()->getAssignBy(); ?></td>
+        </tr>
+        <tr>
+            <th>Priority</th>
+            <td id="priority"><?php echo $this->getTicket()->getPriority(); ?></td>
+        </tr>
+        <tr>
+            <th>Status</th>
+            <td id="status" style="background-color: <?php echo $this->getTicket()->getStatusColor(); ?>;"><?php echo $this->getTicket()->getStatusLabel(); ?></td>
+        </tr>
+        <tr>
+            <th>Created Date</th>
+            <td id="created-date"><?php echo $this->getTicket()->getCreatedDate(); ?></td>
+        </tr>
+        <tr>
+            <th>Updated Date</th>
+            <td id="updated-date"><?php echo $this->getTicket()->getUpdatedDate(); ?></td>
+        </tr>
+    </table>
+</div>
