@@ -2,7 +2,7 @@
     let gridUrl = '<?php echo $this->getUrl('*/*/index'); ?>';
 </script>
 
-<?php echo $this->getChildHtml('addFilter_block')?>
+<?php echo $this->getChildHtml('addFilter_block') ?>
 
 <table>
     <thead>
@@ -16,25 +16,25 @@
     <tbody>
         <tr>
             <td>
-                <input style="width: 70%;" type="text" name="ticket_id" id="ticket_id-filter">
+                <input style="width: 70%;" type="text" name="ticket_id" class="grid_filter">
             </td>
             <td>
-                <input style="width: 70%;" type="text" name="title" id="title-filter">
+                <input style="width: 70%;" type="text" name="title" class="grid_filter">
             </td>
             <td>
-                <input style="width: 70%;" type="text" name="description" id="description-filter">
+                <input style="width: 70%;" type="text" name="description" class="grid_filter">
             </td>
             <td>
-                <input style="width: 70%;" type="text" name="admin_user" id="admin_user-filter">
+                <?php echo $this->getAssignToSelect(); ?>
             </td>
             <td>
-                <input style="width: 70%;" type="text" name="assign_by" id="assign_by-filter">
+                <?php echo $this->getAssignBySelect(); ?>
             </td>
             <td>
-                <input style="width: 70%;" type="text" name="status" id="status-filter">
+                <?php echo $this->getStatusSelect(); ?>
             </td>
             <td>
-                <input style="width: 70%;" type="text" name="priority" id="priority-filter">
+                <input style="width: 70%;" type="text" name="priority" class="grid_filter">
             </td>
             <td>
                 <button onclick="resetFilter()">Reset</button>

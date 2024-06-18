@@ -1,21 +1,9 @@
 function getValuesFromElements() {
-  let ticket_id = document.getElementById("ticket_id-filter").value;
-  let title = document.getElementById("title-filter").value;
-  let description = document.getElementById("description-filter").value;
-  let admin_user = document.getElementById("admin_user-filter").value;
-  let assign_by = document.getElementById("assign_by-filter").value;
-  let status = document.getElementById("status-filter").value;
-  let priority = document.getElementById("priority-filter").value;
-
-  let parameters = {
-    ticket_id,
-    title,
-    description,
-    admin_user,
-    assign_by,
-    status,
-    priority,
-  };
+  let elements = document.querySelectorAll(".grid_filter");
+  let parameters = {};
+  elements.forEach((element) => {
+    parameters[element.name] = element.value;
+  });
   return parameters;
 }
 
