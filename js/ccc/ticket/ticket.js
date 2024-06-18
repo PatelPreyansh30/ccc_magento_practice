@@ -41,7 +41,7 @@ function addComment() {
     method: "post",
     parameters: { ticket_id: ticketId, comment: comment.value.trim() },
     onSuccess: function (response) {
-      document.body.innerHTML = response.responseText;
+      location.reload();
     },
     onFailure: function () {
       alert("Failed to save ticket.");
