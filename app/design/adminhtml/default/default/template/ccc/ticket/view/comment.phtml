@@ -1,0 +1,19 @@
+<div class="form-container">
+    <h3>Comment History</h3>
+    <table>
+        <?php if ($this->getComments()->getData()) : ?>
+            <?php foreach ($this->getComments() as $comment) : ?>
+                <tr>
+                    <td>
+                        <?php echo $comment->getId(); ?>
+                    </td>
+                    <td>
+                        <?php echo $comment->getComment(); ?>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        <?php else : ?>
+            <p>No comments found.</p>
+        <?php endif; ?>
+    </table>
+</div>

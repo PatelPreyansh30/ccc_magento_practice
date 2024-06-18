@@ -1,0 +1,15 @@
+<div class="form-container">
+    <h3>Add Comment</h3>
+    <form onsubmit="addComment()">
+        <textarea name="comment" id="ticket-comment" required></textarea>
+        <button type="submit">Add Comment</button>
+    </form>
+</div>
+
+<script src="https://cdn.ckeditor.com/4.22.1/standard/ckeditor.js"></script>
+<script>
+    var saveCommentUrl = "<?php echo $this->getUrl('*/ticket/saveComment') ?>";
+    var ticketId = "<?php echo $this->getRequest()->getParam('id') ?>";
+    
+    CKEDITOR.replace('ticket-comment', {});
+</script>

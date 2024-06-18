@@ -38,7 +38,14 @@
         </reference>
         <reference name="content">
             <block type="ccc_ticket/adminhtml_view" name="ticket_view"
-                template="ccc/ticket/view.phtml" />
+                template="ccc/ticket/view.phtml">
+                <block type="ccc_ticket/adminhtml_view_details" name="ticket_view_details"
+                    template="ccc/ticket/view/details.phtml" />
+                <block type="ccc_ticket/adminhtml_view_commentinput" name="ticket_view_commentinput"
+                    template="ccc/ticket/view/commentinput.phtml" />
+                <block type="ccc_ticket/adminhtml_view_comment" name="ticket_view_comment"
+                    template="ccc/ticket/view/comment.phtml" />
+            </block>
         </reference>
     </adminhtml_ticket_view>
 </layout>

@@ -1,108 +1,11 @@
 <div class="container">
-    <h1>Ticket Details</h1>
-    <table>
-        <tr>
-            <th>Ticket ID</th>
-            <td id="ticket-id"><?php echo $this->getTicket()->getId(); ?></td>
-        </tr>
-        <tr>
-            <th>Title</th>
-            <td id="title"><?php echo $this->getTicket()->getTitle(); ?></td>
-        </tr>
-        <tr>
-            <th>Description</th>
-            <td id="description"><?php echo $this->getTicket()->getDescription(); ?></td>
-        </tr>
-        <tr>
-            <th>Assign To</th>
-            <td id="assign-to">
-                <select onchange="updateTicket(this,'assignTo')" name="assign_to" id="assign_to">
-                    <?php foreach ($this->getUsers() as $admin) : ?>
-                        <option value="<?php echo $admin->getId(); ?>" <?php echo $this->getTicket()->getAssignToId() == $admin->getId() ? 'selected' : ''; ?>>
-                            <?php echo $admin->getUsername(); ?>
-                        </option>
-                    <?php endforeach; ?>
-                </select>
-            </td>
-        </tr>
-        <tr>
-            <th>Assign By</th>
-            <td id="assign-by">
-                <select onchange="updateTicket(this,'assignBy')" name="assign_by" id="assign_by">
-                    <?php foreach ($this->getUsers() as $admin) : ?>
-                        <option value="<?php echo $admin->getId(); ?>" <?php echo $this->getTicket()->getAssignById() == $admin->getId() ? 'selected' : ''; ?>>
-                            <?php echo $admin->getUsername(); ?>
-                        </option>
-                    <?php endforeach; ?>
-                </select>
-            </td>
-        </tr>
-        <tr>
-            <th>Priority</th>
-            <td id="priority"><?php echo $this->getTicket()->getPriority(); ?></td>
-        </tr>
-        <tr>
-            <th>Status</th>
-            <td id="status">
-                <select onchange="updateTicket(this, 'status')" name="status" id="status" style="background-color: <?php echo $this->getTicket()->getStatusColor(); ?>;">
-                    <?php foreach ($this->getStatus() as $status) : ?>
-                        <option style="background-color: white;" value=" <?php echo $status->getCode(); ?>" <?php echo $this->getTicket()->getStatusCode() == $status->getCode() ? 'selected' : ''; ?>>
-                            <?php echo $status->getLabel(); ?>
-                        </option>
-                    <?php endforeach; ?>
-                </select>
-            </td>
-        </tr>
-        <tr>
-            <th>Created Date</th>
-            <td id="created-date"><?php echo $this->getTicket()->getCreatedDate(); ?></td>
-        </tr>
-        <tr>
-            <th>Updated Date</th>
-            <td id="updated-date"><?php echo $this->getTicket()->getUpdatedDate(); ?></td>
-        </tr>
-    </table>
+    <?php echo $this->getChildHtml('ticket_view_details') ?>
     <br>
     <hr>
     <br>
-    <div class="form-container">
-        <h3>Add Comment</h3>
-        <form onsubmit="addComment()">
-            <textarea name="comment" id="ticket-comment" required></textarea>
-            <button type="submit">Add Comment</button>
-        </form>
-    </div>
+    <?php echo $this->getChildHtml('ticket_view_commentinput') ?>
     <br>
     <hr>
     <br>
-    <div class="form-container">
-        <h3>Comment History</h3>
-        <table>
-            <?php if ($this->getComments()->getData()) : ?>
-                <?php foreach ($this->getComments() as $comment) : ?>
-                    <tr>
-                        <td>
-                            <?php echo $comment->getId(); ?>
-                        </td>
-                        <td>
-                            <?php echo $comment->getComment(); ?>
-                        </td>
-                    </tr>
-                <?php endforeach; ?>
-            <?php else : ?>
-                <p>No comments found.</p>
-            <?php endif; ?>
-        </table>
-    </div>
+    <?php echo $this->getChildHtml('ticket_view_comment') ?>
 </div>
-
-<script>
-    var ticketId = <?php echo $this->getTicket()->getId() ?>;
-    var saveUrl = "<?php echo $this->getUrl('*/ticket/update') ?>";
-    var saveCommentUrl = "<?php echo $this->getUrl('*/ticket/saveComment') ?>";
-</script>
-
-<script src="https://cdn.ckeditor.com/4.22.1/standard/ckeditor.js"></script>
-<script>
-    CKEDITOR.replace('ticket-comment', {});
-</script>
