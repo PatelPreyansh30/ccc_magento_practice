@@ -5,13 +5,9 @@
 <table>
     <thead>
         <tr>
-            <th onclick="sorting(this)" column="ticket_id">Id</th>
-            <th onclick="sorting(this)" column="title">Title</th>
-            <th onclick="sorting(this)" column="description">Description</th>
-            <th onclick="sorting(this)" column="assign_to">Assign To</th>
-            <th onclick="sorting(this)" column="assign_by">Assign By</th>
-            <th onclick="sorting(this)" column="status_label">Status</th>
-            <th onclick="sorting(this)" column="priority">Priority</th>
+            <?php foreach ($this->getTableHead() as $_th) : ?>
+                <th onclick="sorting(this)" column="<?php echo $_th['column']; ?>"><?php echo $_th['label']; ?></th>
+            <?php endforeach; ?>
             <th>View</th>
         </tr>
     </thead>
@@ -61,6 +57,14 @@
         <?php endforeach; ?>
     </tbody>
 </table>
+<br>
+<div>
+    <?php if ($this->getTickets()) : ?>
+        <?php for ($i = 1; $i <= ceil($this->getTickets()->getSize() / 5); $i++) : ?>
+            <a href="<?php echo $this->getUrl('*/*/index', ['page' => $i]); ?>"><?php echo $i ?></a>
+        <?php endfor; ?>
+    <?php endif; ?>
+</div>
 
 <style>
     table,

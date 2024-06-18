@@ -2,9 +2,15 @@
 
 class Ccc_Ticket_Block_Adminhtml_Abstract extends Mage_Adminhtml_Block_Template
 {
-    public function getTickets($id = null)
+    public function getTickets($id = null, $pageSize = 5, $curPage = 1)
     {
         $collection = Mage::getModel('ccc_ticket/ticket')->getCollection();
+
+        if($this->getRequest()->getParam('page')){
+            $curPage = $this->getRequest()->getParam('page');
+        }
+        $collection->setPageSize($pageSize)->setCurPage($curPage);
+
         if (
             $this->getRequest()->isAjax()
             && $this->getRequest()->isPost()
