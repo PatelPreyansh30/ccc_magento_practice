@@ -63,7 +63,7 @@ function sorting(obj) {
   const newSortingArray = {};
   newSortingArray[key] = sorting_array[key];
   sorting_array = newSortingArray;
-  
+
   new Ajax.Request(gridUrl, {
     method: "post",
     parameters: { sorting_data: JSON.stringify(sorting_array) },

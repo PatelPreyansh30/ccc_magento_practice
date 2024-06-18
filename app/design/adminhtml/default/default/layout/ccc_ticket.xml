@@ -15,10 +15,16 @@
             <action method="addJs">
                 <script>ccc/ticket/grid.js</script>
             </action>
+            <action method="addJs">
+                <script>ccc/ticket/filter.js</script>
+            </action>
         </reference>
         <reference name="content">
             <block type="ccc_ticket/adminhtml_grid" name="ticket_grid"
-                template="ccc/ticket/grid.phtml" />
+                template="ccc/ticket/grid.phtml">
+                <block type="ccc_ticket/adminhtml_filter" name="addFilter_block"
+                    template="ccc/ticket/filter.phtml" />
+            </block>
         </reference>
     </adminhtml_ticket_index>
     <adminhtml_ticket_view>

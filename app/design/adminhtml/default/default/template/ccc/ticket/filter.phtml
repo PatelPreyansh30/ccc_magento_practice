@@ -1,0 +1,51 @@
+<?php $url = $this->getUrl("*/ticket_filter/save"); ?>
+
+<button onclick="openCustomFilterPopup()">Add Custom Filters</button>
+
+<div style="display: none;" class="popup-overlay" id="custom-filter-popup">
+    <div class="popup-content" id="popup-content">
+        <span class="popup-close" onclick="closeCustomFilterPopup()">&times;</span>
+        <h2>Add Custom Filters</h2>
+        <form id="ticketForm" class="custom_filter_form">
+            <label for="name">Filter Name:</label>
+            <input type="text" id="filter_name" name="name" required>
+            <br>
+            <br>
+            <label for="assign_to">Assign To:</label>
+            <select name="assign_to" id="filter_assign_to" required multiple>
+                <?php foreach ($this->getUsers() as $admin) : ?>
+                    <option value="<?php echo $admin->getId(); ?>">
+                        <?php echo $admin->getUsername(); ?>
+                    </option>
+                <?php endforeach; ?>
+            </select>
+            <br>
+            <br>
+            <label for="status">Status:</label>
+            <select name="status" id="filter_status" required multiple>
+                <?php foreach ($this->getStatus() as $status) : ?>
+                    <option value="<?php echo $status->getCode(); ?>">
+                        <?php echo $status->getLabel(); ?>
+                    </option>
+                <?php endforeach; ?>
+            </select>
+            <br>
+            <br>
+            <label for="created_date">Created Date (in days):</label>
+            <input type="text" id="filter_created_date" name="created_date" required>
+            <br>
+            <br>
+            <label for="last_comment_by">Last Comment By:</label>
+            <select name="last_comment_by" id="filter_last_comment_by" required>
+                <?php foreach ($this->getUsers() as $admin) : ?>
+                    <option value="<?php echo $admin->getId(); ?>">
+                        <?php echo $admin->getUsername(); ?>
+                    </option>
+                <?php endforeach; ?>
+            </select>
+            <br>
+            <br>
+            <button type="submit" onclick="submitCustomFilter('<?php echo $url; ?>')">Save</button>
+        </form>
+    </div>
+</div>
