@@ -4,21 +4,18 @@ class Ccc_Ticket_Adminhtml_Ticket_FilterController extends Mage_Adminhtml_Contro
 {
     public function saveAction()
     {
-        $data = $this->getRequest()->getParam('data');
-        print_r($data);
-        die;
-
         try {
-            Mage::getModel('ccc_ticket/ticket')->setData($data)->save();
-            Mage::getSingleton('adminhtml/session')->addSuccess(
-                Mage::helper('ccc_ticket')->__('Ticket has been created.')
-            );
+            $data = json_decode($this->getRequest()->getParam('data'), true);
+            $currentUserId = Mage::getSingleton('admin/session')->getUser()->getId();
+            $name = $data['name'];
+            unset($data['name']);
+            $data = json_encode($data);
+            Mage::getModel('ccc_ticket/filter')
+                ->setName($name)
+                ->setUserId($currentUserId)
+                ->setJsonData($data)
+                ->save();
         } catch (Exception $e) {
-            Mage::getSingleton('adminhtml/session')->addError(
-                Mage::helper('ccc_ticket')->__('Error occured while creating ticket.')
-            );
         }
-        $this->_redirectUrl($this->_getRefererUrl());
     }
-    
 }

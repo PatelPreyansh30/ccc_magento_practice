@@ -17,7 +17,7 @@ function submitCustomFilter(saveFilterUrl) {
   new Ajax.Request(saveFilterUrl, {
     method: "post",
     parameters: { data: json },
-    onSuccess: function (response) {
+    onSuccess: function () {
       alert("Filter save successfully.");
       closeCustomFilterPopup();
     },

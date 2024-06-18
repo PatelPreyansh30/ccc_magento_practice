@@ -12,7 +12,7 @@ if ($installer->getConnection()->isTableExists($tableName) !== true) {
             'primary' => true,
             'unsigned' => true,
         ), 'Filter ID')
-        ->addColumn('data', Varien_Db_Ddl_Table::TYPE_TEXT, null, array(
+        ->addColumn('json_data', Varien_Db_Ddl_Table::TYPE_TEXT, null, array(
             'nullable' => false,
         ), 'Data')
         ->addColumn('user_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(

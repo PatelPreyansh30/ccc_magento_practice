@@ -47,6 +47,9 @@
                     <status>
                         <table>ccc_ticket_status</table>
                     </status>
+                    <filter>
+                        <table>ccc_ticket_filter</table>
+                    </filter>
                 </entities>
             </ccc_ticket_resource>
         </models>
