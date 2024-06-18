@@ -5,6 +5,17 @@ class Ccc_Ticket_Block_Adminhtml_Abstract extends Mage_Adminhtml_Block_Template
     public function getTickets($id = null)
     {
         $collection = Mage::getModel('ccc_ticket/ticket')->getCollection();
+        if (
+            $this->getRequest()->isAjax()
+            && $this->getRequest()->isPost()
+            && $this->getRequest()->getParam('filter_data')
+        ) {
+            $filterData = json_decode($this->getRequest()->getParam('filter_data'), true);
+            foreach ($filterData as $key => $value) {
+                $collection
+                    ->addFieldToFilter($key, ['like' => "%{$value}%"]);
+            }
+        };
 
         if (!is_null($id)) {
             $collection->addFieldToFilter('ticket_id', $id);
@@ -43,6 +54,19 @@ class Ccc_Ticket_Block_Adminhtml_Abstract extends Mage_Adminhtml_Block_Template
             ['code', 'label']
         );
         $select->reset(Zend_Db_Select::COLUMNS)->columns($columns);
+
+        if (
+            $this->getRequest()->isAjax()
+            && $this->getRequest()->isPost()
+            && $this->getRequest()->getParam('sorting_data')
+        ) {
+            $sortingData = json_decode($this->getRequest()->getParam('sorting_data'), true);
+            foreach ($sortingData as $key => $value) {
+                $collection->setOrder($key, $value);
+            }
+        } else {
+            $collection->setOrder('ticket_id', 'ASC');
+        };
 
         if (!is_null($id)) {
             return $collection->getFirstItem();

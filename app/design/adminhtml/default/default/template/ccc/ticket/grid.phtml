@@ -1,17 +1,48 @@
+<script>
+    let gridUrl = '<?php echo $this->getUrl('*/*/index'); ?>';
+</script>
+
 <table>
     <thead>
         <tr>
-            <th>Id</th>
-            <th>Title</th>
-            <th>Description</th>
-            <th>Assign To</th>
-            <th>Assign By</th>
-            <th>Status</th>
-            <th>Priority</th>
+            <th onclick="sorting(this)" column="ticket_id">Id</th>
+            <th onclick="sorting(this)" column="title">Title</th>
+            <th onclick="sorting(this)" column="description">Description</th>
+            <th onclick="sorting(this)" column="assign_to">Assign To</th>
+            <th onclick="sorting(this)" column="assign_by">Assign By</th>
+            <th onclick="sorting(this)" column="status_label">Status</th>
+            <th onclick="sorting(this)" column="priority">Priority</th>
             <th>View</th>
         </tr>
     </thead>
     <tbody>
+        <tr>
+            <td>
+                <input style="width: 70%;" type="text" name="ticket_id" id="ticket_id-filter">
+            </td>
+            <td>
+                <input style="width: 70%;" type="text" name="title" id="title-filter">
+            </td>
+            <td>
+                <input style="width: 70%;" type="text" name="description" id="description-filter">
+            </td>
+            <td>
+                <input style="width: 70%;" type="text" name="admin_user" id="admin_user-filter">
+            </td>
+            <td>
+                <input style="width: 70%;" type="text" name="assign_by" id="assign_by-filter">
+            </td>
+            <td>
+                <input style="width: 70%;" type="text" name="status" id="status-filter">
+            </td>
+            <td>
+                <input style="width: 70%;" type="text" name="priority" id="priority-filter">
+            </td>
+            <td>
+                <button onclick="resetFilter()">Reset</button>
+                <button onclick="searchFilter()">Search</button>
+            </td>
+        </tr>
         <?php foreach ($this->getTickets() as $tickets) : ?>
             <tr>
                 <td><?php echo $tickets->getId(); ?></td>
@@ -38,5 +69,9 @@
         border: 1px solid;
         padding: 5px;
         text-align: center;
+    }
+
+    th {
+        cursor: pointer;
     }
 </style>
