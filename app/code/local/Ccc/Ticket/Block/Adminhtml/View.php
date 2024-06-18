@@ -10,9 +10,12 @@ class Ccc_Ticket_Block_Adminhtml_View extends Ccc_Ticket_Block_Adminhtml_Abstrac
     {
         return $this->getTickets($this->getRequest()->getParam('id'));
     }
-    public function getCommentDetail()
+    public function
+    getComments()
     {
-        return $this->_ticketDetails['comment'];
+        return Mage::getModel('ccc_ticket/comment')
+            ->getCollection()
+            ->addFieldToFilter('ticket_id', $this->getRequest()->getParam('id'));
     }
     public function getUsers()
     {

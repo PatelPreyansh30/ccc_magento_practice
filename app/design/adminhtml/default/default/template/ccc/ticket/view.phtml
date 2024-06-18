@@ -62,9 +62,43 @@
             <td id="updated-date"><?php echo $this->getTicket()->getUpdatedDate(); ?></td>
         </tr>
     </table>
+    <br>
+    <hr>
+    <br>
+    <div class="form-container">
+        <h3>Add Comment</h3>
+        <form onsubmit="addComment()">
+            <label for="comment">Comment:</label>
+            <textarea name="comment" id="ticket-comment" required></textarea>
+            <button type="submit">Add Comment</button>
+        </form>
+    </div>
+    <br>
+    <hr>
+    <br>
+    <div class="form-container">
+        <h3>Comment History</h3>
+        <table>
+            <?php if ($this->getComments()->getData()) : ?>
+                <?php foreach ($this->getComments() as $comment) : ?>
+                    <tr>
+                        <td>
+                            <?php echo $comment->getId(); ?>
+                        </td>
+                        <td>
+                            <?php echo $comment->getComment(); ?>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            <?php else : ?>
+                <p>No comments found.</p>
+            <?php endif; ?>
+        </table>
+    </div>
 </div>
 
 <script>
     var ticketId = <?php echo $this->getTicket()->getId() ?>;
     var saveUrl = "<?php echo $this->getUrl('*/ticket/update') ?>";
+    var saveCommentUrl = "<?php echo $this->getUrl('*/ticket/saveComment') ?>";
 </script>

@@ -34,6 +34,23 @@ class Ccc_Ticket_Adminhtml_TicketController extends Mage_Adminhtml_Controller_Ac
         }
         $this->_redirectUrl($this->_getRefererUrl());
     }
+    public function saveCommentAction()
+    {
+        $data = $this->getRequest()->getParams();
+        try {
+            $data['user_id'] = Mage::getSingleton('admin/session')->getUser()->getId();
+
+            Mage::getModel('ccc_ticket/comment')->setData($data)->save();
+            Mage::getSingleton('adminhtml/session')->addSuccess(
+                Mage::helper('ccc_ticket')->__("Comment has been added.")
+            );
+        } catch (Exception $e) {
+            Mage::getSingleton('adminhtml/session')->addError(
+                Mage::helper('ccc_ticket')->__('Error occured while adding comment.')
+            );
+        }
+        $this->_redirect('*/*/view', ['id' => $data['ticket_id']]);
+    }
     public function updateAction()
     {
         $id = $this->getRequest()->getParam('id');

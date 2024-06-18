@@ -28,3 +28,23 @@ function updateTicket(obj, type) {
     },
   });
 }
+
+function addComment() {
+  event.preventDefault();
+
+  let comment = document.getElementById("ticket-comment");
+
+  if (comment.value.trim() == "") {
+    return false;
+  }
+  new Ajax.Request(saveCommentUrl, {
+    method: "post",
+    parameters: { ticket_id: ticketId, comment: comment.value.trim() },
+    onSuccess: function (response) {
+      document.body.innerHTML = response.responseText;
+    },
+    onFailure: function () {
+      alert("Failed to save ticket.");
+    },
+  });
+}
