@@ -6,7 +6,7 @@ class Ccc_Ticket_Block_Adminhtml_Abstract extends Mage_Adminhtml_Block_Template
     {
         $collection = Mage::getModel('ccc_ticket/ticket')->getCollection();
 
-        if($this->getRequest()->getParam('page')){
+        if ($this->getRequest()->getParam('page')) {
             $curPage = $this->getRequest()->getParam('page');
         }
         $collection->setPageSize($pageSize)->setCurPage($curPage);
@@ -21,6 +21,38 @@ class Ccc_Ticket_Block_Adminhtml_Abstract extends Mage_Adminhtml_Block_Template
                 $collection
                     ->addFieldToFilter($key, ['like' => "%{$value}%"]);
             }
+        };
+
+        if (
+            $this->getRequest()->isAjax()
+            && $this->getRequest()->isPost()
+            && $this->getRequest()->getParam('custom_filter')
+        ) {
+            $customFilterData = json_decode($this->getRequest()->getParam('custom_filter'), true);
+            if (isset($customFilterData['assign_to']) && !empty($customFilterData['assign_to'])) {
+                $collection->addFieldToFilter('admin_user', ['in' => $customFilterData['assign_to']]);
+            };
+            if (isset($customFilterData['status']) && !empty($customFilterData['status'])) {
+                $collection->addFieldToFilter('status', ['in' => $customFilterData['status']]);
+            };
+            if (isset($customFilterData['created_date']) && !empty($customFilterData['created_date'])) {
+                $date = new DateTime('Asia/Calcutta');
+                $date = $date->modify("-{$customFilterData['created_date']} day");
+                $date = $date->format('Y-m-d');
+                $collection->addFieldToFilter('main_table.created_at', ['gteq' => $date]);
+            };
+            if (isset($customFilterData['last_comment_by']) && !empty($customFilterData['last_comment_by'])) {
+                $commentCollection = Mage::getModel('ccc_ticket/comment')->getCollection();
+                $commentCollection->getSelect()
+                    ->join(
+                        array('max_dates' => new Zend_Db_Expr('(SELECT ticket_id, MAX(created_at) AS max_created_at FROM ' . $commentCollection->getTable('ccc_ticket/comment') . ' GROUP BY ticket_id)')),
+                        'main_table.ticket_id = max_dates.ticket_id AND main_table.created_at = max_dates.max_created_at',
+                        array('max_created_at')
+                    )
+                    ->where('main_table.user_id = ?', $customFilterData['last_comment_by']);
+                $ticketIds = $commentCollection->getColumnValues('ticket_id');
+                $collection->addFieldToFilter('ticket_id', ['in' => $ticketIds]);
+            };
         };
 
         if (!is_null($id)) {

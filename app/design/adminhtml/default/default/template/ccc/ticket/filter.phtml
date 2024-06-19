@@ -1,5 +1,12 @@
 <?php $url = $this->getUrl("*/ticket_filter/save"); ?>
 
+<?php if ($this->getFilters()->getData()) : ?>
+    <?php foreach ($this->getFilters() as $filter) : ?>
+        <button onclick="applyFilter(this)" json-data='<?php echo $filter->getJsonData(); ?>'><?php echo ucwords($filter->getName()); ?></button>
+    <?php endforeach; ?>
+<?php endif; ?>
+
+<br><br>
 <button onclick="openCustomFilterPopup()">Add Custom Filters</button>
 
 <div style="display: none;" class="popup-overlay" id="custom-filter-popup">
@@ -37,6 +44,7 @@
             <br>
             <label for="last_comment_by">Last Comment By:</label>
             <select name="last_comment_by" id="filter_last_comment_by" required>
+                <option value="">All</option>
                 <?php foreach ($this->getUsers() as $admin) : ?>
                     <option value="<?php echo $admin->getId(); ?>">
                         <?php echo $admin->getUsername(); ?>

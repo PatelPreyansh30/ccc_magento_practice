@@ -27,3 +27,16 @@ function submitCustomFilter(saveFilterUrl) {
     },
   });
 }
+
+function applyFilter(obj) {
+  new Ajax.Request(gridUrl, {
+    method: "post",
+    parameters: { custom_filter: obj.getAttribute("json-data") },
+    onSuccess: function (response) {
+      document.body.innerHTML = response.responseText;
+    },
+    onFailure: function () {
+      alert("Failed to save filters.");
+    },
+  });
+}
